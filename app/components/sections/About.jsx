@@ -1,7 +1,7 @@
 'use client'
 import { motion } from 'framer-motion'
 import { MapPin, Mail, Phone, GraduationCap, Award } from 'lucide-react'
-import { useWindowSize } from '../hooks/useWindowSize'
+import { useWindowSize } from '../../hooks/useWindowSize'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },

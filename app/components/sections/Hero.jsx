@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { FiArrowDown } from 'react-icons/fi'
-import { useWindowSize } from '../hooks/useWindowSize'
+import { useWindowSize } from '../../hooks/useWindowSize'
 
 const TYPED_STRINGS = [
   'Full Stack Developer',

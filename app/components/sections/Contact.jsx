@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, Phone, MapPin, Send } from 'lucide-react'
 import { FiGithub, FiLinkedin } from 'react-icons/fi'
-import { useWindowSize } from '../hooks/useWindowSize'
+import { useWindowSize } from '../../hooks/useWindowSize'
 
 const contactInfo = [
   { icon: <Mail size={18} strokeWidth={1.5} />, label: 'Email', value: 'Ishthiyaqahamed@gmail.com', href: 'mailto:Ishthiyaqahamed@gmail.com', color: '#3b82f6' },

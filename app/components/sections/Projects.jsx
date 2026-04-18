@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { FiGithub } from 'react-icons/fi'
-import { useWindowSize } from '../hooks/useWindowSize'
+import { useWindowSize } from '../../hooks/useWindowSize'
 
 const projects = [
   {

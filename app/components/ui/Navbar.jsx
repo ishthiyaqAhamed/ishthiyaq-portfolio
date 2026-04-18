@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
-import { useWindowSize } from '../hooks/useWindowSize'
+import { useWindowSize } from '../../hooks/useWindowSize'
 import { Menu, X } from 'lucide-react'
 
 export default function Navbar() {

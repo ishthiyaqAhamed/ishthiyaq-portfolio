@@ -1,5 +1,5 @@
 'use client'
-import { useWindowSize } from '../hooks/useWindowSize'
+import { useWindowSize } from '../../hooks/useWindowSize'
 import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
 
 export default function Footer() {

@@ -1,7 +1,7 @@
 'use client'
 import { motion } from 'framer-motion'
 import { Code2, Database, Cloud, Smartphone, Wrench, Globe } from 'lucide-react'
-import { useWindowSize } from '../hooks/useWindowSize'
+import { useWindowSize } from '../../hooks/useWindowSize'
 
 const skillCategories = [
   { title: 'Frontend', icon: <Globe size={18} strokeWidth={1.5} />, color: '#3b82f6', skills: [{ name: 'React', level: 90 }, { name: 'JavaScript', level: 88 }, { name: 'HTML & CSS', level: 95 }, { name: 'React Native', level: 75 }] },
