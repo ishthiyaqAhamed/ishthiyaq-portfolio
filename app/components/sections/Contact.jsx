@@ -8,7 +8,7 @@ import { useWindowSize } from '../../hooks/useWindowSize'
 const contactInfo = [
   { icon: <Mail size={18} strokeWidth={1.5} />, label: 'Email', value: 'Ishthiyaqahamed@gmail.com', href: 'mailto:Ishthiyaqahamed@gmail.com', color: '#3b82f6' },
   { icon: <Phone size={18} strokeWidth={1.5} />, label: 'Phone', value: '+94 76 051 4320', href: 'tel:+94760514320', color: '#06b6d4' },
-  { icon: <MapPin size={18} strokeWidth={1.5} />, label: 'Location', value: 'Dharga Town, Sri Lanka', href: null, color: '#8b5cf6' },
+  { icon: <MapPin size={18} strokeWidth={1.5} />, label: 'Location', value: 'Colombo, Sri Lanka', href: null, color: '#8b5cf6' },
 ]
 
 const socials = [
