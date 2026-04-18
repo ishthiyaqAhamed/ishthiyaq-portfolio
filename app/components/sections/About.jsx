@@ -77,7 +77,7 @@ export default function About() {
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" custom={2} viewport={{ once: true }}
             style={{ background: 'rgba(15,23,42,0.6)', border: '1px solid rgba(37,99,235,0.12)', borderRadius: '16px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {[
-              { icon: <MapPin size={15} strokeWidth={1.5} />, label: 'Location', value: 'Dharga Town, Sri Lanka' },
+              { icon: <MapPin size={15} strokeWidth={1.5} />, label: 'Location', value: 'Colombo, Sri Lanka' },
               { icon: <Mail size={15} strokeWidth={1.5} />, label: 'Email', value: 'Ishthiyaqahamed@gmail.com' },
               { icon: <Phone size={15} strokeWidth={1.5} />, label: 'Phone', value: '+94 76 051 4320' },
             ].map((item, i) => (
