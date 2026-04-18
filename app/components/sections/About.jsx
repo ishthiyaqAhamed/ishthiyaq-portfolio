@@ -66,7 +66,7 @@ export default function About() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
           <motion.div variants={fadeUp} initial="hidden" whileInView="show" custom={1} viewport={{ once: true }}>
             <p style={{ fontSize: '15px', color: '#94a3b8', lineHeight: 2, marginBottom: '16px' }}>
-              I am a passionate Full Stack Developer from Sri Lanka, currently pursuing my BSc in Software Engineering at the University of Bedfordshire. I specialize in building scalable web applications using the MERN stack, with additional expertise in cloud platforms like AWS and Google Cloud.
+              I am a passionate Full Stack Developer from Sri Lanka, holding a BSc in Software Engineering from the University of Bedfordshire. I specialize in building scalable and high-performance web applications using MERN stack. In addition to full-stack development, I have hands-on experience with cloud platforms such as AWS and Google Cloud, enabling me to deploy secure and scalable applications.
             </p>
             <p style={{ fontSize: '15px', color: '#94a3b8', lineHeight: 2 }}>
               I have built everything from real-time food delivery platforms with route optimization algorithms to full SaaS products. I thrive at the intersection of clean code and outstanding user experience.
