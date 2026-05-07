@@ -12,7 +12,7 @@ const contactInfo = [
 ]
 
 const socials = [
-  { icon: <FiLinkedin size={18} />, label: 'LinkedIn', handle: 'ishthiyaqahamed', href: 'https://linkedin.com/in/ishthiyaqahamed', color: '#0a66c2' },
+  { icon: <FiLinkedin size={18} />, label: 'LinkedIn', handle: 'ishthiyaqahamed', href: 'www.linkedin.com/in/ishthiyaq-zakwan-4634a0231', color: '#0a66c2' },
   { icon: <FiGithub size={18} />, label: 'GitHub', handle: 'ishthiyaqAhamed', href: 'https://github.com/ishthiyaqAhamed', color: '#6e40c9' },
   { icon: <Mail size={18} strokeWidth={1.5} />, label: 'Email', handle: 'Ishthiyaqahamed@gmail.com', href: 'mailto:Ishthiyaqahamed@gmail.com', color: '#3b82f6' },
 ]
