@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { useWindowSize } from '../../hooks/useWindowSize'
 import { Menu, X } from 'lucide-react'
+import Link from 'next/link'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -28,13 +29,13 @@ export default function Navbar() {
         backdropFilter: scrolled ? 'blur(12px)' : 'none',
         transition: 'all 0.3s ease',
       }}>
-        <span style={{
+        <Link href="/" style={{
           fontFamily: 'var(--font-fira)', fontSize: '20px', fontWeight: 700,
-          color: '#60a5fa', letterSpacing: '2px',
+          color: '#60a5fa', letterSpacing: '2px', textDecoration: 'none',
           textShadow: '0 0 12px rgba(96,165,250,0.7), 0 0 24px rgba(96,165,250,0.4)',
         }}>
           &lt;IA /&gt;
-        </span>
+        </Link>
 
         {isMobile ? (
           <button onClick={() => setMenuOpen(!menuOpen)} style={{
@@ -56,6 +57,17 @@ export default function Navbar() {
                 {item}
               </a>
             ))}
+
+            {/* Project Blog link */}
+            <Link href="/projects" style={{
+              fontSize: '13px', color: '#94a3b8', textDecoration: 'none',
+              letterSpacing: '1px', textTransform: 'uppercase', transition: 'color 0.2s',
+            }}
+            onMouseEnter={e => e.currentTarget.style.color = '#60a5fa'}
+            onMouseLeave={e => e.currentTarget.style.color = '#94a3b8'}>
+              Project Blog
+            </Link>
+
             <a href="#contact" style={{
               fontFamily: 'var(--font-fira)', fontSize: '13px', color: '#60a5fa',
               textDecoration: 'none', border: '1px solid rgba(96,165,250,0.4)',
@@ -105,6 +117,25 @@ export default function Navbar() {
               {item}
             </a>
           ))}
+
+          {/* Project Blog mobile */}
+          <Link href="/projects" onClick={() => setMenuOpen(false)} style={{
+            fontSize: '15px', color: '#94a3b8', textDecoration: 'none',
+            padding: '14px 16px', borderRadius: '8px',
+            letterSpacing: '1px', textTransform: 'uppercase',
+            transition: 'all 0.2s', display: 'block',
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.color = '#60a5fa'
+            e.currentTarget.style.background = 'rgba(37,99,235,0.08)'
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.color = '#94a3b8'
+            e.currentTarget.style.background = 'transparent'
+          }}>
+            Project Blog
+          </Link>
+
           <a href="#contact" onClick={() => setMenuOpen(false)} style={{
             marginTop: '8px', textAlign: 'center',
             fontFamily: 'var(--font-fira)', fontSize: '13px', color: '#60a5fa',
