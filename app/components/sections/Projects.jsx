@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { FiGithub } from 'react-icons/fi'
 import { useWindowSize } from '../../hooks/useWindowSize'
+import Link from 'next/link'
 
 const projects = [
   {
@@ -153,6 +154,41 @@ export default function Projects() {
           </motion.div>
         ))}
       </div>
+            {/* Explore All Projects Button */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        style={{ textAlign: 'center', marginTop: '48px' }}
+      >
+        <p style={{
+          fontFamily: 'var(--font-fira)', fontSize: '13px',
+          color: '#475569', marginBottom: '20px',
+        }}>
+          Want to know more about how I built these?
+        </p>
+        <Link href="/projects" style={{
+          display: 'inline-flex', alignItems: 'center', gap: '10px',
+          background: 'linear-gradient(135deg, #2563eb, #0891b2)',
+          borderRadius: '10px', padding: 'clamp(12px, 2vw, 14px) clamp(24px, 4vw, 36px)',
+          color: 'white', fontSize: 'clamp(13px, 1.5vw, 15px)', fontWeight: 600,
+          textDecoration: 'none',
+          boxShadow: '0 0 24px rgba(37,99,235,0.35)',
+          transition: 'all 0.2s',
+        }}
+        onMouseEnter={e => {
+          e.currentTarget.style.transform = 'translateY(-2px)'
+          e.currentTarget.style.boxShadow = '0 0 40px rgba(37,99,235,0.55)'
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.transform = 'translateY(0)'
+          e.currentTarget.style.boxShadow = '0 0 24px rgba(37,99,235,0.35)'
+        }}>
+          Explore All Projects
+          <ArrowUpRight size={18} />
+        </Link>
+      </motion.div>
     </section>
   )
 }
