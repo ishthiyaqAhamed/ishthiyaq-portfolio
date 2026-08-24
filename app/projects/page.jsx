@@ -8,7 +8,7 @@ import { FiGithub } from 'react-icons/fi'
 const projects = [
   {
     id: 'food-marketplace',
-    title: 'Food Marketplace Platform',
+    title: 'Food Marketplace Platform - Local Plates',
     category: 'Full Stack • Undergraduate Project',
     year: '2024 – 2025',
     color: '#3b82f6',
