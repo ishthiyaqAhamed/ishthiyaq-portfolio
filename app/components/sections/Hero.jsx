@@ -36,7 +36,7 @@ function useTyped(strings) {
 const codeLines = [
   { indent: 0, tokens: [{ t: 'keyword', v: 'const ' }, { t: 'var', v: 'developer' }, { t: 'op', v: ' = {' }] },
   { indent: 1, tokens: [{ t: 'key', v: 'name' }, { t: 'op', v: ': ' }, { t: 'str', v: '"Ishthiyaq Ahamed"' }, { t: 'op', v: ',' }] },
-  { indent: 1, tokens: [{ t: 'key', v: 'role' }, { t: 'op', v: ': ' }, { t: 'str', v: '"Full Stack Dev"' }, { t: 'op', v: ',' }] },
+  { indent: 1, tokens: [{ t: 'key', v: 'role' }, { t: 'op', v: ': ' }, { t: 'str', v: '"Software Eng"' }, { t: 'op', v: ',' }] },
   { indent: 1, tokens: [{ t: 'key', v: 'stack' }, { t: 'op', v: ': [' }, { t: 'str', v: '"MERN"' }, { t: 'op', v: ', ' }, { t: 'str', v: '"AWS"' }, { t: 'op', v: '],' }] },
   { indent: 1, tokens: [{ t: 'key', v: 'education' }, { t: 'op', v: ': ' }, { t: 'str', v: '"BSc Software Eng"' }, { t: 'op', v: ',' }] },
   { indent: 1, tokens: [{ t: 'key', v: 'available' }, { t: 'op', v: ': ' }, { t: 'bool', v: 'true' }, { t: 'op', v: ',' }] },
