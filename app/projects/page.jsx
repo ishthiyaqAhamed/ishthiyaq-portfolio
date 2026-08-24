@@ -2,14 +2,14 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { ArrowLeft, ExternalLink, Calendar, Tag } from 'lucide-react'
+import { ArrowLeft, ExternalLink } from 'lucide-react'
 import { FiGithub } from 'react-icons/fi'
 
 const projects = [
   {
     id: 'food-marketplace',
     title: 'Food Marketplace Platform',
-    category: 'Full Stack',
+    category: 'Full Stack • Undergraduate Project',
     year: '2024 – 2025',
     color: '#3b82f6',
     tags: ['MongoDB', 'Express', 'React', 'Node.js', 'Dijkstra', 'Real-time'],
@@ -27,7 +27,7 @@ The platform supports multiple vendors, real-time order updates using WebSockets
       'Mobile responsive React frontend',
     ],
     techDetails: [
-      { label: 'Frontend', value: 'React.js, CSS3, Framer Motion' },
+      { label: 'Frontend', value: 'React.js, CSS3' },
       { label: 'Backend', value: 'Node.js, Express.js' },
       { label: 'Database', value: 'MongoDB, Mongoose' },
       { label: 'Real-time', value: 'Socket.io' },
@@ -36,19 +36,18 @@ The platform supports multiple vendors, real-time order updates using WebSockets
     ],
     github: 'https://github.com/ishthiyaqAhamed',
     live: null,
-    screenshots: [],
   },
   {
     id: 'spiff-tracker',
     title: 'Spiff Tracker SaaS',
-    category: 'Full Stack • SaaS',
+    category: 'Full Stack • Robance Lanka Pvt Ltd',
     year: '2024 – 2025',
     color: '#06b6d4',
     tags: ['React', 'Node.js', 'MongoDB', 'SaaS', 'Automation', 'Dashboard'],
     summary: 'A full-stack SaaS platform automating income tracking and reconciliation for Total Wireless dealers.',
     description: `This was a real client project at Robance Lanka Pvt Ltd. Total Wireless dealers approached us with a painful problem — they were manually tracking commissions and income on spreadsheets, which caused errors and wasted hours every week.
 
-I designed and built the entire platform from scratch as the frontend developer. The system automatically pulls dealer sales data, calculates commissions (called SPIFFs), and generates reports — eliminating all manual work.
+I designed and built the entire platform from scratch as the frontend developer. The system automatically pulls dealer sales data, calculates commissions called SPIFFs, and generates reports — eliminating all manual work.
 
 This was my first real commercial SaaS product and taught me a lot about building for real users with real business needs, handling edge cases, and making UI that non-technical users can actually use.`,
     highlights: [
@@ -68,7 +67,68 @@ This was my first real commercial SaaS product and taught me a lot about buildin
     ],
     github: 'https://github.com/ishthiyaqAhamed',
     live: null,
-    screenshots: [],
+  },
+  {
+    id: 'pharmacy-erp',
+    title: 'Pharmacy ERP System',
+    category: 'Full Stack • Live Product',
+    year: '2025',
+    color: '#22c55e',
+    tags: ['React', 'Node.js', 'MongoDB', 'ERP', 'Multi-branch', 'Inventory'],
+    summary: 'A multi-branch pharmacy inventory and sales management ERP system — live and in production.',
+    description: `This is a fully live ERP system built for pharmacy businesses managing multiple branches. The system handles everything from inventory tracking to sales management across all branches from a single dashboard.
+
+The platform includes a secure login system, branch-wise inventory management, sales reporting, and real-time stock level monitoring. It was built to solve the real problem of pharmacies losing track of stock across multiple locations.
+
+Seeing this project go live and being used by real pharmacy staff was one of the most rewarding experiences of my development journey. It proved that the systems I build can handle real business operations reliably.`,
+    highlights: [
+      'Multi-branch inventory management',
+      'Real-time stock level monitoring',
+      'Sales and billing management',
+      'Secure role-based authentication',
+      'Branch performance analytics dashboard',
+    ],
+    techDetails: [
+      { label: 'Frontend', value: 'React.js' },
+      { label: 'Backend', value: 'Node.js, Express.js' },
+      { label: 'Database', value: 'MongoDB' },
+      { label: 'Type', value: 'ERP System' },
+      { label: 'Status', value: 'Live in Production' },
+      { label: 'Deployment', value: 'Vercel' },
+    ],
+    github: 'https://github.com/ishthiyaqAhamed',
+    live: 'https://pharmacy-erp-lime.vercel.app/',
+  },
+  {
+    id: 'gemotions',
+    title: 'Gemotions — Rare Gems & Fine Jewelry',
+    category: 'Full Stack • E-Commerce',
+    year: '2025',
+    color: '#a855f7',
+    tags: ['React', 'E-Commerce', 'Jewelry', 'Gems', 'Node.js', 'MongoDB'],
+    summary: 'A full e-commerce platform for rare gemstones and handcrafted fine jewelry — ethically sourced and lab certified.',
+    description: `Gemotions is a live e-commerce store for rare gems and fine jewelry. The platform was built to give gem enthusiasts and jewelry lovers access to ethically sourced, lab certified gemstones from around the world.
+
+Building an e-commerce platform for luxury products came with unique challenges — the UI had to feel premium, the product presentation had to be stunning, and the shopping experience had to be seamless and trustworthy.
+
+I built the complete frontend and backend, including product catalog management, filtering by gem type and price, a smooth cart and checkout flow, and an admin dashboard for managing inventory and orders. This project pushed my UI/UX skills significantly.`,
+    highlights: [
+      'Full e-commerce shopping experience',
+      'Advanced product filtering by gem type and price',
+      'Lab certification display for each product',
+      'Secure cart and checkout flow',
+      'Admin dashboard for inventory and orders',
+    ],
+    techDetails: [
+      { label: 'Frontend', value: 'React.js' },
+      { label: 'Backend', value: 'Node.js, Express.js' },
+      { label: 'Database', value: 'MongoDB' },
+      { label: 'Type', value: 'E-Commerce Platform' },
+      { label: 'Status', value: 'Live' },
+      { label: 'Domain', value: 'gemotions.shop' },
+    ],
+    github: 'https://github.com/ishthiyaqAhamed',
+    live: 'https://gemotions.shop/',
   },
   {
     id: 'pharmacy-management',
@@ -94,13 +154,12 @@ The system manages patient records, prescription tracking, stock management, and
       { label: 'Frontend', value: 'HTML, CSS, JavaScript' },
       { label: 'Backend', value: 'PHP' },
       { label: 'Database', value: 'MySQL' },
-      { label: 'Role', value: 'Lead Developer & Project Coordinator' },
+      { label: 'Role', value: 'Lead Developer & Coordinator' },
       { label: 'Team Size', value: '4 members' },
       { label: 'Institution', value: 'Sliit City University' },
     ],
     github: 'https://github.com/ishthiyaqAhamed',
     live: null,
-    screenshots: [],
   },
   {
     id: 'supermarket-sales',
@@ -114,7 +173,7 @@ The system manages patient records, prescription tracking, stock management, and
 
 I built a complete supermarket backend system in Python that handles stock management, checks product availability in real time, processes sales, and generates end-of-day reports.
 
-Although it's a CLI based application, the logic behind it taught me core programming fundamentals — file handling, data structures, loops, and building systems that actually solve a real problem. This project is where my journey as a developer really began.`,
+Although it is a CLI based application, the logic behind it taught me core programming fundamentals — file handling, data structures, loops, and building systems that actually solve a real problem. This project is where my journey as a developer really began.`,
     highlights: [
       'Real-time stock level monitoring',
       'Product availability checking',
@@ -132,7 +191,6 @@ Although it's a CLI based application, the logic behind it taught me core progra
     ],
     github: 'https://github.com/ishthiyaqAhamed',
     live: null,
-    screenshots: [],
   },
 ]
 
@@ -159,23 +217,40 @@ function ProjectCard({ project, index }) {
       {/* Top color bar */}
       <div style={{ height: '3px', background: `linear-gradient(90deg, ${project.color}, ${project.color}40)` }} />
 
-      <div style={{ padding: 'clamp(24px, 4vw, 48px)' }}>
+      <div style={{ padding: 'clamp(20px, 4vw, 48px)' }}>
 
         {/* Header */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-start', gap: '16px', marginBottom: '24px' }}>
-          <div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-start', gap: '16px', marginBottom: '20px' }}>
+          <div style={{ flex: 1, minWidth: '200px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px', flexWrap: 'wrap' }}>
-              <span style={{ fontFamily: 'var(--font-fira)', fontSize: '11px', color: project.color, background: project.color + '15', padding: '3px 12px', borderRadius: '20px', border: `1px solid ${project.color}30` }}>
+              <span style={{
+                fontFamily: 'var(--font-fira)', fontSize: '11px',
+                color: project.color, background: project.color + '15',
+                padding: '3px 12px', borderRadius: '20px',
+                border: `1px solid ${project.color}30`,
+              }}>
                 {project.year}
               </span>
               <span style={{ fontFamily: 'var(--font-fira)', fontSize: '11px', color: '#475569' }}>
                 {project.category}
               </span>
+              {project.live && (
+                <span style={{
+                  fontFamily: 'var(--font-fira)', fontSize: '11px',
+                  color: '#22c55e', background: 'rgba(34,197,94,0.1)',
+                  padding: '3px 10px', borderRadius: '20px',
+                  border: '1px solid rgba(34,197,94,0.3)',
+                  display: 'flex', alignItems: 'center', gap: '5px',
+                }}>
+                  <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#22c55e', display: 'inline-block', boxShadow: '0 0 6px #22c55e' }} />
+                  Live
+                </span>
+              )}
             </div>
-            <h2 style={{ fontSize: 'clamp(20px, 3vw, 28px)', fontWeight: 700, color: '#f1f5f9', marginBottom: '8px' }}>
+            <h2 style={{ fontSize: 'clamp(18px, 3vw, 26px)', fontWeight: 700, color: '#f1f5f9', marginBottom: '8px' }}>
               {project.title}
             </h2>
-            <p style={{ fontSize: '15px', color: '#64748b', lineHeight: 1.7, maxWidth: '600px' }}>
+            <p style={{ fontSize: 'clamp(13px, 1.5vw, 15px)', color: '#64748b', lineHeight: 1.7 }}>
               {project.summary}
             </p>
           </div>
@@ -183,35 +258,64 @@ function ProjectCard({ project, index }) {
           {/* Links */}
           <div style={{ display: 'flex', gap: '10px', flexShrink: 0 }}>
             <a href={project.github} target="_blank" rel="noopener noreferrer"
-              style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: '#60a5fa', textDecoration: 'none', border: '1px solid rgba(37,99,235,0.3)', borderRadius: '8px', padding: '8px 14px', transition: 'all 0.2s' }}
+              style={{
+                display: 'flex', alignItems: 'center', gap: '6px',
+                fontSize: '13px', color: '#60a5fa', textDecoration: 'none',
+                border: '1px solid rgba(37,99,235,0.3)', borderRadius: '8px',
+                padding: '8px 14px', transition: 'all 0.2s',
+              }}
               onMouseEnter={e => { e.currentTarget.style.background = 'rgba(37,99,235,0.1)' }}
               onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}>
               <FiGithub size={14} /> Code
             </a>
             {project.live && (
               <a href={project.live} target="_blank" rel="noopener noreferrer"
-                style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: 'white', textDecoration: 'none', background: `linear-gradient(135deg, ${project.color}, ${project.color}90)`, borderRadius: '8px', padding: '8px 14px', transition: 'all 0.2s' }}>
-                <ExternalLink size={14} /> Live
+                style={{
+                  display: 'flex', alignItems: 'center', gap: '6px',
+                  fontSize: '13px', color: 'white', textDecoration: 'none',
+                  background: `linear-gradient(135deg, ${project.color}, ${project.color}90)`,
+                  borderRadius: '8px', padding: '8px 14px', transition: 'all 0.2s',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.opacity = '0.85' }}
+                onMouseLeave={e => { e.currentTarget.style.opacity = '1' }}>
+                <ExternalLink size={14} /> Live Demo
               </a>
             )}
           </div>
         </div>
 
         {/* Tags */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '28px' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px' }}>
           {project.tags.map((tag, i) => (
-            <span key={i} style={{ fontFamily: 'var(--font-fira)', fontSize: '11px', background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.15)', color: '#60a5fa', borderRadius: '6px', padding: '3px 10px' }}>
+            <span key={i} style={{
+              fontFamily: 'var(--font-fira)', fontSize: '11px',
+              background: 'rgba(37,99,235,0.08)',
+              border: '1px solid rgba(37,99,235,0.15)',
+              color: '#60a5fa', borderRadius: '6px', padding: '3px 10px',
+            }}>
               {tag}
             </span>
           ))}
         </div>
 
-        {/* Tech details grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '12px', marginBottom: '28px' }}>
+        {/* Tech details */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
+          gap: '10px', marginBottom: '24px',
+        }}>
           {project.techDetails.map((detail, i) => (
-            <div key={i} style={{ background: 'rgba(5,11,24,0.5)', border: '1px solid rgba(37,99,235,0.08)', borderRadius: '10px', padding: '12px 16px' }}>
-              <div style={{ fontSize: '11px', color: '#334155', fontFamily: 'var(--font-fira)', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '4px' }}>{detail.label}</div>
-              <div style={{ fontSize: '13px', color: '#94a3b8' }}>{detail.value}</div>
+            <div key={i} style={{
+              background: 'rgba(5,11,24,0.5)',
+              border: '1px solid rgba(37,99,235,0.08)',
+              borderRadius: '10px', padding: '10px 14px',
+            }}>
+              <div style={{
+                fontSize: '10px', color: '#334155',
+                fontFamily: 'var(--font-fira)', letterSpacing: '1px',
+                textTransform: 'uppercase', marginBottom: '4px',
+              }}>{detail.label}</div>
+              <div style={{ fontSize: '12px', color: '#94a3b8' }}>{detail.value}</div>
             </div>
           ))}
         </div>
@@ -225,7 +329,8 @@ function ProjectCard({ project, index }) {
             borderRadius: '8px', padding: '10px 20px',
             color: project.color, fontSize: '13px',
             cursor: 'pointer', fontFamily: 'var(--font-fira)',
-            transition: 'all 0.2s', marginBottom: expanded ? '28px' : '0',
+            transition: 'all 0.2s',
+            marginBottom: expanded ? '24px' : '0',
           }}
           onMouseEnter={e => { e.currentTarget.style.background = project.color + '10' }}
           onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}
@@ -240,28 +345,41 @@ function ProjectCard({ project, index }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
           >
-            {/* Full description */}
-            <div style={{ marginBottom: '28px' }}>
-              <h3 style={{ fontSize: '16px', fontWeight: 600, color: '#e2e8f0', marginBottom: '16px', fontFamily: 'var(--font-fira)' }}>
+            <div style={{ marginBottom: '24px' }}>
+              <h3 style={{
+                fontSize: '14px', fontWeight: 600, color: '#e2e8f0',
+                marginBottom: '16px', fontFamily: 'var(--font-fira)',
+                color: project.color,
+              }}>
                 {'// about this project'}
               </h3>
               {project.description.split('\n\n').map((para, i) => (
-                <p key={i} style={{ fontSize: '15px', color: '#64748b', lineHeight: 1.9, marginBottom: '16px' }}>
+                <p key={i} style={{
+                  fontSize: 'clamp(13px, 1.5vw, 15px)',
+                  color: '#64748b', lineHeight: 1.9, marginBottom: '16px',
+                }}>
                   {para}
                 </p>
               ))}
             </div>
 
-            {/* Highlights */}
             <div>
-              <h3 style={{ fontSize: '16px', fontWeight: 600, color: '#e2e8f0', marginBottom: '16px', fontFamily: 'var(--font-fira)' }}>
+              <h3 style={{
+                fontSize: '14px', fontWeight: 600,
+                marginBottom: '16px', fontFamily: 'var(--font-fira)',
+                color: project.color,
+              }}>
                 {'// key features'}
               </h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {project.highlights.map((h, i) => (
                   <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: project.color, flexShrink: 0, boxShadow: `0 0 8px ${project.color}` }} />
-                    <span style={{ fontSize: '14px', color: '#94a3b8' }}>{h}</span>
+                    <div style={{
+                      width: '6px', height: '6px', borderRadius: '50%',
+                      background: project.color, flexShrink: 0,
+                      boxShadow: `0 0 8px ${project.color}`,
+                    }} />
+                    <span style={{ fontSize: 'clamp(12px, 1.5vw, 14px)', color: '#94a3b8' }}>{h}</span>
                   </div>
                 ))}
               </div>
@@ -309,34 +427,99 @@ export default function ProjectsBlog() {
           <ArrowLeft size={16} /> Back to Portfolio
         </Link>
 
-        <span style={{ fontFamily: 'var(--font-fira)', fontSize: '18px', fontWeight: 700, color: '#60a5fa', letterSpacing: '2px', textShadow: '0 0 12px rgba(96,165,250,0.7)' }}>
+        <span style={{
+          fontFamily: 'var(--font-fira)', fontSize: '18px', fontWeight: 700,
+          color: '#60a5fa', letterSpacing: '2px',
+          textShadow: '0 0 12px rgba(96,165,250,0.7)',
+        }}>
           &lt;IA /&gt;
         </span>
       </nav>
 
       {/* Content */}
-      <div style={{ position: 'relative', zIndex: 1, maxWidth: '900px', margin: '0 auto', padding: 'clamp(40px, 6vw, 80px) clamp(20px, 4vw, 40px)' }}>
+      <div style={{
+        position: 'relative', zIndex: 1,
+        maxWidth: '900px', margin: '0 auto',
+        padding: 'clamp(40px, 6vw, 80px) clamp(20px, 4vw, 40px)',
+      }}>
 
         {/* Page heading */}
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} style={{ marginBottom: '60px' }}>
-          <p style={{ fontFamily: 'var(--font-fira)', fontSize: '12px', color: '#3b82f6', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '12px' }}>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          style={{ marginBottom: '60px' }}
+        >
+          <p style={{
+            fontFamily: 'var(--font-fira)', fontSize: '12px',
+            color: '#3b82f6', letterSpacing: '4px',
+            textTransform: 'uppercase', marginBottom: '12px',
+          }}>
             {'// my work'}
           </p>
-          <h1 style={{ fontSize: 'clamp(32px, 5vw, 52px)', fontWeight: 700, color: '#f1f5f9', lineHeight: 1.1, marginBottom: '16px' }}>
+          <h1 style={{
+            fontSize: 'clamp(28px, 5vw, 52px)', fontWeight: 700,
+            color: '#f1f5f9', lineHeight: 1.1, marginBottom: '16px',
+          }}>
             Project{' '}
-            <span style={{ background: 'linear-gradient(90deg, #3b82f6, #06b6d4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+            <span style={{
+              background: 'linear-gradient(90deg, #3b82f6, #06b6d4)',
+              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+            }}>
               Showcase
             </span>
           </h1>
-          <p style={{ fontSize: '16px', color: '#64748b', lineHeight: 1.8, maxWidth: '600px' }}>
+          <p style={{ fontSize: 'clamp(13px, 1.5vw, 16px)', color: '#64748b', lineHeight: 1.8, maxWidth: '600px' }}>
             A deep dive into everything I have built — the problems, the solutions, the tech stack, and what I learned along the way.
           </p>
+
+          {/* Stats row */}
+          <div style={{ display: 'flex', gap: '24px', marginTop: '32px', flexWrap: 'wrap' }}>
+            {[
+              { value: '6', label: 'Projects Built' },
+              { value: '2', label: 'Live Products' },
+              { value: '3+', label: 'Years Experience' },
+            ].map((stat, i) => (
+              <div key={i} style={{
+                background: 'rgba(15,23,42,0.7)',
+                border: '1px solid rgba(37,99,235,0.12)',
+                borderRadius: '12px', padding: '16px 24px',
+                position: 'relative', overflow: 'hidden',
+              }}>
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, #2563eb, #06b6d4)' }} />
+                <div style={{ fontSize: '24px', fontWeight: 700, background: 'linear-gradient(90deg, #3b82f6, #06b6d4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{stat.value}</div>
+                <div style={{ fontSize: '12px', color: '#475569' }}>{stat.label}</div>
+              </div>
+            ))}
+          </div>
         </motion.div>
 
-        {/* Projects */}
+        {/* Projects list */}
         {projects.map((project, i) => (
           <ProjectCard key={project.id} project={project} index={i} />
         ))}
+
+        {/* Back to portfolio */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          style={{ textAlign: 'center', marginTop: '20px' }}
+        >
+          <Link href="/" style={{
+            display: 'inline-flex', alignItems: 'center', gap: '8px',
+            color: '#60a5fa', textDecoration: 'none',
+            fontFamily: 'var(--font-fira)', fontSize: '14px',
+            border: '1px solid rgba(37,99,235,0.3)',
+            borderRadius: '8px', padding: '12px 24px',
+            transition: 'all 0.2s',
+          }}
+          onMouseEnter={e => { e.currentTarget.style.background = 'rgba(37,99,235,0.1)' }}
+          onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}>
+            <ArrowLeft size={16} /> Back to Portfolio
+          </Link>
+        </motion.div>
       </div>
     </div>
   )
