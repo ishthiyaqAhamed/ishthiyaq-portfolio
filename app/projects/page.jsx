@@ -6,36 +6,48 @@ import { ArrowLeft, ExternalLink } from 'lucide-react'
 import { FiGithub } from 'react-icons/fi'
 
 const projects = [
-    {
+      {
     id: 'novaflow-crm',
     title: 'NovaFlow — CRM Platform',
-    category: 'Full Stack • Personal Project',
+    category: 'Full Stack SaaS • Personal Project',
     year: '2025',
     color: '#3b82f6',
-    tags: ['Next.js', 'TypeScript', 'PostgreSQL', 'Prisma', 'Tailwind CSS', 'CRM'],
-    summary: 'A full-stack CRM platform for sales pipeline and contact management — live at novaflowpro.online.',
-    description: `NovaFlow is a fully custom CRM application I built from scratch to solve the problem of small sales teams needing a simple but powerful tool to manage their pipeline without paying for expensive enterprise software.
+    tags: ['Next.js 16', 'TypeScript', 'Supabase', 'PostgreSQL', 'Prisma 7', 'OpenAI GPT-4o', 'Resend', 'Tailwind CSS'],
+    summary: 'A production-ready multi-tenant SaaS CRM with GPT-4o AI Copilot, 7-stage Kanban pipeline, and a Super Admin observability portal — live at novaflowpro.online.',
+    description: `NovaFlow is the most technically advanced project I have built. It is a fully production-ready multi-tenant SaaS CRM platform where each workspace is completely isolated — meaning multiple companies can use the same platform with zero data crossover between tenants.
 
-I built it using Next.js App Router with TypeScript, PostgreSQL and Prisma ORM — a completely different stack from my usual MERN setup. This was intentional — I wanted to challenge myself with a relational database and a typed language to level up my backend skills.
+The standout feature is the embedded GPT-4o AI Copilot. It connects directly to live deal data, revenue pipeline metrics, and overdue tasks to generate real actionable sales recommendations — not generic advice, but insights based on what is actually happening in your pipeline right now.
 
-The authentication system is fully custom — no third party auth libraries. I implemented email and password login with OTP-based email verification at signup, using bcrypt for password hashing and a time-limited single-use OTP flow. Building this from scratch taught me a deep understanding of how auth actually works.
+I built the entire authentication system from scratch using Resend for email delivery — OTP-based login and a full password recovery flow. There is also a Super Admin portal that gives platform-level observability, letting admins monitor live telemetry across all tenants without touching their data.
 
-The design system is also completely custom — no default UI kit. I defined my own color tokens, typography scale, and component styles using Tailwind CSS, which gave the product a unique and professional look.`,
+The frontend is a fully custom dark interface I designed myself — no UI kits, no templates. Every component including the interactive drawers, KPI telemetry cards, and the touch-optimized Kanban board was built from scratch with mobile responsiveness in mind.
+
+This project pushed me into truly senior-level territory — multi-tenancy, AI integration, SaaS architecture, custom auth, and production deployment with a custom domain.`,
     highlights: [
-      'Kanban-style sales pipeline with deal stages',
-      'Custom OTP email verification at signup',
-      'Contact, company, deal and task management',
-      'Dashboard with open pipeline value summary',
-      'Custom design system — no default UI kit',
-      'Deployed with custom domain on Vercel',
+      'GPT-4o AI Copilot analyzing live pipeline data',
+      'Multi-tenant SaaS with complete tenant data segregation',
+      'Role-based team invitations and workspace management',
+      '7-stage Kanban deal pipeline with touch optimization',
+      'CSV spreadsheet import and export engine',
+      'Email OTP authentication and password recovery via Resend',
+      'Super Admin observability portal with live platform telemetry',
+      'Contacts directory and company management',
+      'KPI telemetry dashboard cards',
+      'Custom mobile-responsive dark design system',
     ],
     techDetails: [
-      { label: 'Framework', value: 'Next.js (App Router)' },
+      { label: 'Framework', value: 'Next.js 16 (App Router)' },
       { label: 'Language', value: 'TypeScript' },
-      { label: 'Database', value: 'PostgreSQL, Prisma ORM' },
-      { label: 'Styling', value: 'Tailwind CSS (custom tokens)' },
+      { label: 'Database', value: 'Supabase PostgreSQL' },
+      { label: 'ORM', value: 'Prisma 7' },
+      { label: 'AI', value: 'OpenAI GPT-4o' },
+      { label: 'Email', value: 'Resend' },
+      { label: 'Styling', value: 'Tailwind CSS (custom)' },
       { label: 'Auth', value: 'Custom OTP + bcrypt' },
       { label: 'Deployment', value: 'Vercel + Custom Domain' },
+      { label: 'Type', value: 'Multi-tenant SaaS' },
+      { label: 'Status', value: 'Live in Production' },
+      { label: 'Domain', value: 'novaflowpro.online' },
     ],
     github: 'https://github.com/ishthiyaqAhamed',
     live: 'https://novaflowpro.online',
