@@ -6,6 +6,40 @@ import { ArrowLeft, ExternalLink } from 'lucide-react'
 import { FiGithub } from 'react-icons/fi'
 
 const projects = [
+    {
+    id: 'novaflow-crm',
+    title: 'NovaFlow — CRM Platform',
+    category: 'Full Stack • Personal Project',
+    year: '2025',
+    color: '#3b82f6',
+    tags: ['Next.js', 'TypeScript', 'PostgreSQL', 'Prisma', 'Tailwind CSS', 'CRM'],
+    summary: 'A full-stack CRM platform for sales pipeline and contact management — live at novaflowpro.online.',
+    description: `NovaFlow is a fully custom CRM application I built from scratch to solve the problem of small sales teams needing a simple but powerful tool to manage their pipeline without paying for expensive enterprise software.
+
+I built it using Next.js App Router with TypeScript, PostgreSQL and Prisma ORM — a completely different stack from my usual MERN setup. This was intentional — I wanted to challenge myself with a relational database and a typed language to level up my backend skills.
+
+The authentication system is fully custom — no third party auth libraries. I implemented email and password login with OTP-based email verification at signup, using bcrypt for password hashing and a time-limited single-use OTP flow. Building this from scratch taught me a deep understanding of how auth actually works.
+
+The design system is also completely custom — no default UI kit. I defined my own color tokens, typography scale, and component styles using Tailwind CSS, which gave the product a unique and professional look.`,
+    highlights: [
+      'Kanban-style sales pipeline with deal stages',
+      'Custom OTP email verification at signup',
+      'Contact, company, deal and task management',
+      'Dashboard with open pipeline value summary',
+      'Custom design system — no default UI kit',
+      'Deployed with custom domain on Vercel',
+    ],
+    techDetails: [
+      { label: 'Framework', value: 'Next.js (App Router)' },
+      { label: 'Language', value: 'TypeScript' },
+      { label: 'Database', value: 'PostgreSQL, Prisma ORM' },
+      { label: 'Styling', value: 'Tailwind CSS (custom tokens)' },
+      { label: 'Auth', value: 'Custom OTP + bcrypt' },
+      { label: 'Deployment', value: 'Vercel + Custom Domain' },
+    ],
+    github: 'https://github.com/ishthiyaqAhamed',
+    live: 'https://novaflowpro.online',
+  },
   {
     id: 'food-marketplace',
     title: 'Food Marketplace Platform - Local Plates',
@@ -476,8 +510,8 @@ export default function ProjectsBlog() {
           {/* Stats row */}
           <div style={{ display: 'flex', gap: '24px', marginTop: '32px', flexWrap: 'wrap' }}>
             {[
-              { value: '6', label: 'Projects Built' },
-              { value: '2', label: 'Live Products' },
+              { value: '8', label: 'Projects Built' },
+              { value: '3', label: 'Live Products' },
               { value: '3+', label: 'Years Experience' },
             ].map((stat, i) => (
               <div key={i} style={{
