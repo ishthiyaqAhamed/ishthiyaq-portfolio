@@ -227,7 +227,7 @@ export default function Projects() {
                   </div>
                 </div>
 
-                <div style={{ position: 'relative', height: '180px', overflow: 'hidden', background: 'rgba(10, 16, 28, 0.9)' }}>
+                <div style={{ position: 'relative', height: '200px', overflow: 'hidden', background: 'rgba(10, 16, 28, 0.9)' }}>
                   {project.image && (
                     <img
                       src={project.image}
