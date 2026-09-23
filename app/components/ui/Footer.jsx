@@ -1,7 +1,6 @@
 'use client'
 import { useWindowSize } from '../../hooks/useWindowSize'
 import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
-import { Sparkles } from 'lucide-react'
 
 export default function Footer() {
   const { isMobile } = useWindowSize()
@@ -16,7 +15,6 @@ export default function Footer() {
       textAlign: isMobile ? 'center' : 'left',
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <Sparkles size={14} color="#d4af37" />
         <span style={{ fontFamily: 'var(--font-fira)', fontSize: '12.5px', color: '#94a3b8' }}>
           Crafted with Precision by{' '}
           <span style={{ color: '#f5d77f', fontWeight: 600 }}>Ishthiyaq Ahamed</span>

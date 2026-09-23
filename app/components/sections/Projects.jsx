@@ -1,6 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
-import { ArrowUpRight, ExternalLink, Sparkles } from 'lucide-react'
+import { ArrowUpRight, ExternalLink } from 'lucide-react'
 import { FiGithub } from 'react-icons/fi'
 import { 
   SiReact, SiNextdotjs, SiNodedotjs, SiMongodb, SiPostgresql, 
@@ -118,14 +118,12 @@ export default function Projects() {
         <div style={{
           display: 'inline-flex',
           alignItems: 'center',
-          gap: '8px',
           background: 'rgba(212, 175, 55, 0.08)',
           border: '1px solid rgba(212, 175, 55, 0.25)',
           borderRadius: '999px',
           padding: '6px 18px',
           marginBottom: '16px',
         }}>
-          <Sparkles size={13} color="#d4af37" />
           <span style={{
             fontFamily: 'var(--font-fira)',
             fontSize: '11px',

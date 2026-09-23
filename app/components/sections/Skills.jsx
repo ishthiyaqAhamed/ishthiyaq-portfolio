@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { 
-  Code2, Database, Cloud, Smartphone, Wrench, Globe, Layers, Sparkles, Server, Terminal, Cpu
+  Code2, Database, Cloud, Smartphone, Wrench, Globe, Layers, Server, Terminal, Cpu
 } from 'lucide-react'
 import { 
   SiReact, SiNextdotjs, SiNodedotjs, SiExpress, SiMongodb, SiPostgresql, 
@@ -271,7 +271,6 @@ export default function Skills() {
           style={{
             display: 'inline-flex',
             alignItems: 'center',
-            gap: '8px',
             background: 'rgba(212, 175, 55, 0.08)',
             border: '1px solid rgba(212, 175, 55, 0.25)',
             borderRadius: '999px',
@@ -279,7 +278,6 @@ export default function Skills() {
             marginBottom: '16px',
           }}
         >
-          <Sparkles size={13} color="#d4af37" />
           <span style={{
             fontFamily: 'var(--font-fira)',
             fontSize: '11px',

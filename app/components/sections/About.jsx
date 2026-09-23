@@ -1,6 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
-import { MapPin, Mail, GraduationCap, Award, Sparkles, Shield, Compass, CheckCircle2 } from 'lucide-react'
+import { MapPin, Mail, GraduationCap, Award, Palette, Shield, Compass, CheckCircle2 } from 'lucide-react'
 import { FaAws } from 'react-icons/fa6'
 import { SiGooglecloud } from 'react-icons/si'
 import { useWindowSize } from '../../hooks/useWindowSize'
@@ -72,7 +72,7 @@ const certifications = [
     platform: 'Wellington College Scholarship', 
     color: '#D4AF37', 
     short: 'DES',
-    icon: <Sparkles size={20} color="#D4AF37" />
+    icon: <Palette size={20} color="#D4AF37" />
   },
 ]
 
@@ -121,14 +121,12 @@ export default function About() {
         <div style={{
           display: 'inline-flex',
           alignItems: 'center',
-          gap: '8px',
           background: 'rgba(212, 175, 55, 0.08)',
           border: '1px solid rgba(212, 175, 55, 0.25)',
           borderRadius: '999px',
           padding: '6px 18px',
           marginBottom: '16px',
         }}>
-          <Sparkles size={13} color="#d4af37" />
           <span style={{
             fontFamily: 'var(--font-fira)',
             fontSize: '11px',

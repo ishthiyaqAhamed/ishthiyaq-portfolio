@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { useWindowSize } from '../../hooks/useWindowSize'
-import { Menu, X, Sparkles } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import Link from 'next/link'
 
 export default function Navbar() {
@@ -109,7 +109,6 @@ export default function Navbar() {
               e.currentTarget.style.transform = 'translateY(0)'
               e.currentTarget.style.boxShadow = '0 0 20px rgba(212, 175, 55, 0.35)'
             }}>
-              <Sparkles size={13} color="#030712" />
               <span>Get in Touch</span>
             </a>
           </div>

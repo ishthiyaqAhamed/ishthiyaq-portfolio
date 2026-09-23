@@ -7,7 +7,7 @@ import {
   SiDocker, SiTailwindcss, SiPostgresql 
 } from 'react-icons/si'
 import { FaAws } from 'react-icons/fa6'
-import { Sparkles, ArrowRight, Download } from 'lucide-react'
+import { ArrowRight, Download } from 'lucide-react'
 import { useWindowSize } from '../../hooks/useWindowSize'
 
 const TYPED_STRINGS = [

@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { ArrowLeft, ExternalLink, Sparkles, CheckCircle2 } from 'lucide-react'
+import { ArrowLeft, ExternalLink, CheckCircle2 } from 'lucide-react'
 import { FiGithub } from 'react-icons/fi'
 import { 
   SiReact, SiNextdotjs, SiNodedotjs, SiMongodb, SiPostgresql, 
@@ -569,14 +569,12 @@ export default function ProjectsBlog() {
           <div style={{
             display: 'inline-flex',
             alignItems: 'center',
-            gap: '8px',
             background: 'rgba(212, 175, 55, 0.08)',
             border: '1px solid rgba(212, 175, 55, 0.25)',
             borderRadius: '999px',
             padding: '6px 18px',
             marginBottom: '16px',
           }}>
-            <Sparkles size={13} color="#d4af37" />
             <span style={{
               fontFamily: 'var(--font-fira)',
               fontSize: '11px',

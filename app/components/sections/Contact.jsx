@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Phone, MapPin, Send, Sparkles, CheckCircle2 } from 'lucide-react'
+import { Mail, Phone, MapPin, Send, CheckCircle2 } from 'lucide-react'
 import { FiGithub, FiLinkedin } from 'react-icons/fi'
 import { useWindowSize } from '../../hooks/useWindowSize'
 
@@ -77,14 +77,12 @@ export default function Contact() {
         <div style={{
           display: 'inline-flex',
           alignItems: 'center',
-          gap: '8px',
           background: 'rgba(212, 175, 55, 0.08)',
           border: '1px solid rgba(212, 175, 55, 0.25)',
           borderRadius: '999px',
           padding: '6px 18px',
           marginBottom: '16px',
         }}>
-          <Sparkles size={13} color="#d4af37" />
           <span style={{
             fontFamily: 'var(--font-fira)',
             fontSize: '11px',
