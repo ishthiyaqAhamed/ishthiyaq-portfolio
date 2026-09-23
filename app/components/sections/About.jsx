@@ -214,40 +214,141 @@ export default function About() {
           </motion.div>
         </div>
 
-        {/* Right: Quick Facts Executive Panel */}
-        <motion.div variants={fadeUp} initial="hidden" whileInView="show" custom={2} viewport={{ once: true }}
-          style={{
-            background: 'rgba(10, 16, 28, 0.7)',
-            backdropFilter: 'blur(16px)',
-            border: '1px solid rgba(212, 175, 55, 0.18)',
-            borderRadius: '20px',
-            padding: '32px 28px',
-            display: 'flex',
-            flexDirection: 'column',
-            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06)',
-          }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '24px' }}>
-            <CheckCircle2 size={16} color="#d4af37" />
-            <span style={{ fontFamily: 'var(--font-fira)', fontSize: '12px', color: '#f5d77f', letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 600 }}>
-              Credentials Matrix
-            </span>
-          </div>
+        {/* Right: Graduation Spotlight + Quick Facts Executive Panel */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          
+          {/* Graduation Photo Showcase */}
+          <motion.div variants={fadeUp} initial="hidden" whileInView="show" custom={2} viewport={{ once: true }}
+            style={{
+              position: 'relative',
+              borderRadius: '20px',
+              overflow: 'hidden',
+              border: '1px solid rgba(212, 175, 55, 0.25)',
+              background: 'rgba(10, 16, 28, 0.85)',
+              boxShadow: '0 20px 45px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 175, 55, 0.1)',
+              transition: 'all 0.3s ease',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.5)'
+              e.currentTarget.style.boxShadow = '0 25px 55px rgba(0, 0, 0, 0.7), 0 0 40px rgba(212, 175, 55, 0.2)'
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.25)'
+              e.currentTarget.style.boxShadow = '0 20px 45px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 175, 55, 0.1)'
+            }}
+          >
+            {/* Top gold accent line */}
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, transparent, #d4af37, #f5d77f, transparent)', zIndex: 2 }} />
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            {quickFacts.map((fact, i) => (
-              <div key={i} style={{
+            <div style={{ position: 'relative', overflow: 'hidden', height: '260px' }}>
+              <img
+                src="/graduation.jpg"
+                alt="Ishthiyaq Ahamed - Convocation Class of 2025"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'center 22%',
+                  display: 'block',
+                  transition: 'transform 0.5s ease',
+                }}
+                onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.03)'}
+                onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+              />
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(180deg, rgba(3, 7, 18, 0.1) 0%, rgba(3, 7, 18, 0.3) 50%, rgba(3, 7, 18, 0.95) 100%)',
+                pointerEvents: 'none',
+              }} />
+
+              {/* Gold Convocation Badge overlay */}
+              <div style={{
+                position: 'absolute',
+                top: '14px',
+                right: '14px',
+                background: 'rgba(3, 7, 18, 0.85)',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(212, 175, 55, 0.35)',
+                borderRadius: '999px',
+                padding: '4px 12px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '6px',
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.5)',
+              }}>
+                <GraduationCap size={13} color="#f5d77f" />
+                <span style={{ fontFamily: 'var(--font-fira)', fontSize: '10.5px', color: '#f5d77f', fontWeight: 600, letterSpacing: '0.5px' }}>
+                  Class of 2025
+                </span>
+              </div>
+
+              {/* Bottom Caption overlay */}
+              <div style={{
+                position: 'absolute',
+                bottom: '14px',
+                left: '18px',
+                right: '18px',
                 display: 'flex',
                 justifyContent: 'space-between',
-                alignItems: 'center',
-                padding: '14px 0',
-                borderBottom: i < quickFacts.length - 1 ? '1px solid rgba(212, 175, 55, 0.08)' : 'none',
+                alignItems: 'flex-end',
+                flexWrap: 'wrap',
+                gap: '8px',
               }}>
-                <span style={{ fontSize: '12.5px', color: '#64748b', fontFamily: 'var(--font-fira)' }}>{fact.label}</span>
-                <span style={{ fontSize: '13px', color: '#e2e8f0', textAlign: 'right', fontWeight: 500, maxWidth: '60%' }}>{fact.value}</span>
+                <div>
+                  <div style={{ fontFamily: 'var(--font-fira)', fontSize: '10.5px', color: '#f5d77f', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '2px', fontWeight: 600 }}>
+                    Convocation Ceremony
+                  </div>
+                  <div style={{ fontSize: '14px', fontWeight: 700, color: '#f8fafc' }}>
+                    BSc (Hons) in Software Engineering
+                  </div>
+                </div>
+                <span style={{
+                  fontFamily: 'var(--font-fira)', fontSize: '10.5px', color: '#cbd5e1',
+                  background: 'rgba(255, 255, 255, 0.08)', padding: '2px 8px',
+                  borderRadius: '4px', border: '1px solid rgba(255, 255, 255, 0.1)'
+                }}>
+                  Univ. of Bedfordshire
+                </span>
               </div>
-            ))}
-          </div>
-        </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Quick Facts Executive Panel */}
+          <motion.div variants={fadeUp} initial="hidden" whileInView="show" custom={3} viewport={{ once: true }}
+            style={{
+              background: 'rgba(10, 16, 28, 0.7)',
+              backdropFilter: 'blur(16px)',
+              border: '1px solid rgba(212, 175, 55, 0.18)',
+              borderRadius: '20px',
+              padding: '26px 24px',
+              display: 'flex',
+              flexDirection: 'column',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06)',
+            }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '18px' }}>
+              <CheckCircle2 size={16} color="#d4af37" />
+              <span style={{ fontFamily: 'var(--font-fira)', fontSize: '12px', color: '#f5d77f', letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 600 }}>
+                Credentials Matrix
+              </span>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+              {quickFacts.map((fact, i) => (
+                <div key={i} style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  padding: '10px 0',
+                  borderBottom: i < quickFacts.length - 1 ? '1px solid rgba(212, 175, 55, 0.08)' : 'none',
+                }}>
+                  <span style={{ fontSize: '12px', color: '#64748b', fontFamily: 'var(--font-fira)' }}>{fact.label}</span>
+                  <span style={{ fontSize: '12.5px', color: '#e2e8f0', textAlign: 'right', fontWeight: 500, maxWidth: '60%' }}>{fact.value}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </div>
 
       {/* Row 2 — Education Timeline */}
