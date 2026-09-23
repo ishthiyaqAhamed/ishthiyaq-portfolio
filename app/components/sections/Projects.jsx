@@ -23,8 +23,10 @@ const tagIcons = {
 
 const projects = [
   {
+    id: 'novaflow',
     title: 'NovaFlow — Multi-Tenant SaaS CRM',
     category: 'Enterprise SaaS • Production',
+    image: '/projects/novaflow.png',
     description: 'A production-grade multi-tenant CRM engine with embedded GPT-4o sales copilot, 7-stage Kanban pipeline, team role isolation, and a Super Admin observability portal.',
     tags: ['Next.js', 'TypeScript', 'Supabase', 'PostgreSQL', 'Prisma', 'Tailwind'],
     color: '#d4af37',
@@ -39,8 +41,10 @@ const projects = [
     featured: true,
   },
   {
+    id: 'pharmacy-erp',
     title: 'Pharmacy Enterprise ERP System',
     category: 'Full Stack • Commercial ERP',
+    image: '/projects/pharmacy-erp.png',
     description: 'A multi-branch pharmacy inventory, procurement, and billing management ERP. Handles automated stock level synchronization, batch tracking, and sales audits.',
     tags: ['React', 'Node.js', 'MongoDB'],
     color: '#f5d77f',
@@ -55,8 +59,10 @@ const projects = [
     featured: true,
   },
   {
+    id: 'gemotions',
     title: 'Gemotions — Haute Horlogerie & Gems',
     category: 'Full Stack • Luxury E-Commerce',
+    image: '/projects/gemotions.png',
     description: 'A bespoke e-commerce boutique for rare, certified gemstones and fine handcrafted jewelry with high-fidelity filtering, secure payments, and inventory management.',
     tags: ['React', 'Node.js', 'MongoDB'],
     color: '#c5a880',
@@ -71,8 +77,10 @@ const projects = [
     featured: true,
   },
   {
+    id: 'food-marketplace',
     title: 'Route-Optimized Food Marketplace',
     category: 'Full Stack • Undergrad Thesis',
+    image: '/projects/food-marketplace.png',
     description: 'A real-time artisan food delivery marketplace featuring Dijkstra Algorithm shortest-path delivery routing and WebSockets live order tracking.',
     tags: ['React', 'Node.js', 'MongoDB'],
     color: '#e5c07b',
@@ -219,14 +227,38 @@ export default function Projects() {
                   </div>
                 </div>
 
-                <div style={{ padding: '16px' }}>
-                  <div style={{ height: '8px', background: 'linear-gradient(90deg, #d4af37, #aa7c11)', borderRadius: '4px', marginBottom: '10px', width: '60%' }} />
-                  <div style={{ height: '5px', background: 'rgba(255, 255, 255, 0.06)', borderRadius: '4px', marginBottom: '6px' }} />
-                  <div style={{ height: '5px', background: 'rgba(255, 255, 255, 0.06)', borderRadius: '4px', marginBottom: '6px', width: '80%' }} />
-                  <div style={{ height: '5px', background: 'rgba(255, 255, 255, 0.06)', borderRadius: '4px', marginBottom: '14px', width: '65%' }} />
-                  <div style={{ display: 'flex', gap: '8px' }}>
-                    <div style={{ height: '24px', flex: 1, background: 'rgba(212, 175, 55, 0.12)', borderRadius: '6px', border: '1px solid rgba(212, 175, 55, 0.3)' }} />
-                    <div style={{ height: '24px', width: '60px', background: 'rgba(255, 255, 255, 0.04)', borderRadius: '6px' }} />
+                <div style={{ position: 'relative', height: '180px', overflow: 'hidden', background: 'rgba(10, 16, 28, 0.9)' }}>
+                  {project.image && (
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        objectPosition: 'top center',
+                        display: 'block',
+                        transition: 'transform 0.4s ease',
+                      }}
+                      onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.05)'}
+                      onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                      onError={e => {
+                        e.currentTarget.style.display = 'none'
+                        if (e.currentTarget.nextElementSibling) {
+                          e.currentTarget.nextElementSibling.style.display = 'block'
+                        }
+                      }}
+                    />
+                  )}
+                  <div style={{ padding: '20px', display: project.image ? 'none' : 'block' }}>
+                    <div style={{ height: '8px', background: 'linear-gradient(90deg, #d4af37, #aa7c11)', borderRadius: '4px', marginBottom: '12px', width: '60%' }} />
+                    <div style={{ height: '5px', background: 'rgba(255, 255, 255, 0.06)', borderRadius: '4px', marginBottom: '8px' }} />
+                    <div style={{ height: '5px', background: 'rgba(255, 255, 255, 0.06)', borderRadius: '4px', marginBottom: '8px', width: '80%' }} />
+                    <div style={{ height: '5px', background: 'rgba(255, 255, 255, 0.06)', borderRadius: '4px', marginBottom: '16px', width: '65%' }} />
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                      <div style={{ height: '26px', flex: 1, background: 'rgba(212, 175, 55, 0.12)', borderRadius: '6px', border: '1px solid rgba(212, 175, 55, 0.3)' }} />
+                      <div style={{ height: '26px', width: '70px', background: 'rgba(255, 255, 255, 0.04)', borderRadius: '6px' }} />
+                    </div>
                   </div>
                 </div>
               </div>

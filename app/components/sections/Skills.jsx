@@ -373,7 +373,7 @@ export default function Skills() {
         marginBottom: '40px',
       }}>
         {[
-          { id: 'all', label: 'All Disciplines' },
+          { id: 'all', label: 'All Skills' },
           { id: 'frontend', label: 'Frontend' },
           { id: 'backend', label: 'Backend' },
           { id: 'database', label: 'Database' },

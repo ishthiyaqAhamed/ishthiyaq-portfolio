@@ -35,6 +35,7 @@ const projects = [
     id: 'novaflow-crm',
     title: 'NovaFlow — Multi-Tenant SaaS CRM',
     category: 'Full Stack SaaS • Production',
+    image: '/projects/novaflow.png',
     year: '2025',
     color: '#d4af37',
     tags: ['Next.js 16', 'TypeScript', 'Supabase', 'PostgreSQL', 'Prisma 7', 'Tailwind CSS'],
@@ -81,6 +82,7 @@ This project pushed me into truly senior-level territory — multi-tenancy, AI i
     id: 'food-marketplace',
     title: 'Food Marketplace Platform - Local Plates',
     category: 'Full Stack • Undergraduate Project',
+    image: '/projects/food-marketplace.png',
     year: '2024 – 2025',
     color: '#f5d77f',
     tags: ['MongoDB', 'React', 'Node.js'],
@@ -112,6 +114,7 @@ The platform supports multiple vendors, real-time order updates using WebSockets
     id: 'spiff-tracker',
     title: 'Spiff Tracker SaaS',
     category: 'Full Stack • Robance Lanka Pvt Ltd',
+    image: '/projects/spiff-tracker.png',
     year: '2024 – 2025',
     color: '#c5a880',
     tags: ['React', 'Node.js', 'MongoDB', 'Tailwind CSS'],
@@ -143,6 +146,7 @@ This was my first real commercial SaaS product and taught me a lot about buildin
     id: 'pharmacy-erp',
     title: 'Pharmacy Enterprise ERP System',
     category: 'Full Stack • Live Product',
+    image: '/projects/pharmacy-erp.png',
     year: '2025',
     color: '#d4af37',
     tags: ['React', 'Node.js', 'MongoDB'],
@@ -174,6 +178,7 @@ Seeing this project go live and being used by real pharmacy staff was one of the
     id: 'gemotions',
     title: 'Gemotions — Rare Gems & Fine Jewelry',
     category: 'Full Stack • Luxury E-Commerce',
+    image: '/projects/gemotions.png',
     year: '2025',
     color: '#f5d77f',
     tags: ['React', 'Node.js', 'MongoDB'],
@@ -379,6 +384,33 @@ function ProjectCard({ project, index }) {
             )}
           </div>
         </div>
+
+        {/* Project Screenshot Preview */}
+        {project.image && (
+          <div style={{
+            position: 'relative',
+            borderRadius: '12px',
+            overflow: 'hidden',
+            marginBottom: '24px',
+            border: '1px solid rgba(212, 175, 55, 0.2)',
+            background: 'rgba(5, 8, 16, 0.8)',
+            maxHeight: '280px',
+          }}>
+            <img
+              src={project.image}
+              alt={project.title}
+              style={{
+                width: '100%',
+                height: 'auto',
+                maxHeight: '280px',
+                objectFit: 'cover',
+                objectPosition: 'top center',
+                display: 'block',
+              }}
+              onError={e => { e.currentTarget.parentElement.style.display = 'none' }}
+            />
+          </div>
+        )}
 
         {/* Tags with Real Brand Icons */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px' }}>
