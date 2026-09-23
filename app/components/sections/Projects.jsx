@@ -60,7 +60,7 @@ const projects = [
   },
   {
     id: 'gemotions',
-    title: 'Gemotions — Haute Horlogerie & Gems',
+    title: 'Gemotions — Rare Gems & Fine Jewelry',
     category: 'Full Stack • Luxury E-Commerce',
     image: '/projects/gemotions.png',
     description: 'A bespoke e-commerce boutique for rare, certified gemstones and fine handcrafted jewelry with high-fidelity filtering, secure payments, and inventory management.',
