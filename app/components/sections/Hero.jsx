@@ -1,7 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
-import { FiArrowDown } from 'react-icons/fi'
 import { 
   SiReact, SiNextdotjs, SiNodedotjs, SiMongodb, SiTypescript, 
   SiDocker, SiTailwindcss, SiPostgresql 
@@ -398,26 +397,9 @@ export default function Hero() {
         </div>
       )}
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        style={{
-          position: 'absolute', bottom: '28px', left: '50%', transform: 'translateX(-50%)',
-          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px',
-          color: '#64748b', fontSize: '11px', fontFamily: 'var(--font-fira)',
-          animation: 'bounce 2s infinite',
-        }}
-      >
-        <span style={{ letterSpacing: '2px', textTransform: 'uppercase' }}>scroll</span>
-        <FiArrowDown size={14} color="#d4af37" />
-      </motion.div>
-
       <style>{`
         @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
         @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
-        @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0);} 50%{transform:translateX(-50%) translateY(6px);} }
       `}</style>
     </section>
   )
