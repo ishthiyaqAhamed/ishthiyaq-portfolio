@@ -2,17 +2,42 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { ArrowLeft, ExternalLink } from 'lucide-react'
+import { ArrowLeft, ExternalLink, Sparkles, CheckCircle2 } from 'lucide-react'
 import { FiGithub } from 'react-icons/fi'
+import { 
+  SiReact, SiNextdotjs, SiNodedotjs, SiMongodb, SiPostgresql, 
+  SiSupabase, SiPrisma, SiTailwindcss, SiTypescript, SiPython, 
+  SiMysql, SiJavascript, SiHtml5, SiCss 
+} from 'react-icons/si'
+
+const tagIcons = {
+  'Next.js 16': <SiNextdotjs size={12} color="#FFFFFF" />,
+  'Next.js': <SiNextdotjs size={12} color="#FFFFFF" />,
+  'React': <SiReact size={12} color="#61DAFB" />,
+  'Node.js': <SiNodedotjs size={12} color="#68A063" />,
+  'TypeScript': <SiTypescript size={12} color="#3178C6" />,
+  'Supabase': <SiSupabase size={12} color="#3ECF8E" />,
+  'PostgreSQL': <SiPostgresql size={12} color="#4169E1" />,
+  'Prisma 7': <SiPrisma size={12} color="#5A67D8" />,
+  'Prisma': <SiPrisma size={12} color="#5A67D8" />,
+  'Tailwind CSS': <SiTailwindcss size={12} color="#38BDF8" />,
+  'Tailwind': <SiTailwindcss size={12} color="#38BDF8" />,
+  'MongoDB': <SiMongodb size={12} color="#47A248" />,
+  'Python': <SiPython size={12} color="#3776AB" />,
+  'MySQL': <SiMysql size={12} color="#00758F" />,
+  'JavaScript': <SiJavascript size={12} color="#F7DF1E" />,
+  'HTML': <SiHtml5 size={12} color="#E34F26" />,
+  'CSS': <SiCss size={12} color="#1572B6" />,
+}
 
 const projects = [
-      {
+  {
     id: 'novaflow-crm',
-    title: 'NovaFlow — CRM Platform',
-    category: 'Full Stack SaaS • Personal Project',
+    title: 'NovaFlow — Multi-Tenant SaaS CRM',
+    category: 'Full Stack SaaS • Production',
     year: '2025',
-    color: '#3b82f6',
-    tags: ['Next.js 16', 'TypeScript', 'Supabase', 'PostgreSQL', 'Prisma 7', 'OpenAI GPT-4o', 'Resend', 'Tailwind CSS'],
+    color: '#d4af37',
+    tags: ['Next.js 16', 'TypeScript', 'Supabase', 'PostgreSQL', 'Prisma 7', 'Tailwind CSS'],
     summary: 'A production-ready multi-tenant SaaS CRM with GPT-4o AI Copilot, 7-stage Kanban pipeline, and a Super Admin observability portal — live at novaflowpro.online.',
     description: `NovaFlow is the most technically advanced project I have built. It is a fully production-ready multi-tenant SaaS CRM platform where each workspace is completely isolated — meaning multiple companies can use the same platform with zero data crossover between tenants.
 
@@ -40,7 +65,7 @@ This project pushed me into truly senior-level territory — multi-tenancy, AI i
       { label: 'Language', value: 'TypeScript' },
       { label: 'Database', value: 'Supabase PostgreSQL' },
       { label: 'ORM', value: 'Prisma 7' },
-      { label: 'AI', value: 'OpenAI GPT-4o' },
+      { label: 'AI Engine', value: 'OpenAI GPT-4o' },
       { label: 'Email', value: 'Resend' },
       { label: 'Styling', value: 'Tailwind CSS (custom)' },
       { label: 'Auth', value: 'Custom OTP + bcrypt' },
@@ -57,8 +82,8 @@ This project pushed me into truly senior-level territory — multi-tenancy, AI i
     title: 'Food Marketplace Platform - Local Plates',
     category: 'Full Stack • Undergraduate Project',
     year: '2024 – 2025',
-    color: '#3b82f6',
-    tags: ['MongoDB', 'Express', 'React', 'Node.js', 'Dijkstra', 'Real-time'],
+    color: '#f5d77f',
+    tags: ['MongoDB', 'React', 'Node.js'],
     summary: 'A full-stack food delivery platform connecting homemade food entrepreneurs with customers.',
     description: `This was my undergraduate individual project at Sliit City University. The idea came from seeing how talented home cooks had no proper platform to reach customers. I built a complete marketplace from scratch using the MERN stack.
 
@@ -88,8 +113,8 @@ The platform supports multiple vendors, real-time order updates using WebSockets
     title: 'Spiff Tracker SaaS',
     category: 'Full Stack • Robance Lanka Pvt Ltd',
     year: '2024 – 2025',
-    color: '#06b6d4',
-    tags: ['React', 'Node.js', 'MongoDB', 'SaaS', 'Automation', 'Dashboard'],
+    color: '#c5a880',
+    tags: ['React', 'Node.js', 'MongoDB', 'Tailwind CSS'],
     summary: 'A full-stack SaaS platform automating income tracking and reconciliation for Total Wireless dealers.',
     description: `This was a real client project at Robance Lanka Pvt Ltd. Total Wireless dealers approached us with a painful problem — they were manually tracking commissions and income on spreadsheets, which caused errors and wasted hours every week.
 
@@ -116,11 +141,11 @@ This was my first real commercial SaaS product and taught me a lot about buildin
   },
   {
     id: 'pharmacy-erp',
-    title: 'Pharmacy ERP System',
+    title: 'Pharmacy Enterprise ERP System',
     category: 'Full Stack • Live Product',
     year: '2025',
-    color: '#22c55e',
-    tags: ['React', 'Node.js', 'MongoDB', 'ERP', 'Multi-branch', 'Inventory'],
+    color: '#d4af37',
+    tags: ['React', 'Node.js', 'MongoDB'],
     summary: 'A multi-branch pharmacy inventory and sales management ERP system — live and in production.',
     description: `This is a fully live ERP system built for pharmacy businesses managing multiple branches. The system handles everything from inventory tracking to sales management across all branches from a single dashboard.
 
@@ -148,10 +173,10 @@ Seeing this project go live and being used by real pharmacy staff was one of the
   {
     id: 'gemotions',
     title: 'Gemotions — Rare Gems & Fine Jewelry',
-    category: 'Full Stack • E-Commerce',
+    category: 'Full Stack • Luxury E-Commerce',
     year: '2025',
-    color: '#a855f7',
-    tags: ['React', 'E-Commerce', 'Jewelry', 'Gems', 'Node.js', 'MongoDB'],
+    color: '#f5d77f',
+    tags: ['React', 'Node.js', 'MongoDB'],
     summary: 'A full e-commerce platform for rare gemstones and handcrafted fine jewelry — ethically sourced and lab certified.',
     description: `Gemotions is a live e-commerce store for rare gems and fine jewelry. The platform was built to give gem enthusiasts and jewelry lovers access to ethically sourced, lab certified gemstones from around the world.
 
@@ -181,8 +206,8 @@ I built the complete frontend and backend, including product catalog management,
     title: 'Pharmacy Management System',
     category: 'Full Stack • Group Project',
     year: '2025',
-    color: '#8b5cf6',
-    tags: ['SQL', 'MySQL', 'Web Design', 'Database Admin', 'Project Management'],
+    color: '#e5c07b',
+    tags: ['MySQL', 'HTML', 'CSS', 'JavaScript'],
     summary: 'A team-led pharmacy management system with database administration and full project coordination.',
     description: `This was a group project at Sliit City University where I took on the role of both developer and project coordinator. Managing a team while coding was a new challenge — I had to balance writing code and making sure the team stayed on track.
 
@@ -212,8 +237,8 @@ The system manages patient records, prescription tracking, stock management, and
     title: 'Supermarket Sales System',
     category: 'Backend • HND Project',
     year: '2023',
-    color: '#f59e0b',
-    tags: ['Python', 'Stock Management', 'Sales', 'CLI', 'Database'],
+    color: '#d4af37',
+    tags: ['Python'],
     summary: 'A Python-based supermarket management system with stock control and sales reporting.',
     description: `This was my HND Computing project at BCAS Campus. It was one of my earliest full projects and the one that made me fall in love with building real systems.
 
@@ -247,121 +272,156 @@ function ProjectCard({ project, index }) {
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+      transition={{ duration: 0.6, delay: index * 0.08 }}
       viewport={{ once: true }}
       style={{
-        background: 'rgba(15,23,42,0.7)',
-        border: '1px solid rgba(37,99,235,0.12)',
+        background: 'rgba(10, 16, 28, 0.75)',
+        backdropFilter: 'blur(16px)',
+        border: '1px solid rgba(212, 175, 55, 0.16)',
         borderRadius: '20px',
         overflow: 'hidden',
         marginBottom: '32px',
-        transition: 'border-color 0.3s',
+        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06)',
+        transition: 'all 0.3s ease',
       }}
-      onMouseEnter={e => { e.currentTarget.style.borderColor = project.color + '40' }}
-      onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(37,99,235,0.12)' }}
+      onMouseEnter={e => {
+        e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.45)'
+        e.currentTarget.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 175, 55, 0.12)'
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.16)'
+        e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06)'
+      }}
     >
-      {/* Top color bar */}
-      <div style={{ height: '3px', background: `linear-gradient(90deg, ${project.color}, ${project.color}40)` }} />
+      {/* Top gold bar */}
+      <div style={{ height: '3px', background: 'linear-gradient(90deg, #aa7c11, #d4af37, #f5d77f)' }} />
 
-      <div style={{ padding: 'clamp(20px, 4vw, 48px)' }}>
+      <div style={{ padding: 'clamp(22px, 4vw, 44px)' }}>
 
         {/* Header */}
         <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-start', gap: '16px', marginBottom: '20px' }}>
-          <div style={{ flex: 1, minWidth: '200px' }}>
+          <div style={{ flex: 1, minWidth: '220px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px', flexWrap: 'wrap' }}>
               <span style={{
                 fontFamily: 'var(--font-fira)', fontSize: '11px',
-                color: project.color, background: project.color + '15',
+                color: '#f5d77f', background: 'rgba(212, 175, 55, 0.12)',
                 padding: '3px 12px', borderRadius: '20px',
-                border: `1px solid ${project.color}30`,
+                border: '1px solid rgba(212, 175, 55, 0.3)',
+                fontWeight: 600,
               }}>
                 {project.year}
               </span>
-              <span style={{ fontFamily: 'var(--font-fira)', fontSize: '11px', color: '#475569' }}>
+              <span style={{ fontFamily: 'var(--font-fira)', fontSize: '11px', color: '#64748b' }}>
                 {project.category}
               </span>
               {project.live && (
                 <span style={{
                   fontFamily: 'var(--font-fira)', fontSize: '11px',
-                  color: '#22c55e', background: 'rgba(34,197,94,0.1)',
+                  color: '#22c55e', background: 'rgba(34, 197, 94, 0.12)',
                   padding: '3px 10px', borderRadius: '20px',
-                  border: '1px solid rgba(34,197,94,0.3)',
+                  border: '1px solid rgba(34, 197, 94, 0.35)',
                   display: 'flex', alignItems: 'center', gap: '5px',
+                  fontWeight: 600,
                 }}>
                   <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#22c55e', display: 'inline-block', boxShadow: '0 0 6px #22c55e' }} />
-                  Live
+                  Live Product
                 </span>
               )}
             </div>
-            <h2 style={{ fontSize: 'clamp(18px, 3vw, 26px)', fontWeight: 700, color: '#f1f5f9', marginBottom: '8px' }}>
+            <h2 style={{ fontSize: 'clamp(20px, 3vw, 26px)', fontWeight: 700, color: '#f8fafc', marginBottom: '8px' }}>
               {project.title}
             </h2>
-            <p style={{ fontSize: 'clamp(13px, 1.5vw, 15px)', color: '#64748b', lineHeight: 1.7 }}>
+            <p style={{ fontSize: 'clamp(13.5px, 1.5vw, 15px)', color: '#94a3b8', lineHeight: 1.75 }}>
               {project.summary}
             </p>
           </div>
 
           {/* Links */}
           <div style={{ display: 'flex', gap: '10px', flexShrink: 0 }}>
-            <a href={project.github} target="_blank" rel="noopener noreferrer"
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
               style={{
                 display: 'flex', alignItems: 'center', gap: '6px',
-                fontSize: '13px', color: '#60a5fa', textDecoration: 'none',
-                border: '1px solid rgba(37,99,235,0.3)', borderRadius: '8px',
-                padding: '8px 14px', transition: 'all 0.2s',
+                fontSize: '13px', color: '#f5d77f', textDecoration: 'none',
+                border: '1px solid rgba(212, 175, 55, 0.3)', borderRadius: '8px',
+                padding: '8px 14px', background: 'rgba(212, 175, 55, 0.05)',
+                transition: 'all 0.2s',
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(37,99,235,0.1)' }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}>
-              <FiGithub size={14} /> Code
+              onMouseEnter={e => {
+                e.currentTarget.style.background = 'rgba(212, 175, 55, 0.15)'
+                e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.6)'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = 'rgba(212, 175, 55, 0.05)'
+                e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.3)'
+              }}
+            >
+              <FiGithub size={14} /> Repository
             </a>
             {project.live && (
-              <a href={project.live} target="_blank" rel="noopener noreferrer"
+              <a
+                href={project.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="luxury-btn"
                 style={{
                   display: 'flex', alignItems: 'center', gap: '6px',
-                  fontSize: '13px', color: 'white', textDecoration: 'none',
-                  background: `linear-gradient(135deg, ${project.color}, ${project.color}90)`,
-                  borderRadius: '8px', padding: '8px 14px', transition: 'all 0.2s',
+                  fontSize: '13px', color: '#030712', textDecoration: 'none',
+                  background: 'linear-gradient(135deg, #f5d77f 0%, #d4af37 60%, #aa7c11 100%)',
+                  borderRadius: '8px', padding: '8px 16px', fontWeight: 700,
+                  boxShadow: '0 0 16px rgba(212, 175, 55, 0.35)',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.opacity = '0.85' }}
-                onMouseLeave={e => { e.currentTarget.style.opacity = '1' }}>
-                <ExternalLink size={14} /> Live Demo
+              >
+                <ExternalLink size={14} /> Live Application
               </a>
             )}
           </div>
         </div>
 
-        {/* Tags */}
+        {/* Tags with Real Brand Icons */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '24px' }}>
           {project.tags.map((tag, i) => (
-            <span key={i} style={{
-              fontFamily: 'var(--font-fira)', fontSize: '11px',
-              background: 'rgba(37,99,235,0.08)',
-              border: '1px solid rgba(37,99,235,0.15)',
-              color: '#60a5fa', borderRadius: '6px', padding: '3px 10px',
-            }}>
-              {tag}
+            <span
+              key={i}
+              style={{
+                fontFamily: 'var(--font-fira)',
+                fontSize: '11px',
+                background: 'rgba(255, 255, 255, 0.04)',
+                border: '1px solid rgba(212, 175, 55, 0.15)',
+                color: '#e2e8f0',
+                borderRadius: '6px',
+                padding: '4px 10px',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '5px',
+              }}
+            >
+              {tagIcons[tag]}
+              <span>{tag}</span>
             </span>
           ))}
         </div>
 
-        {/* Tech details */}
+        {/* Tech details matrix */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(170px, 1fr))',
           gap: '10px', marginBottom: '24px',
         }}>
           {project.techDetails.map((detail, i) => (
             <div key={i} style={{
-              background: 'rgba(5,11,24,0.5)',
-              border: '1px solid rgba(37,99,235,0.08)',
-              borderRadius: '10px', padding: '10px 14px',
+              background: 'rgba(8, 12, 22, 0.6)',
+              border: '1px solid rgba(212, 175, 55, 0.1)',
+              borderRadius: '10px', padding: '12px 14px',
             }}>
               <div style={{
-                fontSize: '10px', color: '#334155',
+                fontSize: '10px', color: '#64748b',
                 fontFamily: 'var(--font-fira)', letterSpacing: '1px',
                 textTransform: 'uppercase', marginBottom: '4px',
               }}>{detail.label}</div>
-              <div style={{ fontSize: '12px', color: '#94a3b8' }}>{detail.value}</div>
+              <div style={{ fontSize: '12.5px', color: '#f8fafc', fontWeight: 500 }}>{detail.value}</div>
             </div>
           ))}
         </div>
@@ -371,38 +431,44 @@ function ProjectCard({ project, index }) {
           onClick={() => setExpanded(!expanded)}
           style={{
             background: 'transparent',
-            border: `1px solid ${project.color}40`,
+            border: '1px solid rgba(212, 175, 55, 0.35)',
             borderRadius: '8px', padding: '10px 20px',
-            color: project.color, fontSize: '13px',
+            color: '#f5d77f', fontSize: '13px',
             cursor: 'pointer', fontFamily: 'var(--font-fira)',
             transition: 'all 0.2s',
             marginBottom: expanded ? '24px' : '0',
           }}
-          onMouseEnter={e => { e.currentTarget.style.background = project.color + '10' }}
-          onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}
+          onMouseEnter={e => {
+            e.currentTarget.style.background = 'rgba(212, 175, 55, 0.1)'
+            e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.7)'
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.background = 'transparent'
+            e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.35)'
+          }}
         >
-          {expanded ? '▲ Show Less' : '▼ Read Full Case Study'}
+          {expanded ? '▲ Hide Blueprint Details' : '▼ View Deep Architecture & Notes'}
         </button>
 
         {/* Expanded content */}
         {expanded && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.35 }}
           >
-            <div style={{ marginBottom: '24px' }}>
+            <div style={{ marginBottom: '24px', marginTop: '16px' }}>
               <h3 style={{
-                fontSize: '14px', fontWeight: 600, color: '#e2e8f0',
-                marginBottom: '16px', fontFamily: 'var(--font-fira)',
-                color: project.color,
+                fontSize: '13.5px', fontWeight: 600,
+                marginBottom: '14px', fontFamily: 'var(--font-fira)',
+                color: '#f5d77f', letterSpacing: '1px', textTransform: 'uppercase'
               }}>
-                {'// about this project'}
+                {'// Technical Implementation'}
               </h3>
               {project.description.split('\n\n').map((para, i) => (
                 <p key={i} style={{
-                  fontSize: 'clamp(13px, 1.5vw, 15px)',
-                  color: '#64748b', lineHeight: 1.9, marginBottom: '16px',
+                  fontSize: 'clamp(13.5px, 1.5vw, 15px)',
+                  color: '#cbd5e1', lineHeight: 1.9, marginBottom: '16px',
                 }}>
                   {para}
                 </p>
@@ -411,21 +477,21 @@ function ProjectCard({ project, index }) {
 
             <div>
               <h3 style={{
-                fontSize: '14px', fontWeight: 600,
-                marginBottom: '16px', fontFamily: 'var(--font-fira)',
-                color: project.color,
+                fontSize: '13.5px', fontWeight: 600,
+                marginBottom: '14px', fontFamily: 'var(--font-fira)',
+                color: '#f5d77f', letterSpacing: '1px', textTransform: 'uppercase'
               }}>
-                {'// key features'}
+                {'// Architectural Highlights'}
               </h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 {project.highlights.map((h, i) => (
-                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <div style={{
                       width: '6px', height: '6px', borderRadius: '50%',
-                      background: project.color, flexShrink: 0,
-                      boxShadow: `0 0 8px ${project.color}`,
+                      background: '#d4af37', flexShrink: 0,
+                      boxShadow: '0 0 8px #d4af37',
                     }} />
-                    <span style={{ fontSize: 'clamp(12px, 1.5vw, 14px)', color: '#94a3b8' }}>{h}</span>
+                    <span style={{ fontSize: 'clamp(13px, 1.5vw, 14.5px)', color: '#94a3b8' }}>{h}</span>
                   </div>
                 ))}
               </div>
@@ -439,102 +505,120 @@ function ProjectCard({ project, index }) {
 
 export default function ProjectsBlog() {
   return (
-    <div style={{ background: '#050b18', minHeight: '100vh', color: '#e2e8f0' }}>
+    <div style={{ background: '#030712', minHeight: '100vh', color: '#e2e8f0' }}>
 
       {/* Grid background */}
       <div style={{
         position: 'fixed', inset: 0,
-        backgroundImage: `linear-gradient(rgba(37,99,235,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(37,99,235,0.03) 1px, transparent 1px)`,
-        backgroundSize: '40px 40px', pointerEvents: 'none', zIndex: 0,
+        backgroundImage: `linear-gradient(rgba(212, 175, 55, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(212, 175, 55, 0.02) 1px, transparent 1px)`,
+        backgroundSize: '48px 48px', pointerEvents: 'none', zIndex: 0,
       }} />
 
-      {/* Glow orbs */}
-      <div style={{ position: 'fixed', borderRadius: '50%', width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(37,99,235,0.08) 0%, transparent 70%)', top: '-100px', right: '-100px', pointerEvents: 'none', zIndex: 0 }} />
-      <div style={{ position: 'fixed', borderRadius: '50%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(139,92,246,0.06) 0%, transparent 70%)', bottom: '10%', left: '-100px', pointerEvents: 'none', zIndex: 0 }} />
+      {/* Luxury glow orbs */}
+      <div style={{ position: 'fixed', borderRadius: '50%', width: '600px', height: '600px', background: 'radial-gradient(circle, rgba(212, 175, 55, 0.06) 0%, transparent 70%)', top: '-120px', right: '-100px', pointerEvents: 'none', zIndex: 0 }} />
+      <div style={{ position: 'fixed', borderRadius: '50%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(59, 130, 246, 0.04) 0%, transparent 70%)', bottom: '10%', left: '-100px', pointerEvents: 'none', zIndex: 0 }} />
 
       {/* Navbar */}
       <nav style={{
         position: 'sticky', top: 0, zIndex: 100,
         padding: '0 clamp(20px, 5vw, 80px)',
-        height: '64px', display: 'flex',
+        height: '70px', display: 'flex',
         alignItems: 'center', justifyContent: 'space-between',
-        background: 'rgba(5,11,24,0.9)',
-        backdropFilter: 'blur(12px)',
-        borderBottom: '1px solid rgba(37,99,235,0.1)',
+        background: 'rgba(3, 7, 18, 0.9)',
+        backdropFilter: 'blur(16px)',
+        borderBottom: '1px solid rgba(212, 175, 55, 0.15)',
       }}>
         <Link href="/" style={{
           display: 'flex', alignItems: 'center', gap: '8px',
-          color: '#60a5fa', textDecoration: 'none',
-          fontSize: '14px', fontFamily: 'var(--font-fira)',
-          transition: 'color 0.2s',
+          color: '#f5d77f', textDecoration: 'none',
+          fontSize: '13.5px', fontFamily: 'var(--font-fira)',
+          transition: 'all 0.2s',
+          fontWeight: 600,
         }}
-        onMouseEnter={e => { e.currentTarget.style.color = '#93c5fd' }}
-        onMouseLeave={e => { e.currentTarget.style.color = '#60a5fa' }}>
+        onMouseEnter={e => { e.currentTarget.style.color = '#fff7d6' }}
+        onMouseLeave={e => { e.currentTarget.style.color = '#f5d77f' }}>
           <ArrowLeft size={16} /> Back to Portfolio
         </Link>
 
         <span style={{
           fontFamily: 'var(--font-fira)', fontSize: '18px', fontWeight: 700,
-          color: '#60a5fa', letterSpacing: '2px',
-          textShadow: '0 0 12px rgba(96,165,250,0.7)',
+          letterSpacing: '2px',
+          background: 'linear-gradient(135deg, #fff7d6 0%, #f5d77f 40%, #d4af37 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          textShadow: '0 0 16px rgba(212, 175, 55, 0.3)',
         }}>
           &lt;IA /&gt;
         </span>
       </nav>
 
-      {/* Content */}
+      {/* Main Content */}
       <div style={{
         position: 'relative', zIndex: 1,
-        maxWidth: '900px', margin: '0 auto',
+        maxWidth: '960px', margin: '0 auto',
         padding: 'clamp(40px, 6vw, 80px) clamp(20px, 4vw, 40px)',
       }}>
 
-        {/* Page heading */}
+        {/* Page Heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           style={{ marginBottom: '60px' }}
         >
-          <p style={{
-            fontFamily: 'var(--font-fira)', fontSize: '12px',
-            color: '#3b82f6', letterSpacing: '4px',
-            textTransform: 'uppercase', marginBottom: '12px',
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            background: 'rgba(212, 175, 55, 0.08)',
+            border: '1px solid rgba(212, 175, 55, 0.25)',
+            borderRadius: '999px',
+            padding: '6px 18px',
+            marginBottom: '16px',
           }}>
-            {'// my work'}
-          </p>
+            <Sparkles size={13} color="#d4af37" />
+            <span style={{
+              fontFamily: 'var(--font-fira)',
+              fontSize: '11px',
+              color: '#f5d77f',
+              letterSpacing: '2.5px',
+              textTransform: 'uppercase',
+              fontWeight: 600,
+            }}>
+              Engineering Blueprints
+            </span>
+          </div>
+
           <h1 style={{
-            fontSize: 'clamp(28px, 5vw, 52px)', fontWeight: 700,
-            color: '#f1f5f9', lineHeight: 1.1, marginBottom: '16px',
+            fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 700,
+            color: '#f8fafc', lineHeight: 1.1, marginBottom: '16px', letterSpacing: '-0.02em'
           }}>
             Project{' '}
-            <span style={{
-              background: 'linear-gradient(90deg, #3b82f6, #06b6d4)',
-              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
-            }}>
-              Showcase
+            <span className="gold-text-gradient">
+              Case Studies
             </span>
           </h1>
-          <p style={{ fontSize: 'clamp(13px, 1.5vw, 16px)', color: '#64748b', lineHeight: 1.8, maxWidth: '600px' }}>
-            A deep dive into everything I have built — the problems, the solutions, the tech stack, and what I learned along the way.
+          <p style={{ fontSize: 'clamp(14px, 1.5vw, 16.5px)', color: '#94a3b8', lineHeight: 1.8, maxWidth: '640px' }}>
+            A comprehensive technical breakdown of flagship architectures — problems addressed, engineering design patterns, tech stack ecosystems, and production takeaways.
           </p>
 
           {/* Stats row */}
-          <div style={{ display: 'flex', gap: '24px', marginTop: '32px', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', gap: '18px', marginTop: '36px', flexWrap: 'wrap' }}>
             {[
-              { value: '8', label: 'Projects Built' },
-              { value: '3', label: 'Live Products' },
-              { value: '3+', label: 'Years Experience' },
+              { value: '7', label: 'Engineered Systems' },
+              { value: '3', label: 'Live Deployments' },
+              { value: '3+', label: 'Years Engineering' },
             ].map((stat, i) => (
               <div key={i} style={{
-                background: 'rgba(15,23,42,0.7)',
-                border: '1px solid rgba(37,99,235,0.12)',
-                borderRadius: '12px', padding: '16px 24px',
+                background: 'rgba(10, 16, 28, 0.8)',
+                backdropFilter: 'blur(12px)',
+                border: '1px solid rgba(212, 175, 55, 0.15)',
+                borderRadius: '14px', padding: '18px 24px',
                 position: 'relative', overflow: 'hidden',
               }}>
-                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, #2563eb, #06b6d4)' }} />
-                <div style={{ fontSize: '24px', fontWeight: 700, background: 'linear-gradient(90deg, #3b82f6, #06b6d4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{stat.value}</div>
-                <div style={{ fontSize: '12px', color: '#475569' }}>{stat.label}</div>
+                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg, #aa7c11, #d4af37, #f5d77f)' }} />
+                <div className="gold-text-gradient" style={{ fontSize: '26px', fontWeight: 800 }}>{stat.value}</div>
+                <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: 500 }}>{stat.label}</div>
               </div>
             ))}
           </div>
@@ -551,19 +635,17 @@ export default function ProjectsBlog() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          style={{ textAlign: 'center', marginTop: '20px' }}
+          style={{ textAlign: 'center', marginTop: '40px' }}
         >
-          <Link href="/" style={{
+          <Link href="/" className="luxury-btn" style={{
             display: 'inline-flex', alignItems: 'center', gap: '8px',
-            color: '#60a5fa', textDecoration: 'none',
-            fontFamily: 'var(--font-fira)', fontSize: '14px',
-            border: '1px solid rgba(37,99,235,0.3)',
-            borderRadius: '8px', padding: '12px 24px',
-            transition: 'all 0.2s',
-          }}
-          onMouseEnter={e => { e.currentTarget.style.background = 'rgba(37,99,235,0.1)' }}
-          onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}>
-            <ArrowLeft size={16} /> Back to Portfolio
+            color: '#030712', textDecoration: 'none',
+            fontFamily: 'var(--font-fira)', fontSize: '14px', fontWeight: 700,
+            background: 'linear-gradient(135deg, #f5d77f 0%, #d4af37 60%, #aa7c11 100%)',
+            borderRadius: '10px', padding: '14px 28px',
+            boxShadow: '0 0 24px rgba(212, 175, 55, 0.35)',
+          }}>
+            <ArrowLeft size={16} /> Return to Main Portfolio
           </Link>
         </motion.div>
       </div>

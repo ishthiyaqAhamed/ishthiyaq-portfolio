@@ -1,71 +1,87 @@
 'use client'
 import { motion } from 'framer-motion'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, ExternalLink, Sparkles } from 'lucide-react'
 import { FiGithub } from 'react-icons/fi'
+import { 
+  SiReact, SiNextdotjs, SiNodedotjs, SiMongodb, SiPostgresql, 
+  SiSupabase, SiPrisma, SiTailwindcss, SiTypescript 
+} from 'react-icons/si'
 import { useWindowSize } from '../../hooks/useWindowSize'
 import Link from 'next/link'
 
+const tagIcons = {
+  'React': <SiReact size={12} color="#61DAFB" />,
+  'Next.js': <SiNextdotjs size={12} color="#FFFFFF" />,
+  'Node.js': <SiNodedotjs size={12} color="#68A063" />,
+  'MongoDB': <SiMongodb size={12} color="#47A248" />,
+  'PostgreSQL': <SiPostgresql size={12} color="#4169E1" />,
+  'TypeScript': <SiTypescript size={12} color="#3178C6" />,
+  'Supabase': <SiSupabase size={12} color="#3ECF8E" />,
+  'Prisma': <SiPrisma size={12} color="#5A67D8" />,
+  'Tailwind': <SiTailwindcss size={12} color="#38BDF8" />,
+}
+
 const projects = [
   {
-    title: 'Pharmacy ERP System',
-    category: 'Full Stack • Live Product',
-    description: 'A multi-branch pharmacy inventory and sales management ERP system. Handles everything from stock tracking to sales management across all branches from a single dashboard with secure role-based access.',
-    tags: ['React', 'Node.js', 'MongoDB', 'ERP', 'Multi-branch', 'Inventory'],
-    color: '#22c55e',
-    year: '2025',
-    github: 'https://github.com/ishthiyaqAhamed',
-    live: 'https://pharmacy-erp-lime.vercel.app/',
-    highlights: [
-      'Multi-branch inventory management',
-      'Real-time stock level monitoring',
-      'Secure role-based authentication',
-    ],
-    featured: true,
-  },
-  {
-    title: 'Gemotions — Rare Gems & Jewelry',
-    category: 'Full Stack • E-Commerce',
-    description: 'A full e-commerce platform for rare gemstones and handcrafted fine jewelry. Ethically sourced, lab certified gems with a premium shopping experience, advanced filtering, and a full admin dashboard.',
-    tags: ['React', 'Node.js', 'MongoDB', 'E-Commerce', 'Jewelry'],
-    color: '#a855f7',
-    year: '2025',
-    github: 'https://github.com/ishthiyaqAhamed',
-    live: 'https://gemotions.shop/',
-    highlights: [
-      'Full e-commerce shopping experience',
-      'Advanced filtering by gem type and price',
-      'Admin dashboard for inventory and orders',
-    ],
-    featured: true,
-  },
-    {
-    title: 'NovaFlow — CRM Platform',
-    category: 'Full Stack SaaS • Personal Project',
-    description: 'A production-ready multi-tenant SaaS CRM with GPT-4o AI Copilot, 7-stage Kanban pipeline, isolated workspaces, role-based team invitations, and a Super Admin observability portal.',
-    tags: ['Next.js', 'TypeScript', 'Supabase', 'PostgreSQL', 'Prisma', 'OpenAI', 'Tailwind'],
-    color: '#3b82f6',
+    title: 'NovaFlow — Multi-Tenant SaaS CRM',
+    category: 'Enterprise SaaS • Production',
+    description: 'A production-grade multi-tenant CRM engine with embedded GPT-4o sales copilot, 7-stage Kanban pipeline, team role isolation, and a Super Admin observability portal.',
+    tags: ['Next.js', 'TypeScript', 'Supabase', 'PostgreSQL', 'Prisma', 'Tailwind'],
+    color: '#d4af37',
     year: '2025',
     github: 'https://github.com/ishthiyaqAhamed',
     live: 'https://novaflowpro.online',
     highlights: [
-      'GPT-4o AI Copilot for sales recommendations',
-      'Multi-tenant SaaS with isolated workspaces',
-      '7-stage Kanban deal pipeline',
+      'GPT-4o Copilot analyzing live pipeline metrics',
+      'Isolated multi-tenant database workspaces',
+      'Super Admin platform observability & telemetry',
     ],
     featured: true,
   },
   {
-    title: 'Food Marketplace Platform',
-    category: 'Full Stack • Undergraduate Project',
-    description: 'A full-stack food delivery platform connecting homemade food entrepreneurs with customers. Built with real-time ordering and delivery route optimization using Dijkstra\'s Algorithm.',
-    tags: ['MongoDB', 'Express', 'React', 'Node.js', 'Dijkstra', 'Real-time'],
-    color: '#06b6d4',
+    title: 'Pharmacy Enterprise ERP System',
+    category: 'Full Stack • Commercial ERP',
+    description: 'A multi-branch pharmacy inventory, procurement, and billing management ERP. Handles automated stock level synchronization, batch tracking, and sales audits.',
+    tags: ['React', 'Node.js', 'MongoDB'],
+    color: '#f5d77f',
+    year: '2025',
+    github: 'https://github.com/ishthiyaqAhamed',
+    live: 'https://pharmacy-erp-lime.vercel.app/',
+    highlights: [
+      'Multi-branch distributed stock control',
+      'Real-time automated low-inventory alerts',
+      'Granular role-based security & auditing',
+    ],
+    featured: true,
+  },
+  {
+    title: 'Gemotions — Haute Horlogerie & Gems',
+    category: 'Full Stack • Luxury E-Commerce',
+    description: 'A bespoke e-commerce boutique for rare, certified gemstones and fine handcrafted jewelry with high-fidelity filtering, secure payments, and inventory management.',
+    tags: ['React', 'Node.js', 'MongoDB'],
+    color: '#c5a880',
+    year: '2025',
+    github: 'https://github.com/ishthiyaqAhamed',
+    live: 'https://gemotions.shop/',
+    highlights: [
+      'Editorial luxury customer journey',
+      'Advanced multi-parameter gemstone filtering',
+      'Comprehensive administrative store portal',
+    ],
+    featured: true,
+  },
+  {
+    title: 'Route-Optimized Food Marketplace',
+    category: 'Full Stack • Undergrad Thesis',
+    description: 'A real-time artisan food delivery marketplace featuring Dijkstra Algorithm shortest-path delivery routing and WebSockets live order tracking.',
+    tags: ['React', 'Node.js', 'MongoDB'],
+    color: '#e5c07b',
     year: '2024 – 2025',
     github: 'https://github.com/ishthiyaqAhamed',
     live: null,
     highlights: [
-      'Real-time order tracking with WebSockets',
-      'Dijkstra Algorithm for route optimization',
+      'Real-time WebSocket order dispatcher',
+      'Dijkstra graph shortest route computation',
       'Multi-vendor marketplace architecture',
     ],
     featured: false,
@@ -79,133 +95,299 @@ export default function Projects() {
 
   return (
     <section id="projects" style={{ padding: pad, position: 'relative', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', borderRadius: '50%', width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(37,99,235,0.07) 0%, transparent 70%)', top: '10%', right: '-150px', pointerEvents: 'none' }} />
+      {/* Luxury Ambient Glow Elements */}
+      <div style={{
+        position: 'absolute',
+        borderRadius: '50%',
+        width: '500px',
+        height: '500px',
+        background: 'radial-gradient(circle, rgba(212, 175, 55, 0.06) 0%, transparent 70%)',
+        top: '10%',
+        right: '-150px',
+        pointerEvents: 'none',
+      }} />
 
-      <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} style={{ marginBottom: '60px' }}>
-        <p style={{ fontFamily: 'var(--font-fira)', fontSize: '12px', color: '#3b82f6', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '12px' }}>{'// what i have built'}</p>
-        <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 700, color: '#f1f5f9' }}>
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 35 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+        style={{ marginBottom: '60px' }}
+      >
+        <div style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '8px',
+          background: 'rgba(212, 175, 55, 0.08)',
+          border: '1px solid rgba(212, 175, 55, 0.25)',
+          borderRadius: '999px',
+          padding: '6px 18px',
+          marginBottom: '16px',
+        }}>
+          <Sparkles size={13} color="#d4af37" />
+          <span style={{
+            fontFamily: 'var(--font-fira)',
+            fontSize: '11px',
+            color: '#f5d77f',
+            letterSpacing: '2.5px',
+            textTransform: 'uppercase',
+            fontWeight: 600,
+          }}>
+            Selected Works
+          </span>
+        </div>
+        <h2 style={{ fontSize: 'clamp(32px, 4.5vw, 54px)', fontWeight: 700, color: '#f8fafc', letterSpacing: '-0.02em', lineHeight: 1.15 }}>
           Featured{' '}
-          <span style={{ background: 'linear-gradient(90deg, #3b82f6, #06b6d4)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Projects</span>
+          <span className="gold-text-gradient">
+            Engineering Projects
+          </span>
         </h2>
       </motion.div>
 
-      {/* All projects in responsive grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: isSmall ? '1fr' : 'repeat(2, 1fr)', gap: '24px' }}>
+      {/* Projects Grid */}
+      <div style={{ display: 'grid', gridTemplateColumns: isSmall ? '1fr' : 'repeat(2, 1fr)', gap: '28px' }}>
         {projects.map((project, i) => (
-          <motion.div key={i}
+          <motion.div
+            key={i}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: i * 0.1 }}
             viewport={{ once: true }}
             whileHover={{ y: -6 }}
             style={{
-              background: 'rgba(15,23,42,0.7)',
-              border: '1px solid rgba(37,99,235,0.12)',
-              borderRadius: '20px', overflow: 'hidden',
-              display: 'flex', flexDirection: 'column',
-              transition: 'border-color 0.3s',
+              background: 'rgba(10, 16, 28, 0.75)',
+              backdropFilter: 'blur(16px)',
+              border: '1px solid rgba(212, 175, 55, 0.16)',
+              borderRadius: '20px',
+              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06)',
+              transition: 'all 0.3s ease',
             }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = project.color + '40' }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(37,99,235,0.12)' }}
+            onMouseEnter={e => {
+              e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.45)'
+              e.currentTarget.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 175, 55, 0.12)'
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.16)'
+              e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06)'
+            }}
           >
-            {/* Top color bar */}
-            <div style={{ height: '3px', background: `linear-gradient(90deg, ${project.color}, ${project.color}60)` }} />
+            {/* Top gold accent line */}
+            <div style={{ height: '3px', background: 'linear-gradient(90deg, #aa7c11, #d4af37, #f5d77f)' }} />
 
-            {/* Mock browser */}
-            <div style={{ background: `linear-gradient(135deg, ${project.color}12, transparent)`, padding: '24px 24px 0', display: 'flex', justifyContent: 'center' }}>
-              <div style={{ width: '100%', maxWidth: '360px', background: 'rgba(5,11,24,0.9)', border: `1px solid ${project.color}25`, borderRadius: '10px 10px 0 0', overflow: 'hidden' }}>
-                <div style={{ background: 'rgba(15,23,42,0.95)', padding: '8px 12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            {/* Mock browser visual header */}
+            <div style={{
+              background: 'linear-gradient(180deg, rgba(212, 175, 55, 0.06) 0%, transparent 100%)',
+              padding: '24px 24px 0',
+              display: 'flex',
+              justifyContent: 'center',
+            }}>
+              <div style={{
+                width: '100%',
+                maxWidth: '420px',
+                background: 'rgba(5, 8, 16, 0.95)',
+                border: '1px solid rgba(212, 175, 55, 0.2)',
+                borderRadius: '12px 12px 0 0',
+                overflow: 'hidden',
+              }}>
+                <div style={{
+                  background: 'rgba(12, 18, 32, 0.98)',
+                  padding: '10px 14px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  borderBottom: '1px solid rgba(212, 175, 55, 0.1)',
+                }}>
                   {['#ff5f57', '#febc2e', '#28c840'].map((c, idx) => (
                     <div key={idx} style={{ width: '8px', height: '8px', borderRadius: '50%', background: c }} />
                   ))}
-                  <div style={{ flex: 1, background: 'rgba(37,99,235,0.1)', borderRadius: '3px', padding: '2px 8px', fontFamily: 'var(--font-fira)', fontSize: '9px', color: '#475569', marginLeft: '6px' }}>
-                    {project.title.toLowerCase().replace(/ /g, '-')}.app
+                  <div style={{
+                    flex: 1,
+                    background: 'rgba(212, 175, 55, 0.08)',
+                    borderRadius: '4px',
+                    padding: '3px 10px',
+                    fontFamily: 'var(--font-fira)',
+                    fontSize: '10px',
+                    color: '#f5d77f',
+                    marginLeft: '8px',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}>
+                    https://{project.title.toLowerCase().replace(/[^a-z0-9]/g, '-')}.app
                   </div>
                 </div>
+
                 <div style={{ padding: '16px' }}>
-                  <div style={{ height: '7px', background: project.color + '30', borderRadius: '4px', marginBottom: '8px', width: '55%' }} />
-                  <div style={{ height: '5px', background: 'rgba(255,255,255,0.05)', borderRadius: '4px', marginBottom: '6px' }} />
-                  <div style={{ height: '5px', background: 'rgba(255,255,255,0.05)', borderRadius: '4px', marginBottom: '6px', width: '75%' }} />
-                  <div style={{ height: '5px', background: 'rgba(255,255,255,0.05)', borderRadius: '4px', marginBottom: '12px', width: '60%' }} />
-                  <div style={{ display: 'flex', gap: '6px' }}>
-                    <div style={{ height: '24px', flex: 1, background: project.color + '20', borderRadius: '5px', border: `1px solid ${project.color}35` }} />
-                    <div style={{ height: '24px', width: '50px', background: 'rgba(255,255,255,0.03)', borderRadius: '5px' }} />
+                  <div style={{ height: '8px', background: 'linear-gradient(90deg, #d4af37, #aa7c11)', borderRadius: '4px', marginBottom: '10px', width: '60%' }} />
+                  <div style={{ height: '5px', background: 'rgba(255, 255, 255, 0.06)', borderRadius: '4px', marginBottom: '6px' }} />
+                  <div style={{ height: '5px', background: 'rgba(255, 255, 255, 0.06)', borderRadius: '4px', marginBottom: '6px', width: '80%' }} />
+                  <div style={{ height: '5px', background: 'rgba(255, 255, 255, 0.06)', borderRadius: '4px', marginBottom: '14px', width: '65%' }} />
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <div style={{ height: '24px', flex: 1, background: 'rgba(212, 175, 55, 0.12)', borderRadius: '6px', border: '1px solid rgba(212, 175, 55, 0.3)' }} />
+                    <div style={{ height: '24px', width: '60px', background: 'rgba(255, 255, 255, 0.04)', borderRadius: '6px' }} />
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Content */}
-            <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', flex: 1 }}>
+            {/* Project Details */}
+            <div style={{ padding: '26px', display: 'flex', flexDirection: 'column', gap: '18px', flex: 1 }}>
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px', flexWrap: 'wrap' }}>
-                  <span style={{ fontFamily: 'var(--font-fira)', fontSize: '11px', color: project.color, background: project.color + '15', padding: '3px 10px', borderRadius: '20px', border: `1px solid ${project.color}30` }}>{project.year}</span>
-                  <span style={{ fontFamily: 'var(--font-fira)', fontSize: '11px', color: '#334155' }}>{project.category}</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px', flexWrap: 'wrap' }}>
+                  <span style={{
+                    fontFamily: 'var(--font-fira)', fontSize: '11px', color: '#f5d77f',
+                    background: 'rgba(212, 175, 55, 0.12)', padding: '3px 10px',
+                    borderRadius: '20px', border: '1px solid rgba(212, 175, 55, 0.3)',
+                    fontWeight: 600,
+                  }}>
+                    {project.year}
+                  </span>
+                  <span style={{ fontFamily: 'var(--font-fira)', fontSize: '11px', color: '#64748b' }}>
+                    {project.category}
+                  </span>
                 </div>
-                <h3 style={{ fontSize: 'clamp(15px, 2vw, 18px)', fontWeight: 700, color: '#f1f5f9', marginBottom: '10px' }}>{project.title}</h3>
-                <p style={{ fontSize: '13px', color: '#64748b', lineHeight: 1.8 }}>{project.description}</p>
+                <h3 style={{ fontSize: 'clamp(17px, 2.2vw, 20px)', fontWeight: 700, color: '#f8fafc', marginBottom: '10px', lineHeight: 1.3 }}>
+                  {project.title}
+                </h3>
+                <p style={{ fontSize: '13.5px', color: '#94a3b8', lineHeight: 1.75 }}>
+                  {project.description}
+                </p>
               </div>
 
               {/* Highlights */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
                 {project.highlights.map((h, j) => (
-                  <div key={j} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: project.color, flexShrink: 0, boxShadow: `0 0 6px ${project.color}` }} />
-                    <span style={{ fontSize: '12px', color: '#94a3b8' }}>{h}</span>
+                  <div key={j} style={{ display: 'flex', alignItems: 'center', gap: '9px' }}>
+                    <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#d4af37', flexShrink: 0, boxShadow: '0 0 6px #d4af37' }} />
+                    <span style={{ fontSize: '12.5px', color: '#cbd5e1' }}>{h}</span>
                   </div>
                 ))}
               </div>
 
-              {/* Tags */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+              {/* Tags with Real Brand Icons */}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '7px' }}>
                 {project.tags.map((tag, j) => (
-                  <span key={j} style={{ fontFamily: 'var(--font-fira)', fontSize: '10px', background: 'rgba(37,99,235,0.08)', border: '1px solid rgba(37,99,235,0.15)', color: '#60a5fa', borderRadius: '5px', padding: '2px 8px' }}>{tag}</span>
+                  <span
+                    key={j}
+                    style={{
+                      fontFamily: 'var(--font-fira)',
+                      fontSize: '11px',
+                      background: 'rgba(255, 255, 255, 0.04)',
+                      border: '1px solid rgba(212, 175, 55, 0.15)',
+                      color: '#e2e8f0',
+                      borderRadius: '6px',
+                      padding: '4px 9px',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '5px',
+                    }}
+                  >
+                    {tagIcons[tag]}
+                    <span>{tag}</span>
+                  </span>
                 ))}
               </div>
 
-              {/* Link */}
-              <a href={project.github} target="_blank" rel="noopener noreferrer"
-                style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '13px', color: '#60a5fa', textDecoration: 'none', border: '1px solid rgba(37,99,235,0.3)', borderRadius: '8px', padding: '8px 16px', width: 'fit-content', transition: 'all 0.2s', marginTop: 'auto' }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(37,99,235,0.1)'; e.currentTarget.style.borderColor = 'rgba(37,99,235,0.6)' }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(37,99,235,0.3)' }}>
-                <FiGithub size={14} /> View Code
-              </a>
+              {/* Action Links */}
+              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginTop: 'auto', paddingTop: '10px' }}>
+                {project.live && (
+                  <a
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="luxury-btn"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '7px',
+                      fontSize: '12.5px',
+                      fontWeight: 700,
+                      color: '#030712',
+                      background: 'linear-gradient(135deg, #f5d77f 0%, #d4af37 60%, #aa7c11 100%)',
+                      borderRadius: '8px',
+                      padding: '9px 18px',
+                      textDecoration: 'none',
+                      boxShadow: '0 0 16px rgba(212, 175, 55, 0.3)',
+                    }}
+                  >
+                    <ExternalLink size={14} /> Live Application
+                  </a>
+                )}
+
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '7px',
+                    fontSize: '12.5px',
+                    color: '#f5d77f',
+                    textDecoration: 'none',
+                    border: '1px solid rgba(212, 175, 55, 0.3)',
+                    borderRadius: '8px',
+                    padding: '8px 16px',
+                    background: 'rgba(212, 175, 55, 0.05)',
+                    transition: 'all 0.2s',
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.background = 'rgba(212, 175, 55, 0.15)'
+                    e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.6)'
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.background = 'rgba(212, 175, 55, 0.05)'
+                    e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.3)'
+                  }}
+                >
+                  <FiGithub size={14} /> Code Repository
+                </a>
+              </div>
             </div>
           </motion.div>
         ))}
       </div>
-            {/* Explore All Projects Button */}
+
+      {/* Explore All Projects CTA */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        style={{ textAlign: 'center', marginTop: '48px' }}
+        style={{ textAlign: 'center', marginTop: '60px' }}
       >
         <p style={{
           fontFamily: 'var(--font-fira)', fontSize: '13px',
-          color: '#475569', marginBottom: '20px',
+          color: '#64748b', marginBottom: '20px',
         }}>
-          Want to know more about how I built these?
+          Interested in architecture decisions and technical blueprints?
         </p>
-        <Link href="/projects" style={{
-          display: 'inline-flex', alignItems: 'center', gap: '10px',
-          background: 'linear-gradient(135deg, #2563eb, #0891b2)',
-          borderRadius: '10px', padding: 'clamp(12px, 2vw, 14px) clamp(24px, 4vw, 36px)',
-          color: 'white', fontSize: 'clamp(13px, 1.5vw, 15px)', fontWeight: 600,
-          textDecoration: 'none',
-          boxShadow: '0 0 24px rgba(37,99,235,0.35)',
-          transition: 'all 0.2s',
-        }}
-        onMouseEnter={e => {
-          e.currentTarget.style.transform = 'translateY(-2px)'
-          e.currentTarget.style.boxShadow = '0 0 40px rgba(37,99,235,0.55)'
-        }}
-        onMouseLeave={e => {
-          e.currentTarget.style.transform = 'translateY(0)'
-          e.currentTarget.style.boxShadow = '0 0 24px rgba(37,99,235,0.35)'
-        }}>
-          Explore All Projects
+        <Link
+          href="/projects"
+          className="luxury-btn"
+          style={{
+            display: 'inline-flex', alignItems: 'center', gap: '10px',
+            background: 'linear-gradient(135deg, #f5d77f 0%, #d4af37 60%, #aa7c11 100%)',
+            borderRadius: '12px', padding: 'clamp(14px, 2vw, 16px) clamp(28px, 4vw, 40px)',
+            color: '#030712', fontSize: 'clamp(14px, 1.5vw, 15px)', fontWeight: 700,
+            textDecoration: 'none',
+            boxShadow: '0 0 28px rgba(212, 175, 55, 0.4)',
+            transition: 'all 0.25s',
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.transform = 'translateY(-2px)'
+            e.currentTarget.style.boxShadow = '0 0 45px rgba(212, 175, 55, 0.65)'
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.transform = 'translateY(0)'
+            e.currentTarget.style.boxShadow = '0 0 28px rgba(212, 175, 55, 0.4)'
+          }}
+        >
+          <span>Explore Detailed Case Studies</span>
           <ArrowUpRight size={18} />
         </Link>
       </motion.div>
