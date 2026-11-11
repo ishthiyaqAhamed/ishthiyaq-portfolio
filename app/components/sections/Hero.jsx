@@ -4,7 +4,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { ArrowDown, ArrowRight, Download } from 'lucide-react'
+import { ArrowRight, Download } from 'lucide-react'
 import MagneticButton from './hero/MagneticButton'
 import styles from './hero/Hero.module.css'
 
@@ -32,8 +32,6 @@ export default function Hero() {
 
   const sectionRef = useRef(null)
   const registerLineRef = useRef(null)
-  const topBarRef = useRef(null)
-  const topHairlineRef = useRef(null)
 
   const signatureWrapRef = useRef(null)
   const signaturePathRef = useRef(null)
@@ -86,8 +84,6 @@ export default function Hero() {
         gsap.set(
           [
             registerLineRef.current,
-            topBarRef.current,
-            topHairlineRef.current,
             signatureWrapRef.current,
             bandRuleTopRef.current,
             bandRuleBottomRef.current,
@@ -114,8 +110,6 @@ export default function Hero() {
 
       // Initial concealed composition on minimal black canvas
       gsap.set(registerLineRef.current, { scaleY: 0 })
-      gsap.set(topHairlineRef.current, { scaleX: 0 })
-      gsap.set(topBarRef.current, { opacity: 0, y: -6 })
 
       gsap.set(signatureWrapRef.current, {
         clipPath: 'inset(0 100% 0 0)',
@@ -133,14 +127,16 @@ export default function Hero() {
         clipPath: 'inset(0 0 100% 0)',
         opacity: 0,
         scale: 0.94,
-        '--char-wght': 420,
+        '--char-wght': 400,
       })
 
       gsap.set([bandRuleTopRef.current, bandRuleBottomRef.current], { scaleX: 0 })
       gsap.set(roleSliderRef.current, {
-        xPercent: 44,
+        xPercent: 28,
+        scale: 1.42,
         clipPath: 'inset(0 0 0 100%)',
-        opacity: 0.35,
+        opacity: 0.4,
+        '--role-ls': '0.16em',
       })
       gsap.set(roleTagRef.current, { opacity: 0, x: 12 })
       gsap.set([lowerLeftRef.current, lowerRightRef.current], {
@@ -175,16 +171,6 @@ export default function Hero() {
           },
           0.24
         )
-        .to(
-          topHairlineRef.current,
-          { scaleX: 1, duration: 0.95, ease: 'power3.out' },
-          0.22
-        )
-        .to(
-          topBarRef.current,
-          { opacity: 1, y: 0, duration: 0.65, ease: 'power2.out' },
-          0.32
-        )
 
       // 2. Choreographed Variable-Font Name Reveal: ISHTHIYAQ (L->R) & AHAMED (R->L)
       tl.to(
@@ -207,7 +193,7 @@ export default function Hero() {
           clipPath: 'inset(0 0 0% 0)',
           opacity: 1,
           scale: 1,
-          '--char-wght': 700,
+          '--char-wght': 500,
           duration: 0.96,
           stagger: { each: 0.032, from: 'end' },
           ease: 'expo.out',
@@ -215,7 +201,7 @@ export default function Hero() {
         0.56
       )
 
-      // 3. Horizontal Clipping-Window Role Reveal
+      // 3. Horizontal Clipping-Window Role Reveal (Oversized sweep -> locked rest)
       tl.to(
         bandRuleTopRef.current,
         { scaleX: 1, duration: 0.88, ease: 'power3.out' },
@@ -230,9 +216,11 @@ export default function Hero() {
           roleSliderRef.current,
           {
             xPercent: 0,
+            scale: 1,
             clipPath: 'inset(0 0 0 0%)',
             opacity: 1,
-            duration: 1.05,
+            '--role-ls': '0em',
+            duration: 1.08,
             ease: 'expo.out',
           },
           0.9
@@ -357,11 +345,6 @@ export default function Hero() {
 
       {/* Main Editorial Identity Container */}
       <div className={styles.heroContainer}>
-        {/* Minimal Metadata & Quiet Availability Bar */}
-        <div ref={topBarRef} className={styles.topBar}>
-          <span ref={topHairlineRef} className={styles.topHairline} aria-hidden="true" />
-        </div>
-
         {/* Centerpiece Kinetic Typography Stage */}
         <div className={styles.identityStage}>
           {/* Personal Handwritten Signature Intro */}
@@ -446,10 +429,6 @@ export default function Hero() {
               </div>
             </div>
 
-            <span ref={roleTagRef} className={styles.roleDisciplineTag}>
-              01 // Identity
-            </span>
-
             <span
               ref={bandRuleBottomRef}
               className={styles.bandRuleBottom}
@@ -491,7 +470,7 @@ export default function Hero() {
                             opacity: 0,
                           }
                     }
-                    transition={{ duration: 0.42, ease: EASE_MASK }}
+                    transition={{ duration: 0.28, ease: EASE_MASK }}
                   >
                     {IDENTITY_STATEMENTS[statementIdx]}
                   </motion.p>
@@ -553,18 +532,6 @@ export default function Hero() {
                 <span>Download CV</span>
               </MagneticButton>
             </div>
-
-            <a
-              href="#about"
-              className={styles.scrollCue}
-              aria-label="Scroll down to About section"
-            >
-              <span>Scroll to Explore</span>
-              <ArrowDown size={13} strokeWidth={2} aria-hidden="true" />
-              <span className={styles.scrollNeedle} aria-hidden="true">
-                <span className={styles.scrollNeedlePulse} />
-              </span>
-            </a>
           </div>
         </div>
       </div>

@@ -73,59 +73,6 @@
   gap: clamp(18px, 2.8vh, 34px);
 }
 
-/* Top Metadata & Quiet Availability Bar */
-.topBar {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding-bottom: 14px;
-}
-
-.topHairline {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.09);
-  transform-origin: left center;
-}
-
-.topCoord {
-  font-family: var(--font-fira), ui-monospace, monospace;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #71717a;
-}
-
-.availabilityWrap {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.availabilityDot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: #3b82f6;
-  flex-shrink: 0;
-}
-
-.availabilityText {
-  font-family: var(--font-fira), ui-monospace, monospace;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #a1a1aa;
-}
-
 /* =========================================================
    CENTERPIECE: ASYMMETRIC KINETIC TYPOGRAPHIC IDENTITY
    ========================================================= */
@@ -209,9 +156,9 @@
 
 .lastNameLine {
   font-size: clamp(32px, 8.75vw, 132px);
-  font-weight: 700;
-  letter-spacing: -0.035em;
-  color: #d4d4d8;
+  font-weight: 500;
+  letter-spacing: 0.015em;
+  color: #b8b8c2;
   align-self: flex-end;
   margin-top: clamp(2px, 0.5vh, 10px);
 }
@@ -220,8 +167,8 @@
   display: inline-block;
   overflow: hidden;
   vertical-align: bottom;
-  padding: 0.08em 0.015em 0.1em;
-  margin: -0.08em -0.015em -0.1em;
+  padding: 0.08em 0.02em 0.1em;
+  margin: -0.08em -0.02em -0.1em;
 }
 
 .charInner {
@@ -232,7 +179,7 @@
 }
 
 .lastNameLine .charInner {
-  --char-wght: 700;
+  --char-wght: 500;
 }
 
 /* Horizontal Clipping-Window Role Reveal */
@@ -278,7 +225,9 @@
   align-items: center;
   gap: 14px;
   white-space: nowrap;
-  will-change: transform, clip-path;
+  transform-origin: left center;
+  --role-ls: 0em;
+  will-change: transform, clip-path, opacity;
 }
 
 .roleAccentBar {
@@ -292,7 +241,7 @@
   font-family: var(--font-syne), sans-serif;
   font-size: clamp(13px, 1.6vw, 22px);
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: calc(0.22em + var(--role-ls, 0em));
   text-transform: uppercase;
   color: #f4f3ef;
 }
@@ -312,9 +261,9 @@
    ========================================================= */
 .lowerEditorialGrid {
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  grid-template-columns: minmax(0, 1.45fr) auto;
   align-items: end;
-  gap: clamp(24px, 4vw, 64px);
+  gap: clamp(24px, 4vw, 56px);
   padding-top: clamp(10px, 1.8vh, 22px);
 }
 
@@ -328,24 +277,26 @@
 /* Rotating Secondary Statement Slot (Fixed Height -> Zero Shift) */
 .statementModule {
   width: 100%;
-  margin-bottom: clamp(12px, 1.8vh, 18px);
+  margin-bottom: clamp(14px, 2vh, 22px);
 }
 
 .statementWindow {
   position: relative;
   overflow: hidden;
-  min-height: clamp(28px, 3.4vh, 34px);
+  min-height: clamp(32px, 3.8vh, 42px);
   display: flex;
   align-items: center;
 }
 
 .statementText {
-  font-family: var(--font-fira), ui-monospace, monospace;
-  font-size: clamp(13px, 1.25vw, 16px);
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  color: #60a5fa;
-  line-height: 1.4;
+  width: 100%;
+  font-family: var(--font-syne), sans-serif;
+  font-size: clamp(13px, 1.6vw, 22px);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #f4f3ef;
+  line-height: 1.3;
 }
 
 .statementControls {
@@ -491,56 +442,9 @@
 }
 
 .ctaPrimary:focus-visible,
-.ctaSecondary:focus-visible,
-.scrollCue:focus-visible {
+.ctaSecondary:focus-visible {
   outline: 2px solid #3b82f6;
   outline-offset: 3px;
-}
-
-/* Custom Editorial Scroll Cue */
-.scrollCue {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  text-decoration: none;
-  font-family: var(--font-fira), ui-monospace, monospace;
-  font-size: 10.5px;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #a1a1aa;
-  transition: color 0.2s ease;
-}
-
-.scrollCue:hover {
-  color: #ffffff;
-}
-
-.scrollNeedle {
-  position: relative;
-  width: 38px;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.18);
-  overflow: hidden;
-}
-
-.scrollNeedlePulse {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 14px;
-  height: 100%;
-  background: #3b82f6;
-  animation: needleSlide 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
-}
-
-@keyframes needleSlide {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(300%);
-  }
 }
 
 .srOnly {
@@ -565,9 +469,6 @@
     padding-top: 78px;
     padding-bottom: 18px;
   }
-  .topBar {
-    padding-bottom: 10px;
-  }
   .signatureRow {
     margin-bottom: 8px;
   }
@@ -583,6 +484,14 @@
   }
   .lowerEditorialGrid {
     padding-top: 6px;
+  }
+}
+
+/* Two-column laptop widths where longest rotating statement may wrap cleanly to 2 lines */
+@media (max-width: 1420px) and (min-width: 961px) {
+  .statementWindow {
+    min-height: 62px;
+    align-items: flex-start;
   }
 }
 
@@ -616,12 +525,6 @@
   .heroSection {
     padding: 80px 20px 26px;
   }
-  .topBar {
-    padding-bottom: 10px;
-  }
-  .topCoord {
-    display: none;
-  }
   .signatureRow {
     margin-bottom: 10px;
     margin-left: 0;
@@ -644,22 +547,28 @@
     padding: 11px 0;
   }
   .roleAperture {
-    white-space: normal;
+    white-space: nowrap;
   }
   .roleSlider {
-    white-space: normal;
+    white-space: nowrap;
     gap: 10px;
   }
   .roleAccentBar {
-    width: 18px;
+    width: 16px;
   }
   .roleTitle {
-    font-size: 11.5px;
-    letter-spacing: 0.16em;
-    line-height: 1.4;
+    font-size: clamp(9.5px, 2.75vw, 12px);
+    letter-spacing: calc(0.14em + var(--role-ls, 0em));
+    line-height: 1.3;
   }
   .statementWindow {
-    min-height: 44px;
+    min-height: 36px;
+    align-items: flex-start;
+  }
+  .statementText {
+    font-size: clamp(9.5px, 2.75vw, 12px);
+    letter-spacing: 0.14em;
+    line-height: 1.3;
   }
   .introCopy {
     font-size: 14.5px;
@@ -678,15 +587,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .scrollNeedlePulse {
-    animation: none;
-    display: none;
-  }
   .ctaPrimary,
   .ctaSecondary,
   .ctaPrimaryIcon,
   .ctaSecondaryIcon,
-  .scrollCue,
   .stepBar {
     transition: none;
   }

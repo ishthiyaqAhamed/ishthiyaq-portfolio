@@ -84,28 +84,6 @@ export default function Contact() {
           viewport={{ once: true }}
           style={{ marginBottom: '56px' }}
         >
-          <div style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            background: 'rgba(255, 255, 255, 0.04)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            borderRadius: '999px',
-            padding: '6px 16px',
-            marginBottom: '18px',
-          }}>
-            <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#3b82f6' }} />
-            <span style={{
-              fontFamily: 'var(--font-fira)',
-              fontSize: '11px',
-              color: '#d4d4d8',
-              letterSpacing: '2px',
-              textTransform: 'uppercase',
-              fontWeight: 500,
-            }}>
-              04 // Initiate Contact
-            </span>
-          </div>
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 800, color: '#f4f4f5', letterSpacing: '-0.03em', lineHeight: 1.08 }}>
             Let&apos;s Build Something{' '}
             <span className="silver-text-gradient">

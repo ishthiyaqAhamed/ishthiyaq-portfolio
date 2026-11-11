@@ -263,39 +263,10 @@ export default function Skills() {
       <div style={{ maxWidth: '1380px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
         {/* Section Header */}
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '50px' }}>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              background: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              borderRadius: '999px',
-              padding: '6px 16px',
-              marginBottom: '18px',
-            }}
-          >
-            <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#3b82f6' }} />
-            <span style={{
-              fontFamily: 'var(--font-fira)',
-              fontSize: '11px',
-              color: '#d4d4d8',
-              letterSpacing: '2px',
-              textTransform: 'uppercase',
-              fontWeight: 500,
-            }}>
-              02 // Technical Mastery
-            </span>
-          </motion.div>
-
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
             style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(32px, 4.5vw, 56px)', fontWeight: 800, color: '#f4f4f5', letterSpacing: '-0.03em', lineHeight: 1.08 }}
           >
@@ -308,7 +279,7 @@ export default function Skills() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
             viewport={{ once: true }}
             style={{ fontSize: 'clamp(14px, 1.5vw, 16px)', color: '#a1a1aa', maxWidth: '580px', marginTop: '14px', lineHeight: 1.7 }}
           >
