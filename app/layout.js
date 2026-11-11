@@ -39,6 +39,7 @@ const laBelleAurore = localFont({
 })
 
 export const metadata = {
+  metadataBase: new URL('https://www.ishthiyaq.online'),
   title: 'Ishthiyaq Ahamed | Full Stack Software Engineer',
   description:
     'Full Stack Software Engineer specializing in MERN stack, Next.js architectures, cloud computing, and intelligent SaaS products.',
