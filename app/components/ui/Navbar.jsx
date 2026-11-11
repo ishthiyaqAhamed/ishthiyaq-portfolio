@@ -40,12 +40,11 @@ export default function Navbar() {
         className={`${styles.navbar} ${scrolled ? styles.navbarScrolled : ''}`}
       >
         <Link href="/" className={styles.brand} aria-label="Ishthiyaq Ahamed — Home">
-          <span className={styles.brandMark}>IA</span>
+          <span>IA</span>
           <span className={styles.brandDot}>.</span>
-          <span className={styles.brandFull}>Ishthiyaq Ahamed</span>
         </Link>
 
-        {/* Desktop Links */}
+        {/* Desktop Minimal Navigation */}
         <div className={styles.desktopNav}>
           <div className={styles.navLinksGroup}>
             {NAV_ITEMS.map((item) => (
@@ -61,11 +60,11 @@ export default function Navbar() {
           <span className={styles.navDivider} aria-hidden="true" />
 
           <a href="#contact" className={`${styles.ctaBtn} luxury-btn`}>
-            <span>Let&apos;s Talk</span>
+            <span>Get in Touch</span>
           </a>
         </div>
 
-        {/* Mobile Menu Toggle */}
+        {/* Mobile Menu Trigger */}
         <div className={styles.mobileControls}>
           <button
             type="button"
@@ -79,7 +78,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Navigation Drawer */}
       {menuOpen && (
         <div className={styles.mobileDrawer}>
           {NAV_ITEMS.map((item) => (
@@ -106,7 +105,7 @@ export default function Navbar() {
             className={`${styles.mobileCta} luxury-btn`}
             onClick={() => setMenuOpen(false)}
           >
-            Let&apos;s Talk
+            Get in Touch
           </a>
         </div>
       )}

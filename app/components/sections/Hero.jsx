@@ -1,235 +1,342 @@
 'use client'
 
-import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
-import Image from 'next/image'
-import {
-  AnimatePresence,
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-  useTransform,
-  useVelocity,
-} from 'framer-motion'
-import {
-  ArrowDown,
-  ArrowRight,
-  ArrowUpRight,
-  Check,
-  Copy,
-  Download,
-  Mail,
-  Phone,
-  X,
-} from 'lucide-react'
-import { FiGithub, FiLinkedin } from 'react-icons/fi'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { ArrowDown, ArrowRight, Download } from 'lucide-react'
 import MagneticButton from './hero/MagneticButton'
 import styles from './hero/Hero.module.css'
 
-const EASE_EDITORIAL = [0.22, 1, 0.36, 1]
-
-const FEATURED_BUILDS = {
-  novaflow: {
-    id: 'novaflow',
-    name: 'NovaFlow',
-    urlLabel: 'novaflowpro.online',
-    live: 'https://novaflowpro.online',
-    image: '/projects/novaflow.png',
-    stack: 'Next.js · Supabase · GPT-4o',
-    alt: 'NovaFlow multi-tenant SaaS CRM dashboard interface',
-  },
-  pharmacy: {
-    id: 'pharmacy',
-    name: 'Pharmacy ERP',
-    urlLabel: 'pharmacy-erp-lime.vercel.app',
-    live: 'https://pharmacy-erp-lime.vercel.app/',
-    image: '/projects/pharmacy-erp.png',
-    stack: 'React · Node.js · MongoDB',
-    alt: 'Pharmacy Enterprise ERP multi-branch management dashboard',
-  },
-  gemotions: {
-    id: 'gemotions',
-    name: 'Gemotions',
-    urlLabel: 'gemotions.shop',
-    live: 'https://gemotions.shop/',
-    image: '/projects/gemotions.png',
-    stack: 'React · Express · MongoDB',
-    alt: 'Gemotions certified gemstones and jewelry commerce storefront',
-  },
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger)
 }
 
-const clockSubscribers = new Set()
-let clockInterval = null
+const FIRST_NAME_CHARS = 'ISHTHIYAQ'.split('')
+const LAST_NAME_CHARS = 'AHAMED'.split('')
 
-function getColomboClockSnapshot() {
-  return new Intl.DateTimeFormat('en-US', {
-    timeZone: 'Asia/Colombo',
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true,
-  }).format(new Date())
-}
+const IDENTITY_STATEMENTS = [
+  'Building Digital Experiences.',
+  'Engineering Scalable Applications.',
+  'Turning Ideas Into Products.',
+]
 
-function subscribeColomboClock(callback) {
-  clockSubscribers.add(callback)
-  if (!clockInterval && typeof window !== 'undefined') {
-    clockInterval = setInterval(() => {
-      clockSubscribers.forEach((cb) => cb())
-    }, 15000)
-  }
-  return () => {
-    clockSubscribers.delete(callback)
-    if (clockSubscribers.size === 0 && clockInterval) {
-      clearInterval(clockInterval)
-      clockInterval = null
-    }
-  }
-}
+const EASE_MASK = [0.22, 1, 0.36, 1]
+
+const useIsomorphicLayoutEffect =
+  typeof window !== 'undefined' ? useLayoutEffect : useEffect
 
 export default function Hero() {
   const prefersReducedMotion = useReducedMotion()
-  const colomboTime = useSyncExternalStore(
-    subscribeColomboClock,
-    getColomboClockSnapshot,
-    () => ''
-  )
+  const [statementIdx, setStatementIdx] = useState(0)
 
   const sectionRef = useRef(null)
-  const portraitCardRef = useRef(null)
-  const glintLayerRef = useRef(null)
-  const copyTimerRef = useRef(null)
+  const registerLineRef = useRef(null)
+  const topBarRef = useRef(null)
+  const topHairlineRef = useRef(null)
 
-  const [hoveredBuild, setHoveredBuild] = useState(null)
-  const [mobileSelectedBuild, setMobileSelectedBuild] = useState(null)
-  const [copiedEmail, setCopiedEmail] = useState(false)
+  const signatureWrapRef = useRef(null)
+  const signaturePathRef = useRef(null)
 
-  // Scroll-linked subtle depth parallax
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start start', 'end start'],
+  const firstLineScrollRef = useRef(null)
+  const lastLineScrollRef = useRef(null)
+  const firstLineMouseRef = useRef(null)
+  const lastLineMouseRef = useRef(null)
+  const firstCharsRef = useRef([])
+  const lastCharsRef = useRef([])
+
+  const bandRuleTopRef = useRef(null)
+  const bandRuleBottomRef = useRef(null)
+  const roleSliderRef = useRef(null)
+  const roleTagRef = useRef(null)
+
+  const lowerLeftRef = useRef(null)
+  const lowerRightRef = useRef(null)
+
+  const quickMoveRef = useRef({
+    firstX: null,
+    firstY: null,
+    lastX: null,
+    lastY: null,
   })
-  const leftColumnY = useTransform(scrollYProgress, [0, 1], [0, -28])
-  const portraitParallaxY = useTransform(scrollYProgress, [0, 1], [0, 26])
-  const portraitScrollScale = useTransform(scrollYProgress, [0, 1], [1, 0.965])
 
-  // Portrait 3D spring tilt & optical depth shift
-  const tiltXRaw = useMotionValue(0)
-  const tiltYRaw = useMotionValue(0)
-  const photoShiftXRaw = useMotionValue(0)
-  const photoShiftYRaw = useMotionValue(0)
-
-  const tiltX = useSpring(tiltXRaw, { stiffness: 190, damping: 24, mass: 0.6 })
-  const tiltY = useSpring(tiltYRaw, { stiffness: 190, damping: 24, mass: 0.6 })
-  const photoShiftX = useSpring(photoShiftXRaw, { stiffness: 170, damping: 26 })
-  const photoShiftY = useSpring(photoShiftYRaw, { stiffness: 170, damping: 26 })
-
-  // Cursor-following live preview physics with velocity tilt
-  const previewXRaw = useMotionValue(-400)
-  const previewYRaw = useMotionValue(-400)
-  const previewX = useSpring(previewXRaw, { stiffness: 360, damping: 32, mass: 0.5 })
-  const previewY = useSpring(previewYRaw, { stiffness: 360, damping: 32, mass: 0.5 })
-  const previewVelX = useVelocity(previewX)
-  const smoothVelX = useSpring(previewVelX, { stiffness: 240, damping: 28 })
-  const previewRotate = useTransform(smoothVelX, [-950, 0, 950], [-4.5, 0, 4.5])
-
+  // Cycle between secondary identity statements with zero layout shift
   useEffect(() => {
+    if (prefersReducedMotion) return
+    const timer = setTimeout(() => {
+      setStatementIdx((prev) => (prev + 1) % IDENTITY_STATEMENTS.length)
+    }, 3600)
+    return () => clearTimeout(timer)
+  }, [prefersReducedMotion, statementIdx])
+
+  // Choreographed GSAP Identity Entrance + Mouse QuickTo + Scroll Depth
+  useIsomorphicLayoutEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+
+    const ctx = gsap.context(() => {
+      const firstChars = firstCharsRef.current
+        .slice(0, FIRST_NAME_CHARS.length)
+        .filter(Boolean)
+      const lastChars = lastCharsRef.current
+        .slice(0, LAST_NAME_CHARS.length)
+        .filter(Boolean)
+
+      if (prefersReducedMotion) {
+        gsap.set(
+          [
+            registerLineRef.current,
+            topBarRef.current,
+            topHairlineRef.current,
+            signatureWrapRef.current,
+            bandRuleTopRef.current,
+            bandRuleBottomRef.current,
+            roleSliderRef.current,
+            roleTagRef.current,
+            lowerLeftRef.current,
+            lowerRightRef.current,
+            ...firstChars,
+            ...lastChars,
+          ].filter(Boolean),
+          {
+            clearProps: 'all',
+            opacity: 1,
+            clipPath: 'none',
+            scaleX: 1,
+            scaleY: 1,
+          }
+        )
+        if (signaturePathRef.current) {
+          gsap.set(signaturePathRef.current, { strokeDashoffset: 0 })
+        }
+        return
+      }
+
+      // Initial concealed composition on minimal black canvas
+      gsap.set(registerLineRef.current, { scaleY: 0 })
+      gsap.set(topHairlineRef.current, { scaleX: 0 })
+      gsap.set(topBarRef.current, { opacity: 0, y: -6 })
+
+      gsap.set(signatureWrapRef.current, {
+        clipPath: 'inset(0 100% 0 0)',
+        opacity: 0,
+      })
+      if (signaturePathRef.current) {
+        gsap.set(signaturePathRef.current, {
+          strokeDasharray: 1,
+          strokeDashoffset: 1,
+        })
+      }
+
+      gsap.set([...firstChars, ...lastChars], {
+        yPercent: 118,
+        clipPath: 'inset(0 0 100% 0)',
+        opacity: 0,
+        scale: 0.94,
+        '--char-wght': 420,
+      })
+
+      gsap.set([bandRuleTopRef.current, bandRuleBottomRef.current], { scaleX: 0 })
+      gsap.set(roleSliderRef.current, {
+        xPercent: 44,
+        clipPath: 'inset(0 0 0 100%)',
+        opacity: 0.35,
+      })
+      gsap.set(roleTagRef.current, { opacity: 0, x: 12 })
+      gsap.set([lowerLeftRef.current, lowerRightRef.current], {
+        opacity: 0,
+        y: 18,
+      })
+
+      const tl = gsap.timeline({ defaults: { ease: 'expo.out' } })
+
+      // 1. Minimal Black Canvas -> Handwritten "Hello, stranger." signature stroke
+      tl.to(
+        registerLineRef.current,
+        { scaleY: 1, duration: 1.15, ease: 'power3.inOut' },
+        0.04
+      )
+        .to(
+          signatureWrapRef.current,
+          {
+            clipPath: 'inset(0 0% 0 0)',
+            opacity: 1,
+            duration: 0.85,
+            ease: 'power3.inOut',
+          },
+          0.08
+        )
+        .to(
+          signaturePathRef.current,
+          {
+            strokeDashoffset: 0,
+            duration: 0.72,
+            ease: 'power2.inOut',
+          },
+          0.24
+        )
+        .to(
+          topHairlineRef.current,
+          { scaleX: 1, duration: 0.95, ease: 'power3.out' },
+          0.22
+        )
+        .to(
+          topBarRef.current,
+          { opacity: 1, y: 0, duration: 0.65, ease: 'power2.out' },
+          0.32
+        )
+
+      // 2. Choreographed Variable-Font Name Reveal: ISHTHIYAQ (L->R) & AHAMED (R->L)
+      tl.to(
+        firstChars,
+        {
+          yPercent: 0,
+          clipPath: 'inset(0 0 0% 0)',
+          opacity: 1,
+          scale: 1,
+          '--char-wght': 800,
+          duration: 0.96,
+          stagger: { each: 0.028, from: 'start' },
+          ease: 'expo.out',
+        },
+        0.38
+      ).to(
+        lastChars,
+        {
+          yPercent: 0,
+          clipPath: 'inset(0 0 0% 0)',
+          opacity: 1,
+          scale: 1,
+          '--char-wght': 700,
+          duration: 0.96,
+          stagger: { each: 0.032, from: 'end' },
+          ease: 'expo.out',
+        },
+        0.56
+      )
+
+      // 3. Horizontal Clipping-Window Role Reveal
+      tl.to(
+        bandRuleTopRef.current,
+        { scaleX: 1, duration: 0.88, ease: 'power3.out' },
+        0.78
+      )
+        .to(
+          bandRuleBottomRef.current,
+          { scaleX: 1, duration: 0.88, ease: 'power3.out' },
+          0.84
+        )
+        .to(
+          roleSliderRef.current,
+          {
+            xPercent: 0,
+            clipPath: 'inset(0 0 0 0%)',
+            opacity: 1,
+            duration: 1.05,
+            ease: 'expo.out',
+          },
+          0.9
+        )
+        .to(
+          roleTagRef.current,
+          { opacity: 1, x: 0, duration: 0.7, ease: 'power3.out' },
+          1.12
+        )
+
+      // 4. Supporting Statements, Intro & Magnetic CTAs
+      tl.to(
+        lowerLeftRef.current,
+        { opacity: 1, y: 0, duration: 0.78, ease: 'power3.out' },
+        1.16
+      ).to(
+        lowerRightRef.current,
+        { opacity: 1, y: 0, duration: 0.78, ease: 'power3.out' },
+        1.26
+      )
+
+      // 5. Ultra-subtle 60fps mouse-responsive typography tracks
+      quickMoveRef.current = {
+        firstX: gsap.quickTo(firstLineMouseRef.current, 'x', {
+          duration: 0.75,
+          ease: 'power3.out',
+        }),
+        firstY: gsap.quickTo(firstLineMouseRef.current, 'y', {
+          duration: 0.75,
+          ease: 'power3.out',
+        }),
+        lastX: gsap.quickTo(lastLineMouseRef.current, 'x', {
+          duration: 0.75,
+          ease: 'power3.out',
+        }),
+        lastY: gsap.quickTo(lastLineMouseRef.current, 'y', {
+          duration: 0.75,
+          ease: 'power3.out',
+        }),
+      }
+
+      // 6. Scroll-linked typographic transition toward #about
+      gsap.to(firstLineScrollRef.current, {
+        x: -22,
+        y: -16,
+        opacity: 0.72,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+        },
+      })
+
+      gsap.to(lastLineScrollRef.current, {
+        x: 22,
+        y: -8,
+        opacity: 0.72,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+        },
+      })
+    }, sectionRef)
+
     return () => {
-      if (copyTimerRef.current) {
-        clearTimeout(copyTimerRef.current)
+      quickMoveRef.current = {
+        firstX: null,
+        firstY: null,
+        lastX: null,
+        lastY: null,
       }
+      ctx.revert()
     }
-  }, [])
+  }, [prefersReducedMotion])
 
-  const updatePreviewCoords = (clientX, clientY) => {
-    if (prefersReducedMotion || typeof window === 'undefined') return
-    const targetX = Math.min(Math.max(clientX + 24, 16), window.innerWidth - 316)
-    const targetY = Math.max(82, Math.min(clientY - 196, window.innerHeight - 256))
-    previewXRaw.set(targetX)
-    previewYRaw.set(targetY)
-  }
-
-  const handleSectionPointerMove = (e) => {
-    if (prefersReducedMotion || e.pointerType !== 'mouse') return
-    updatePreviewCoords(e.clientX, e.clientY)
-  }
-
-  const handlePortraitPointerMove = (e) => {
-    if (prefersReducedMotion || e.pointerType !== 'mouse' || !portraitCardRef.current) {
+  const handlePointerMove = (e) => {
+    if (prefersReducedMotion || e.pointerType !== 'mouse' || !sectionRef.current) {
       return
     }
-    const rect = portraitCardRef.current.getBoundingClientRect()
-    const nx = (e.clientX - rect.left) / rect.width
-    const ny = (e.clientY - rect.top) / rect.height
-    const centeredX = (nx - 0.5) * 2
-    const centeredY = (ny - 0.5) * 2
+    const { firstX, firstY, lastX, lastY } = quickMoveRef.current
+    if (!firstX || !lastX) return
 
-    tiltXRaw.set(-centeredY * 3.2)
-    tiltYRaw.set(centeredX * 3.4)
-    photoShiftXRaw.set(-centeredX * 7)
-    photoShiftYRaw.set(-centeredY * 6)
+    const rect = sectionRef.current.getBoundingClientRect()
+    const nx = ((e.clientX - rect.left) / rect.width - 0.5) * 2
+    const ny = ((e.clientY - rect.top) / rect.height - 0.5) * 2
 
-    if (glintLayerRef.current) {
-      glintLayerRef.current.style.setProperty('--glint-x', `${(nx * 100).toFixed(1)}%`)
-      glintLayerRef.current.style.setProperty('--glint-y', `${(ny * 100).toFixed(1)}%`)
-      glintLayerRef.current.style.setProperty('--glint-opacity', '1')
-    }
+    firstX(nx * 10)
+    firstY(ny * 4)
+    lastX(-nx * 12)
+    lastY(-ny * 3.5)
   }
 
-  const handlePortraitPointerLeave = () => {
-    tiltXRaw.set(0)
-    tiltYRaw.set(0)
-    photoShiftXRaw.set(0)
-    photoShiftYRaw.set(0)
-    if (glintLayerRef.current) {
-      glintLayerRef.current.style.setProperty('--glint-opacity', '0')
-    }
-  }
-
-  const handleBuildHoverStart = (buildKey, e) => {
-    if (typeof window !== 'undefined' && window.innerWidth <= 960) return
-    if (e && typeof e.clientX === 'number' && typeof e.clientY === 'number' && e.clientX > 0) {
-      updatePreviewCoords(e.clientX, e.clientY)
-    } else if (e?.currentTarget) {
-      const rect = e.currentTarget.getBoundingClientRect()
-      updatePreviewCoords(rect.left + rect.width * 0.5, rect.top)
-    }
-    setHoveredBuild(FEATURED_BUILDS[buildKey])
-  }
-
-  const handleBuildHoverEnd = () => {
-    setHoveredBuild(null)
-  }
-
-  const handleBuildClick = (buildKey) => {
-    const build = FEATURED_BUILDS[buildKey]
-    if (!build) return
-
-    const isCompactViewport = typeof window !== 'undefined' && window.innerWidth <= 960
-    const isTouchPointer =
-      typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches
-
-    if (isCompactViewport || isTouchPointer) {
-      setMobileSelectedBuild((prev) => (prev?.id === build.id ? null : build))
-      return
-    }
-
-    window.open(build.live, '_blank', 'noopener,noreferrer')
-  }
-
-  const handleCopyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText('Ishthiyaqahamed@gmail.com')
-      setCopiedEmail(true)
-      if (copyTimerRef.current) {
-        clearTimeout(copyTimerRef.current)
-      }
-      copyTimerRef.current = setTimeout(() => {
-        setCopiedEmail(false)
-      }, 2200)
-    } catch {
-      window.location.href = 'mailto:Ishthiyaqahamed@gmail.com'
-    }
+  const handlePointerLeave = () => {
+    const { firstX, firstY, lastX, lastY } = quickMoveRef.current
+    if (!firstX || !lastX) return
+    firstX(0)
+    firstY(0)
+    lastX(0)
+    lastY(0)
   }
 
   return (
@@ -238,234 +345,208 @@ export default function Hero() {
       id="hero"
       aria-label="Introduction"
       className={styles.heroSection}
-      onPointerMove={handleSectionPointerMove}
-      onPointerLeave={() => setHoveredBuild(null)}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
     >
-      {/* Subtle Photographic Studio Backdrop */}
-      <div className={styles.atmosphereLayer} aria-hidden="true">
-        <div className={styles.studioWash} />
-        <div className={styles.filmGrain} />
+      {/* Restrained Dark Studio Depth */}
+      <div className={styles.backdropLayer} aria-hidden="true">
+        <div className={styles.tonalLight} />
+        <div ref={registerLineRef} className={styles.registerLine} />
+        <div className={styles.grainTexture} />
       </div>
 
-      {/* Main Split Editorial Layout */}
+      {/* Main Editorial Identity Container */}
       <div className={styles.heroContainer}>
-        <div className={styles.splitGrid}>
-          {/* Left Column: Authentic Voice & Kinetic Typography */}
-          <motion.div
-            className={styles.leftColumn}
-            style={prefersReducedMotion ? undefined : { y: leftColumnY }}
-          >
-            {/* Identity & Local Time Strip */}
-            <motion.div
-              className={styles.identityRow}
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.05, ease: EASE_EDITORIAL }}
+        {/* Minimal Metadata & Quiet Availability Bar */}
+        <div ref={topBarRef} className={styles.topBar}>
+          <span className={styles.topCoord}>Colombo, Sri Lanka · Portfolio</span>
+
+          <div className={styles.availabilityWrap}>
+            <span className={styles.availabilityDot} aria-hidden="true" />
+            <span className={styles.availabilityText}>
+              Available for Software Engineering Roles
+            </span>
+          </div>
+
+          <span ref={topHairlineRef} className={styles.topHairline} aria-hidden="true" />
+        </div>
+
+        {/* Centerpiece Kinetic Typography Stage */}
+        <div className={styles.identityStage}>
+          {/* Personal Handwritten Signature Intro */}
+          <div ref={signatureWrapRef} className={styles.signatureRow}>
+            <span className={styles.signatureMask}>
+              <span className={styles.signatureText}>Hello, stranger.</span>
+            </span>
+            <svg
+              viewBox="0 0 180 12"
+              className={styles.signatureStrokeSvg}
+              aria-hidden="true"
             >
-              <span className={styles.identityRule} aria-hidden="true" />
-              <span className={styles.identityName}>Full-Stack Software Engineer</span>
-              <span className={styles.identitySep} aria-hidden="true">
-                ·
-              </span>
-              <span className={styles.identityMeta}>
-                Colombo, Sri Lanka{colomboTime ? ` · ${colomboTime} IST` : ''}
-              </span>
-            </motion.div>
+              <path
+                ref={signaturePathRef}
+                pathLength="1"
+                strokeDasharray="1"
+                d="M 2 9 C 48 2, 118 3, 176 7"
+                className={styles.signaturePath}
+              />
+            </svg>
+          </div>
 
-            {/* Baseline-Masked Headline */}
-            <h1 className={styles.heroHeadline}>
-              <span className={styles.lineMask}>
-                <motion.span
-                  className={styles.lineInner}
-                  initial={prefersReducedMotion ? false : { y: '108%', opacity: 0 }}
-                  animate={{ y: '0%', opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.12, ease: EASE_EDITORIAL }}
-                >
-                  Building software
-                </motion.span>
-              </span>
+          {/* Dominant Asymmetric Name Typography */}
+          <h1 className={styles.heroTitle}>
+            <span className={styles.srOnly}>ISHTHIYAQ AHAMED</span>
 
-              <span className={styles.lineMask}>
-                <motion.span
-                  className={styles.lineInner}
-                  initial={prefersReducedMotion ? false : { y: '108%', opacity: 0 }}
-                  animate={{ y: '0%', opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.21, ease: EASE_EDITORIAL }}
-                >
-                  people rely on
-                </motion.span>
-              </span>
-
-              <span className={styles.lineMask}>
-                <motion.span
-                  className={`${styles.lineInner} ${styles.headlineItalic}`}
-                  initial={prefersReducedMotion ? false : { y: '108%', opacity: 0 }}
-                  animate={{ y: '0%', opacity: 1 }}
-                  transition={{ duration: 0.82, delay: 0.3, ease: EASE_EDITORIAL }}
-                >
-                  every single day.
-                </motion.span>
-              </span>
-            </h1>
-
-            {/* Human Narrative with Interactive Build Preview Triggers */}
-            <motion.div
-              className={styles.bioParagraph}
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, delay: 0.42, ease: EASE_EDITORIAL }}
+            <span
+              ref={firstLineScrollRef}
+              className={`${styles.nameTrack} ${styles.firstNameLine}`}
+              aria-hidden="true"
             >
-              <p>
-                I&apos;m{' '}
-                <strong className={styles.bioHighlight} style={{ fontWeight: 600 }}>
-                  Ishthiyaq Ahamed
-                </strong>
-                , a BSc (Hons) Software Engineering graduate. Lately I&apos;ve been
-                shipping{' '}
-                <button
-                  type="button"
-                  className={`${styles.projectTrigger} ${
-                    hoveredBuild?.id === 'novaflow' ||
-                    mobileSelectedBuild?.id === 'novaflow'
-                      ? styles.projectTriggerActive
-                      : ''
-                  }`}
-                  onMouseEnter={(e) => handleBuildHoverStart('novaflow', e)}
-                  onMouseLeave={handleBuildHoverEnd}
-                  onFocus={(e) => handleBuildHoverStart('novaflow', e)}
-                  onBlur={handleBuildHoverEnd}
-                  onClick={() => handleBuildClick('novaflow')}
-                  aria-label="Preview NovaFlow live CRM application"
-                >
-                  <span>NovaFlow</span>
-                  <span className={styles.triggerArrow} aria-hidden="true">
-                    <ArrowUpRight size={13} strokeWidth={2.1} />
+              <span ref={firstLineMouseRef} className={styles.nameTrack}>
+                {FIRST_NAME_CHARS.map((char, idx) => (
+                  <span key={`first-${idx}`} className={styles.charMask}>
+                    <span
+                      ref={(el) => {
+                        firstCharsRef.current[idx] = el
+                      }}
+                      className={styles.charInner}
+                    >
+                      {char}
+                    </span>
                   </span>
-                </button>{' '}
-                for SaaS sales teams, multi-branch{' '}
-                <button
-                  type="button"
-                  className={`${styles.projectTrigger} ${
-                    hoveredBuild?.id === 'pharmacy' ||
-                    mobileSelectedBuild?.id === 'pharmacy'
-                      ? styles.projectTriggerActive
-                      : ''
-                  }`}
-                  onMouseEnter={(e) => handleBuildHoverStart('pharmacy', e)}
-                  onMouseLeave={handleBuildHoverEnd}
-                  onFocus={(e) => handleBuildHoverStart('pharmacy', e)}
-                  onBlur={handleBuildHoverEnd}
-                  onClick={() => handleBuildClick('pharmacy')}
-                  aria-label="Preview Pharmacy ERP multi-branch web app"
-                >
-                  <span>Pharmacy ERP</span>
-                  <span className={styles.triggerArrow} aria-hidden="true">
-                    <ArrowUpRight size={13} strokeWidth={2.1} />
-                  </span>
-                </button>{' '}
-                inventory tools, and{' '}
-                <button
-                  type="button"
-                  className={`${styles.projectTrigger} ${
-                    hoveredBuild?.id === 'gemotions' ||
-                    mobileSelectedBuild?.id === 'gemotions'
-                      ? styles.projectTriggerActive
-                      : ''
-                  }`}
-                  onMouseEnter={(e) => handleBuildHoverStart('gemotions', e)}
-                  onMouseLeave={handleBuildHoverEnd}
-                  onFocus={(e) => handleBuildHoverStart('gemotions', e)}
-                  onBlur={handleBuildHoverEnd}
-                  onClick={() => handleBuildClick('gemotions')}
-                  aria-label="Preview Gemotions fine jewelry storefront"
-                >
-                  <span>Gemotions</span>
-                  <span className={styles.triggerArrow} aria-hidden="true">
-                    <ArrowUpRight size={13} strokeWidth={2.1} />
-                  </span>
-                </button>{' '}
-                — from schema design straight through live deployment.
-              </p>
-
-              <span className={styles.interactiveHint}>
-                Hover any highlighted project above to inspect the live build
+                ))}
               </span>
-            </motion.div>
+            </span>
 
-            {/* Mobile / Touch Inline Preview Peek Drawer */}
-            <AnimatePresence initial={false}>
-              {mobileSelectedBuild && (
-                <motion.div
-                  key={mobileSelectedBuild.id}
-                  className={styles.mobilePreviewWrap}
-                  initial={
-                    prefersReducedMotion ? false : { opacity: 0, height: 0 }
-                  }
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={
-                    prefersReducedMotion
-                      ? undefined
-                      : { opacity: 0, height: 0 }
-                  }
-                  transition={{ duration: 0.32, ease: EASE_EDITORIAL }}
-                >
-                  <div className={styles.mobilePreviewCard}>
-                    <div className={styles.mobilePreviewHeader}>
-                      <span className={styles.mobilePreviewTitle}>
-                        {mobileSelectedBuild.name}
-                      </span>
-                      <button
-                        type="button"
-                        className={styles.mobilePreviewClose}
-                        onClick={() => setMobileSelectedBuild(null)}
-                        aria-label="Close project preview"
-                      >
-                        <X size={16} />
-                      </button>
-                    </div>
-                    <div className={styles.mobilePreviewImgBox}>
-                      <Image
-                        src={mobileSelectedBuild.image}
-                        alt={mobileSelectedBuild.alt}
-                        fill
-                        sizes="(max-width: 960px) 100vw, 320px"
-                        style={{ objectFit: 'cover', objectPosition: 'top center' }}
-                      />
-                    </div>
-                    <div className={styles.mobilePreviewFooter}>
-                      <span className={styles.mobilePreviewStack}>
-                        {mobileSelectedBuild.stack}
-                      </span>
-                      <a
-                        href={mobileSelectedBuild.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.mobilePreviewVisit}
-                      >
-                        <span>Visit live</span>
-                        <ArrowUpRight size={13} />
-                      </a>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Primary & Secondary CTAs */}
-            <motion.div
-              className={styles.ctaRow}
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.54, ease: EASE_EDITORIAL }}
+            <span
+              ref={lastLineScrollRef}
+              className={`${styles.nameTrack} ${styles.lastNameLine}`}
+              aria-hidden="true"
             >
+              <span ref={lastLineMouseRef} className={styles.nameTrack}>
+                {LAST_NAME_CHARS.map((char, idx) => (
+                  <span key={`last-${idx}`} className={styles.charMask}>
+                    <span
+                      ref={(el) => {
+                        lastCharsRef.current[idx] = el
+                      }}
+                      className={styles.charInner}
+                    >
+                      {char}
+                    </span>
+                  </span>
+                ))}
+              </span>
+            </span>
+          </h1>
+
+          {/* Horizontal Clipping-Window Role Reveal */}
+          <div className={styles.roleBand}>
+            <span
+              ref={bandRuleTopRef}
+              className={styles.bandRuleTop}
+              aria-hidden="true"
+            />
+
+            <div className={styles.roleAperture}>
+              <div ref={roleSliderRef} className={styles.roleSlider}>
+                <span className={styles.roleAccentBar} aria-hidden="true" />
+                <h2 className={styles.roleTitle}>FULL STACK SOFTWARE ENGINEER</h2>
+              </div>
+            </div>
+
+            <span ref={roleTagRef} className={styles.roleDisciplineTag}>
+              01 // Identity
+            </span>
+
+            <span
+              ref={bandRuleBottomRef}
+              className={styles.bandRuleBottom}
+              aria-hidden="true"
+            />
+          </div>
+        </div>
+
+        {/* Lower Asymmetric Editorial Narrative & Magnetic CTAs */}
+        <div className={styles.lowerEditorialGrid}>
+          <div ref={lowerLeftRef} className={styles.narrativeColumn}>
+            {/* Masked Vertical Transition Between Identity Statements */}
+            <div className={styles.statementModule}>
+              <div className={styles.statementWindow} aria-live="polite">
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.p
+                    key={statementIdx}
+                    className={styles.statementText}
+                    initial={
+                      prefersReducedMotion
+                        ? false
+                        : {
+                            y: '100%',
+                            clipPath: 'inset(0 0 100% 0)',
+                            opacity: 0,
+                          }
+                    }
+                    animate={{
+                      y: '0%',
+                      clipPath: 'inset(0 0 0% 0)',
+                      opacity: 1,
+                    }}
+                    exit={
+                      prefersReducedMotion
+                        ? undefined
+                        : {
+                            y: '-100%',
+                            clipPath: 'inset(100% 0 0 0)',
+                            opacity: 0,
+                          }
+                    }
+                    transition={{ duration: 0.42, ease: EASE_MASK }}
+                  >
+                    {IDENTITY_STATEMENTS[statementIdx]}
+                  </motion.p>
+                </AnimatePresence>
+              </div>
+
+              <div
+                className={styles.statementControls}
+                role="tablist"
+                aria-label="Identity statements"
+              >
+                {IDENTITY_STATEMENTS.map((stmt, idx) => (
+                  <button
+                    key={stmt}
+                    type="button"
+                    role="tab"
+                    aria-selected={statementIdx === idx}
+                    aria-label={stmt}
+                    onClick={() => setStatementIdx(idx)}
+                    className={`${styles.statementStepBtn} ${
+                      statementIdx === idx ? styles.statementStepBtnActive : ''
+                    }`}
+                  >
+                    <span>0{idx + 1}</span>
+                    <span className={styles.stepBar} aria-hidden="true" />
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <p className={styles.introCopy}>
+              Hey, I&apos;m Ishthiyaq. I build digital experiences and engineer
+              solutions to real-world problems.
+            </p>
+          </div>
+
+          <div ref={lowerRightRef} className={styles.actionsColumn}>
+            <div className={styles.ctaGroup}>
               <MagneticButton
                 href="#projects"
                 className={`${styles.ctaPrimary} luxury-btn`}
-                ariaLabel="Explore selected projects"
+                ariaLabel="Explore My Work — View engineering projects"
               >
                 <span>Explore My Work</span>
                 <span className={styles.ctaPrimaryIcon} aria-hidden="true">
-                  <ArrowRight size={15} strokeWidth={2.1} />
+                  <ArrowRight size={14} strokeWidth={2.2} />
                 </span>
               </MagneticButton>
 
@@ -476,235 +557,26 @@ export default function Hero() {
                 ariaLabel="Download CV as PDF"
               >
                 <span className={styles.ctaSecondaryIcon} aria-hidden="true">
-                  <Download size={15} strokeWidth={2} />
+                  <Download size={14} strokeWidth={2} />
                 </span>
                 <span>Download CV</span>
               </MagneticButton>
-            </motion.div>
-          </motion.div>
-
-          {/* Right Column: Spatial Depth Photographic Frame */}
-          <div className={styles.rightColumn}>
-            <motion.div
-              className={styles.portraitStage}
-              style={
-                prefersReducedMotion
-                  ? undefined
-                  : { y: portraitParallaxY, scale: portraitScrollScale }
-              }
-            >
-              <motion.div
-                ref={portraitCardRef}
-                className={styles.portraitCard}
-                onPointerMove={handlePortraitPointerMove}
-                onPointerLeave={handlePortraitPointerLeave}
-                initial={
-                  prefersReducedMotion
-                    ? false
-                    : { clipPath: 'inset(14% 0% 14% 0% round 22px)' }
-                }
-                animate={{ clipPath: 'inset(0% 0% 0% 0% round 22px)' }}
-                transition={{ duration: 1.05, delay: 0.08, ease: EASE_EDITORIAL }}
-                style={
-                  prefersReducedMotion
-                    ? undefined
-                    : {
-                        rotateX: tiltX,
-                        rotateY: tiltY,
-                        transformPerspective: 1200,
-                      }
-                }
-              >
-                <motion.div
-                  className={styles.portraitMedia}
-                  initial={prefersReducedMotion ? false : { scale: 1.11 }}
-                  animate={{ scale: 1.045 }}
-                  transition={{ duration: 1.2, delay: 0.08, ease: EASE_EDITORIAL }}
-                  style={
-                    prefersReducedMotion
-                      ? undefined
-                      : { x: photoShiftX, y: photoShiftY }
-                  }
-                >
-                  <Image
-                    src="/portrait.jpg"
-                    alt="Ishthiyaq Ahamed outdoors in convocation attire against blue campus buildings"
-                    fill
-                    priority
-                    sizes="(max-width: 960px) 100vw, 46vw"
-                    className={styles.portraitImage}
-                  />
-                </motion.div>
-
-                <div className={styles.portraitVignette} aria-hidden="true" />
-                <div
-                  ref={glintLayerRef}
-                  className={styles.portraitGlint}
-                  aria-hidden="true"
-                />
-
-                <motion.div
-                  className={styles.portraitFooter}
-                  initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, delay: 0.56, ease: EASE_EDITORIAL }}
-                >
-                  <div>
-                    <div className={styles.portraitCaptionPrimary}>
-                      Class of &rsquo;25 · Colombo
-                    </div>
-                    <div className={styles.portraitCaptionSecondary}>
-                      Univ. of Bedfordshire BSc (Hons)
-                    </div>
-                  </div>
-
-                  <div className={styles.portraitMetrics}>
-                    <div className={styles.metricBlock}>
-                      <span className={styles.metricValue}>4+</span>
-                      <span className={styles.metricLabel}>Shipped Apps</span>
-                    </div>
-                    <span className={styles.metricDivider} aria-hidden="true" />
-                    <div className={styles.metricBlock}>
-                      <span className={styles.metricValue}>3+ Yrs</span>
-                      <span className={styles.metricLabel}>Full-Stack</span>
-                    </div>
-                  </div>
-                </motion.div>
-              </motion.div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Bottom Direct Contact & Social Bar */}
-        <motion.div
-          className={styles.heroFooterBar}
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.64, ease: EASE_EDITORIAL }}
-        >
-          <div className={styles.directContacts}>
-            <button
-              type="button"
-              className={styles.contactAction}
-              onClick={handleCopyEmail}
-              aria-label="Copy email address Ishthiyaqahamed@gmail.com"
-            >
-              <span className={styles.contactActionIcon} aria-hidden="true">
-                {copiedEmail ? <Check size={14} /> : <Copy size={14} />}
-              </span>
-              <span>Ishthiyaqahamed@gmail.com</span>
-              {copiedEmail && <span className={styles.copiedTag}>Copied</span>}
-            </button>
-
-            <span className={styles.contactDivider} aria-hidden="true" />
-
-            <a
-              href="tel:+94760514320"
-              className={styles.contactAction}
-              aria-label="Call Ishthiyaq Ahamed"
-            >
-              <span className={styles.contactActionIcon} aria-hidden="true">
-                <Phone size={14} />
-              </span>
-              <span>+94 76 051 4320</span>
-            </a>
-          </div>
-
-          <div className={styles.footerRight}>
-            <div className={styles.socialLinks}>
-              <a
-                href="https://github.com/ishthiyaqAhamed"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.socialLink}
-                aria-label="GitHub Profile"
-              >
-                <FiGithub size={15} />
-              </a>
-              <a
-                href="https://linkedin.com/in/ishthiyaq-zakwan-4634a0231"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.socialLink}
-                aria-label="LinkedIn Profile"
-              >
-                <FiLinkedin size={15} />
-              </a>
-              <a
-                href="mailto:Ishthiyaqahamed@gmail.com"
-                className={styles.socialLink}
-                aria-label="Send Email"
-              >
-                <Mail size={15} />
-              </a>
             </div>
 
             <a
               href="#about"
-              className={styles.scrollLink}
+              className={styles.scrollCue}
               aria-label="Scroll down to About section"
             >
-              <span>Scroll</span>
-              <span className={styles.scrollArrow} aria-hidden="true">
-                <ArrowDown size={13} />
+              <span>Scroll to Explore</span>
+              <ArrowDown size={13} strokeWidth={2} aria-hidden="true" />
+              <span className={styles.scrollNeedle} aria-hidden="true">
+                <span className={styles.scrollNeedlePulse} />
               </span>
             </a>
           </div>
-        </motion.div>
+        </div>
       </div>
-
-      {/* Desktop 2026 Cursor-Following Live Build Preview Portal */}
-      <AnimatePresence>
-        {hoveredBuild && !prefersReducedMotion && (
-          <motion.div
-            key="cursor-build-preview"
-            aria-hidden="true"
-            className={styles.floatingPreview}
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.92 }}
-            transition={{ duration: 0.2, ease: EASE_EDITORIAL }}
-            style={{
-              x: previewX,
-              y: previewY,
-              rotate: previewRotate,
-            }}
-          >
-            <div className={styles.floatingFrame}>
-              <div className={styles.floatingChrome}>
-                <span className={styles.chromeDot} />
-                <span className={styles.chromeDot} />
-                <span className={styles.chromeDot} />
-                <span className={styles.chromeUrl}>{hoveredBuild.urlLabel}</span>
-              </div>
-
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={hoveredBuild.id}
-                  className={styles.floatingViewport}
-                  initial={{ clipPath: 'inset(0 0 100% 0)', opacity: 0.6 }}
-                  animate={{ clipPath: 'inset(0 0 0% 0)', opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.28, ease: EASE_EDITORIAL }}
-                >
-                  <Image
-                    src={hoveredBuild.image}
-                    alt={hoveredBuild.alt}
-                    fill
-                    sizes="296px"
-                    style={{ objectFit: 'cover', objectPosition: 'top center' }}
-                  />
-                </motion.div>
-              </AnimatePresence>
-
-              <div className={styles.floatingCaptionBar}>
-                <span className={styles.floatingTitle}>{hoveredBuild.name}</span>
-                <span className={styles.floatingStack}>{hoveredBuild.stack}</span>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </section>
   )
 }
