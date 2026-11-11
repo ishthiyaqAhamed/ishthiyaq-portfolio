@@ -5,6 +5,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight, Download } from 'lucide-react'
+import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
 import MagneticButton from './hero/MagneticButton'
 import Lightfall from './hero/Lightfall'
 import styles from './hero/Hero.module.css'
@@ -20,6 +21,27 @@ const IDENTITY_STATEMENTS = [
   'Building Digital Experiences.',
   'Engineering Scalable Applications.',
   'Turning Ideas Into Products.',
+]
+
+const SOCIAL_LINKS = [
+  {
+    icon: FiGithub,
+    href: 'https://github.com/ishthiyaqAhamed',
+    label: 'GitHub',
+    external: true,
+  },
+  {
+    icon: FiLinkedin,
+    href: 'https://linkedin.com/in/ishthiyaq-zakwan-4634a0231',
+    label: 'LinkedIn',
+    external: true,
+  },
+  {
+    icon: FiMail,
+    href: 'mailto:Ishthiyaqahamed@gmail.com',
+    label: 'Email',
+    external: false,
+  },
 ]
 
 const EASE_MASK = [0.22, 1, 0.36, 1]
@@ -398,7 +420,7 @@ export default function Hero() {
           <div ref={lowerLeftRef} className={styles.narrativeColumn}>
             {/* Masked Vertical Transition Between Identity Statements */}
             <div className={styles.statementModule}>
-              <div className={styles.statementWindow} aria-live="polite">
+              <div className={styles.statementWindow}>
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.p
                     key={statementIdx}
@@ -433,27 +455,22 @@ export default function Hero() {
                 </AnimatePresence>
               </div>
 
-              <div
-                className={styles.statementControls}
-                role="tablist"
-                aria-label="Identity statements"
-              >
-                {IDENTITY_STATEMENTS.map((stmt, idx) => (
-                  <button
-                    key={stmt}
-                    type="button"
-                    role="tab"
-                    aria-selected={statementIdx === idx}
-                    aria-label={stmt}
-                    onClick={() => setStatementIdx(idx)}
-                    className={`${styles.statementStepBtn} ${
-                      statementIdx === idx ? styles.statementStepBtnActive : ''
-                    }`}
-                  >
-                    <span>0{idx + 1}</span>
-                    <span className={styles.stepBar} aria-hidden="true" />
-                  </button>
-                ))}
+              <div className={styles.socialLinks} aria-label="Social links">
+                {SOCIAL_LINKS.map((item) => {
+                  const Icon = item.icon
+                  return (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      target={item.external ? '_blank' : undefined}
+                      rel={item.external ? 'noopener noreferrer' : undefined}
+                      aria-label={item.label}
+                      className={styles.socialLink}
+                    >
+                      <Icon size={17} aria-hidden="true" />
+                    </a>
+                  )
+                })}
               </div>
             </div>
 
