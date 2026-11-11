@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
+import { Playfair_Display } from 'next/font/google'
 import {
   AnimatePresence,
   motion,
@@ -8,20 +10,17 @@ import {
   useReducedMotion,
   useSpring,
 } from 'framer-motion'
-import { ArrowRight, Download } from 'lucide-react'
-import {
-  SiDocker,
-  SiMongodb,
-  SiNextdotjs,
-  SiNodedotjs,
-  SiPostgresql,
-  SiReact,
-  SiTypescript,
-} from 'react-icons/si'
-import { FaAws } from 'react-icons/fa6'
-import ArchitecturalVisual from './hero/ArchitecturalVisual'
+import { ArrowRight, Download, GraduationCap, Mail } from 'lucide-react'
+import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
 import MagneticButton from './hero/MagneticButton'
 import styles from './hero/Hero.module.css'
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['500', '600', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-serif',
+})
 
 const ROLES = [
   'Full Stack Software Engineer',
@@ -30,39 +29,41 @@ const ROLES = [
   'SaaS & Systems Developer',
 ]
 
-const STACK_ITEMS = [
-  { name: 'Next.js', icon: <SiNextdotjs size={13} color="#f8fafc" aria-hidden="true" /> },
-  { name: 'TypeScript', icon: <SiTypescript size={13} color="#60a5fa" aria-hidden="true" /> },
-  { name: 'React', icon: <SiReact size={13} color="#67e8f9" aria-hidden="true" /> },
-  { name: 'Node.js', icon: <SiNodedotjs size={13} color="#86efac" aria-hidden="true" /> },
-  { name: 'PostgreSQL', icon: <SiPostgresql size={13} color="#93c5fd" aria-hidden="true" /> },
-  { name: 'MongoDB', icon: <SiMongodb size={13} color="#6ee7b7" aria-hidden="true" /> },
-  { name: 'AWS', icon: <FaAws size={13} color="#fbbf24" aria-hidden="true" /> },
-  { name: 'Docker', icon: <SiDocker size={13} color="#38bdf8" aria-hidden="true" /> },
+const METRICS = [
+  { value: '3+', label: 'years of engineering' },
+  { value: '4+', label: 'flagship systems' },
 ]
 
-const FIRST_NAME_CHARS = 'ISHTHIYAQ'.split('')
-const LAST_NAME_CHARS = 'AHAMED'.split('')
+const SOCIALS = [
+  {
+    label: 'GitHub',
+    href: 'https://github.com/ishthiyaqAhamed',
+    icon: <FiGithub size={16} aria-hidden="true" />,
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://linkedin.com/in/ishthiyaq-zakwan-4634a0231',
+    icon: <FiLinkedin size={16} aria-hidden="true" />,
+  },
+  {
+    label: 'Email',
+    href: 'mailto:Ishthiyaqahamed@gmail.com',
+    icon: <FiMail size={16} aria-hidden="true" />,
+  },
+]
+
 const EASE_CINEMATIC = [0.16, 1, 0.3, 1]
 
 export default function Hero() {
   const prefersReducedMotion = useReducedMotion()
   const [roleIndex, setRoleIndex] = useState(0)
   const [isRolePaused, setIsRolePaused] = useState(false)
-
   const sectionRef = useRef(null)
-  const pointerNormRef = useRef({ x: 0, y: 0 })
 
-  // Subtle cursor-driven background parallax (desktop mouse pointer only)
   const rawParallaxX = useMotionValue(0)
   const rawParallaxY = useMotionValue(0)
-  const gridParallaxX = useMotionValue(0)
-  const gridParallaxY = useMotionValue(0)
-
-  const smoothGlowX = useSpring(rawParallaxX, { stiffness: 90, damping: 24, mass: 0.8 })
-  const smoothGlowY = useSpring(rawParallaxY, { stiffness: 90, damping: 24, mass: 0.8 })
-  const smoothGridX = useSpring(gridParallaxX, { stiffness: 80, damping: 26, mass: 0.9 })
-  const smoothGridY = useSpring(gridParallaxY, { stiffness: 80, damping: 26, mass: 0.9 })
+  const portraitX = useSpring(rawParallaxX, { stiffness: 90, damping: 24, mass: 0.8 })
+  const portraitY = useSpring(rawParallaxY, { stiffness: 90, damping: 24, mass: 0.8 })
 
   useEffect(() => {
     if (prefersReducedMotion || isRolePaused) return
@@ -73,176 +74,147 @@ export default function Hero() {
     return () => clearInterval(interval)
   }, [prefersReducedMotion, isRolePaused])
 
-  const handleSectionPointerMove = (e) => {
+  const handlePointerMove = (e) => {
     if (prefersReducedMotion || e.pointerType !== 'mouse' || !sectionRef.current) return
     const rect = sectionRef.current.getBoundingClientRect()
     const nx = ((e.clientX - rect.left) / rect.width - 0.5) * 2
     const ny = ((e.clientY - rect.top) / rect.height - 0.5) * 2
-    pointerNormRef.current = { x: nx, y: ny }
-    rawParallaxX.set(nx * 18)
-    rawParallaxY.set(ny * 14)
-    gridParallaxX.set(-nx * 6)
-    gridParallaxY.set(-ny * 6)
+    rawParallaxX.set(nx * -10)
+    rawParallaxY.set(ny * -7)
   }
 
-  const handleSectionPointerLeave = () => {
-    pointerNormRef.current = { x: 0, y: 0 }
+  const handlePointerLeave = () => {
     rawParallaxX.set(0)
     rawParallaxY.set(0)
-    gridParallaxX.set(0)
-    gridParallaxY.set(0)
   }
 
-  const instantaneous = { duration: 0 }
+  const instant = { duration: 0 }
 
   return (
     <section
       ref={sectionRef}
       id="hero"
       aria-label="Introduction"
-      className={styles.heroSection}
-      onPointerMove={handleSectionPointerMove}
-      onPointerLeave={handleSectionPointerLeave}
+      className={`${styles.heroSection} ${playfair.variable}`}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
     >
-      {/* Phase 1 — Architectural Backdrop & Subtle Parallax Layers */}
-      <div className={styles.backdropLayer} aria-hidden="true">
+      {/* Full-Bleed Editorial Portrait Backdrop */}
+      <div className={styles.portraitBackdrop} aria-hidden="true">
         <motion.div
-          className={styles.architecturalGrid}
-          initial={prefersReducedMotion ? false : { opacity: 0, scale: 1.03 }}
+          className={styles.portraitFrame}
+          initial={prefersReducedMotion ? false : { opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={prefersReducedMotion ? instantaneous : { duration: 0.95, ease: EASE_CINEMATIC }}
-          style={prefersReducedMotion ? undefined : { x: smoothGridX, y: smoothGridY }}
-        />
-
-        <motion.div
-          className={styles.microGrid}
-          initial={prefersReducedMotion ? false : { opacity: 0 }}
-          animate={{ opacity: 0.45 }}
-          transition={prefersReducedMotion ? instantaneous : { duration: 1.1, delay: 0.15, ease: EASE_CINEMATIC }}
-        />
-
-        <motion.div
-          className={styles.ambientGlowPrimary}
-          initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={prefersReducedMotion ? instantaneous : { duration: 1.1, ease: EASE_CINEMATIC }}
-          style={prefersReducedMotion ? undefined : { x: smoothGlowX, y: smoothGlowY }}
-        />
-
-        <div className={styles.ambientGlowSecondary} />
-
-        <motion.div
-          className={styles.horizonRule}
-          initial={prefersReducedMotion ? false : { scaleX: 0, opacity: 0 }}
-          animate={{ scaleX: 1, opacity: 1 }}
-          transition={prefersReducedMotion ? instantaneous : { duration: 0.9, delay: 0.08, ease: EASE_CINEMATIC }}
-        />
-
-        <div className={styles.vignetteFade} />
+          transition={
+            prefersReducedMotion
+              ? instant
+              : { duration: 1.15, ease: EASE_CINEMATIC }
+          }
+          style={prefersReducedMotion ? undefined : { x: portraitX, y: portraitY }}
+        >
+          <Image
+            src="/hero-portrait.jpg"
+            alt="Ishthiyaq Ahamed — Software Engineering Graduate"
+            fill
+            priority
+            sizes="(max-width: 960px) 100vw, 66vw"
+            className={styles.portraitImg}
+          />
+        </motion.div>
+        <div className={styles.scrimAtmosphere} />
+        <div className={styles.scrimHorizontal} />
+        <div className={styles.scrimVertical} />
       </div>
 
-      {/* Main Content Container */}
+      {/* Foreground Editorial Composition */}
       <div className={styles.heroContainer}>
-        <div className={styles.heroGrid}>
-          {/* LEFT COLUMN — Editorial Identity & Actions */}
+        <div className={styles.heroUpper}>
+          {/* LEFT EDITORIAL COLUMN */}
           <div className={styles.leftColumn}>
-            {/* Availability Indicator */}
+            {/* Eyebrow Identity Marker */}
             <motion.div
-              className={styles.availabilityBadge}
+              className={styles.eyebrowRow}
               initial={
                 prefersReducedMotion
                   ? false
                   : { opacity: 0, y: 12, filter: 'blur(4px)' }
               }
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              transition={prefersReducedMotion ? instantaneous : { duration: 0.55, delay: 0.1, ease: EASE_CINEMATIC }}
+              transition={
+                prefersReducedMotion
+                  ? instant
+                  : { duration: 0.6, delay: 0.12, ease: EASE_CINEMATIC }
+              }
             >
-              <span className={styles.statusPulseWrap} aria-hidden="true">
-                <span className={styles.statusRing} />
-                <span className={styles.statusDot} />
-              </span>
-              <span className={styles.availabilityText}>
-                Available for New Opportunities
+              <span className={styles.eyebrowName}>| Ishthiyaq Ahamed |</span>
+              <span className={styles.availabilityChip}>
+                <span className={styles.statusPulseWrap} aria-hidden="true">
+                  <span className={styles.statusRing} />
+                  <span className={styles.statusDot} />
+                </span>
+                Available for Opportunities
               </span>
             </motion.div>
 
-            {/* Phase 2 — Split-Text Character Reveal Typography */}
+            {/* 2-Line Editorial Serif Headline */}
             <h1 className={styles.heroTitle}>
-              <span className={styles.srOnly}>Ishthiyaq Ahamed</span>
-
-              <span className={styles.titleLine} aria-hidden="true">
-                {FIRST_NAME_CHARS.map((char, idx) => (
-                  <span key={`fn-${idx}`} className={styles.charMask}>
-                    <motion.span
-                      className={styles.charInner}
-                      initial={
-                        prefersReducedMotion
-                          ? false
-                          : { y: '118%', opacity: 0, filter: 'blur(6px)' }
-                      }
-                      animate={{ y: '0%', opacity: 1, filter: 'blur(0px)' }}
-                      transition={
-                        prefersReducedMotion
-                          ? instantaneous
-                          : {
-                              duration: 0.65,
-                              delay: 0.18 + idx * 0.024,
-                              ease: EASE_CINEMATIC,
-                            }
-                      }
-                    >
-                      {char}
-                    </motion.span>
-                  </span>
-                ))}
+              <span className={styles.titleLineMask}>
+                <motion.span
+                  className={styles.titleLineGold}
+                  initial={
+                    prefersReducedMotion
+                      ? false
+                      : { y: '110%', opacity: 0, filter: 'blur(6px)' }
+                  }
+                  animate={{ y: '0%', opacity: 1, filter: 'blur(0px)' }}
+                  transition={
+                    prefersReducedMotion
+                      ? instant
+                      : { duration: 0.78, delay: 0.22, ease: EASE_CINEMATIC }
+                  }
+                >
+                  Full Stack, Cloud
+                </motion.span>
               </span>
 
-              <span className={styles.titleLine} aria-hidden="true">
-                {LAST_NAME_CHARS.map((char, idx) => {
-                  const globalIdx = FIRST_NAME_CHARS.length + idx
-                  return (
-                    <span key={`ln-${idx}`} className={styles.charMask}>
-                      <motion.span
-                        className={`${styles.charInner} ${styles.goldChar}`}
-                        initial={
-                          prefersReducedMotion
-                            ? false
-                            : { y: '118%', opacity: 0, filter: 'blur(6px)' }
-                        }
-                        animate={{ y: '0%', opacity: 1, filter: 'blur(0px)' }}
-                        transition={
-                          prefersReducedMotion
-                            ? instantaneous
-                            : {
-                                duration: 0.65,
-                                delay: 0.18 + globalIdx * 0.024,
-                                ease: EASE_CINEMATIC,
-                              }
-                        }
-                      >
-                        {char}
-                      </motion.span>
-                    </span>
-                  )
-                })}
+              <span className={styles.titleLineMask}>
+                <motion.span
+                  className={styles.titleLineWhite}
+                  initial={
+                    prefersReducedMotion
+                      ? false
+                      : { y: '110%', opacity: 0, filter: 'blur(6px)' }
+                  }
+                  animate={{ y: '0%', opacity: 1, filter: 'blur(0px)' }}
+                  transition={
+                    prefersReducedMotion
+                      ? instant
+                      : { duration: 0.78, delay: 0.34, ease: EASE_CINEMATIC }
+                  }
+                >
+                  &amp; Systems Engineer
+                </motion.span>
               </span>
             </h1>
 
-            {/* Phase 3 — Dynamic Professional Identity Transition */}
+            {/* Dynamic Role & Subcopy */}
             <motion.div
-              className={styles.roleContainer}
+              className={styles.subcopyBlock}
               initial={
                 prefersReducedMotion
                   ? false
                   : { opacity: 0, y: 14, filter: 'blur(4px)' }
               }
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              transition={prefersReducedMotion ? instantaneous : { duration: 0.6, delay: 0.52, ease: EASE_CINEMATIC }}
+              transition={
+                prefersReducedMotion
+                  ? instant
+                  : { duration: 0.65, delay: 0.48, ease: EASE_CINEMATIC }
+              }
               onMouseEnter={() => setIsRolePaused(true)}
               onMouseLeave={() => setIsRolePaused(false)}
-              aria-label={`Roles: ${ROLES.join(', ')}`}
             >
-              <div className={styles.roleRow}>
+              <div className={styles.roleLine} aria-label={`Roles: ${ROLES.join(', ')}`}>
                 <span className={styles.roleIndex} aria-hidden="true">
                   {String(roleIndex + 1).padStart(2, '0')}
                 </span>
@@ -269,11 +241,8 @@ export default function Hero() {
                       }
                       transition={
                         prefersReducedMotion
-                          ? instantaneous
-                          : {
-                              duration: 0.48,
-                              ease: EASE_CINEMATIC,
-                            }
+                          ? instant
+                          : { duration: 0.45, ease: EASE_CINEMATIC }
                       }
                     >
                       {ROLES[roleIndex]}
@@ -282,61 +251,21 @@ export default function Hero() {
                 </div>
               </div>
 
-              <div
-                className={styles.roleProgressTrack}
-                role="group"
-                aria-label="Select professional identity"
-              >
-                {ROLES.map((role, idx) => (
-                  <button
-                    key={role}
-                    type="button"
-                    aria-label={`Show role: ${role}`}
-                    aria-pressed={idx === roleIndex}
-                    className={`${styles.roleDashBtn} ${
-                      idx === roleIndex ? styles.roleDashBtnActive : ''
-                    }`}
-                    onClick={() => setRoleIndex(idx)}
-                  />
-                ))}
-              </div>
+              <p className={styles.availabilitySubline}>
+                Engineering digital experiences &amp; scalable SaaS architectures worldwide.
+              </p>
             </motion.div>
 
-            {/* Phase 4 — Supporting Positioning & Narrative */}
-            <motion.p
-              className={styles.positioningStatement}
-              initial={
-                prefersReducedMotion
-                  ? false
-                  : { opacity: 0, y: 16, filter: 'blur(4px)' }
-              }
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              transition={prefersReducedMotion ? instantaneous : { duration: 0.65, delay: 0.68, ease: EASE_CINEMATIC }}
-            >
-              Engineering Digital Experiences. Building Scalable Systems.
-            </motion.p>
-
-            <motion.p
-              className={styles.supportingDescription}
-              initial={
-                prefersReducedMotion
-                  ? false
-                  : { opacity: 0, y: 16, filter: 'blur(4px)' }
-              }
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              transition={prefersReducedMotion ? instantaneous : { duration: 0.65, delay: 0.78, ease: EASE_CINEMATIC }}
-            >
-              I build modern web applications, intelligent SaaS platforms, and
-              scalable digital solutions by combining thoughtful architecture
-              with exceptional user experiences.
-            </motion.p>
-
-            {/* Phase 5 — Premium Magnetic CTAs */}
+            {/* Primary & Secondary CTAs */}
             <motion.div
               className={styles.ctaRow}
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={prefersReducedMotion ? instantaneous : { duration: 0.6, delay: 0.9, ease: EASE_CINEMATIC }}
+              transition={
+                prefersReducedMotion
+                  ? instant
+                  : { duration: 0.6, delay: 0.62, ease: EASE_CINEMATIC }
+              }
             >
               <MagneticButton
                 href="#projects"
@@ -345,7 +274,7 @@ export default function Hero() {
               >
                 <span>Explore My Work</span>
                 <span className={styles.ctaPrimaryIcon} aria-hidden="true">
-                  <ArrowRight size={16} strokeWidth={2.2} />
+                  <ArrowRight size={15} strokeWidth={2.2} />
                 </span>
               </MagneticButton>
 
@@ -356,55 +285,88 @@ export default function Hero() {
                 ariaLabel="Download CV as PDF"
               >
                 <span className={styles.ctaSecondaryIcon} aria-hidden="true">
-                  <Download size={15} strokeWidth={2} />
+                  <Download size={14} strokeWidth={2} />
                 </span>
                 <span>Download CV</span>
               </MagneticButton>
             </motion.div>
-
-            {/* Refined Technology Stack Indicator */}
-            <motion.div
-              className={styles.stackSection}
-              initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={prefersReducedMotion ? instantaneous : { duration: 0.6, delay: 1.04, ease: EASE_CINEMATIC }}
-            >
-              <div className={styles.stackLabel}>
-                <span className={styles.stackLabelAccent} aria-hidden="true" />
-                <span>Core Architecture Stack</span>
-              </div>
-              <div className={styles.stackGrid}>
-                {STACK_ITEMS.map((tech) => (
-                  <div key={tech.name} className={styles.stackItem}>
-                    {tech.icon}
-                    <span>{tech.name}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
           </div>
 
-          {/* RIGHT COLUMN — Interactive 3D Engineering Visual */}
-          <div className={styles.rightColumn}>
-            <ArchitecturalVisual pointerNormRef={pointerNormRef} />
-          </div>
+          {/* RIGHT FLOATING EDITORIAL METRICS */}
+          <motion.div
+            className={styles.metricsColumn}
+            initial={prefersReducedMotion ? false : { opacity: 0, x: 16 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={
+              prefersReducedMotion
+                ? instant
+                : { duration: 0.7, delay: 0.56, ease: EASE_CINEMATIC }
+            }
+          >
+            {METRICS.map((item) => (
+              <div key={item.label} className={styles.metricItem}>
+                <span className={styles.metricValue}>{item.value}</span>
+                <span className={styles.metricLabel}>{item.label}</span>
+              </div>
+            ))}
+          </motion.div>
         </div>
-      </div>
 
-      {/* Subtle Scroll Cue */}
-      <motion.a
-        href="#about"
-        className={styles.scrollHint}
-        aria-label="Scroll down to About section"
-        initial={prefersReducedMotion ? false : { opacity: 0 }}
-        animate={{ opacity: 0.72 }}
-        transition={prefersReducedMotion ? instantaneous : { duration: 0.6, delay: 1.25, ease: EASE_CINEMATIC }}
-      >
-        <span className={styles.scrollHintLabel}>Scroll</span>
-        <span className={styles.scrollHintTrack} aria-hidden="true">
-          <span className={styles.scrollHintRunner} />
-        </span>
-      </motion.a>
+        {/* BOTTOM EDITORIAL FOOTER BAR */}
+        <motion.div
+          className={styles.heroFooter}
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={
+            prefersReducedMotion
+              ? instant
+              : { duration: 0.65, delay: 0.74, ease: EASE_CINEMATIC }
+          }
+        >
+          <div className={styles.contactGroup}>
+            <div className={styles.contactCard}>
+              <div className={styles.contactIconCircle} aria-hidden="true">
+                <Mail size={15} strokeWidth={1.7} />
+              </div>
+              <div className={styles.contactMeta}>
+                <span className={styles.contactHeading}>Contact Information</span>
+                <a href="tel:+94760514320" className={styles.contactLink}>
+                  +94 76 051 4320
+                </a>
+                <a href="mailto:Ishthiyaqahamed@gmail.com" className={styles.contactLink}>
+                  Ishthiyaqahamed@gmail.com
+                </a>
+              </div>
+            </div>
+
+            <div className={styles.contactCard}>
+              <div className={styles.contactIconCircle} aria-hidden="true">
+                <GraduationCap size={15} strokeWidth={1.7} />
+              </div>
+              <div className={styles.contactMeta}>
+                <span className={styles.contactHeading}>Qualification &amp; Base</span>
+                <span className={styles.contactLine}>BSc (Hons) Software Engineering</span>
+                <span className={styles.contactLine}>Colombo, Sri Lanka</span>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.socialGroup} aria-label="Social Profiles">
+            {SOCIALS.map((social) => (
+              <a
+                key={social.label}
+                href={social.href}
+                target={social.href.startsWith('http') ? '_blank' : undefined}
+                rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                aria-label={social.label}
+                className={styles.socialLink}
+              >
+                {social.icon}
+              </a>
+            ))}
+          </div>
+        </motion.div>
+      </div>
     </section>
   )
 }
