@@ -309,7 +309,7 @@ export default function Hero() {
             glow={0.2}
             depth={0}
             zoom={3.6}
-            fade={0.1}
+            fade={0.15}
             mouseStrength={0}
             mouseRadius={0.25}
             lens={0.2}

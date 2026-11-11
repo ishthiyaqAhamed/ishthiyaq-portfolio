@@ -80,7 +80,7 @@ const quickFacts = [
 export default function About() {
   const { isMobile, isTablet } = useWindowSize()
   const isSmall = isMobile || isTablet
-  const pad = isMobile ? '80px 20px' : isTablet ? '100px 40px' : '130px 72px'
+  const pad = isMobile ? '64px 20px 80px' : isTablet ? '84px 40px 100px' : '104px 72px 130px'
 
   return (
     <section
@@ -90,7 +90,6 @@ export default function About() {
         position: 'relative',
         overflow: 'hidden',
         background: '#050505',
-        borderTop: '1px solid rgba(255, 255, 255, 0.06)',
       }}
     >
       {/* Subtle Monochrome Studio Glow */}
