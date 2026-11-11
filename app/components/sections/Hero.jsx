@@ -43,11 +43,6 @@ export default function Hero() {
   const firstCharsRef = useRef([])
   const lastCharsRef = useRef([])
 
-  const bandRuleTopRef = useRef(null)
-  const bandRuleBottomRef = useRef(null)
-  const roleSliderRef = useRef(null)
-  const roleTagRef = useRef(null)
-
   const lowerLeftRef = useRef(null)
   const lowerRightRef = useRef(null)
 
@@ -85,10 +80,6 @@ export default function Hero() {
           [
             registerLineRef.current,
             signatureWrapRef.current,
-            bandRuleTopRef.current,
-            bandRuleBottomRef.current,
-            roleSliderRef.current,
-            roleTagRef.current,
             lowerLeftRef.current,
             lowerRightRef.current,
             ...firstChars,
@@ -130,15 +121,6 @@ export default function Hero() {
         '--char-wght': 400,
       })
 
-      gsap.set([bandRuleTopRef.current, bandRuleBottomRef.current], { scaleX: 0 })
-      gsap.set(roleSliderRef.current, {
-        xPercent: 28,
-        scale: 1.42,
-        clipPath: 'inset(0 0 0 100%)',
-        opacity: 0.4,
-        '--role-ls': '0.16em',
-      })
-      gsap.set(roleTagRef.current, { opacity: 0, x: 12 })
       gsap.set([lowerLeftRef.current, lowerRightRef.current], {
         opacity: 0,
         y: 18,
@@ -146,7 +128,7 @@ export default function Hero() {
 
       const tl = gsap.timeline({ defaults: { ease: 'expo.out' } })
 
-      // 1. Minimal Black Canvas -> Handwritten "Hello, stranger." signature stroke
+      // 1. Minimal Black Canvas -> Handwritten "Hello, World." signature stroke
       tl.to(
         registerLineRef.current,
         { scaleY: 1, duration: 1.15, ease: 'power3.inOut' },
@@ -201,45 +183,15 @@ export default function Hero() {
         0.56
       )
 
-      // 3. Horizontal Clipping-Window Role Reveal (Oversized sweep -> locked rest)
-      tl.to(
-        bandRuleTopRef.current,
-        { scaleX: 1, duration: 0.88, ease: 'power3.out' },
-        0.78
-      )
-        .to(
-          bandRuleBottomRef.current,
-          { scaleX: 1, duration: 0.88, ease: 'power3.out' },
-          0.84
-        )
-        .to(
-          roleSliderRef.current,
-          {
-            xPercent: 0,
-            scale: 1,
-            clipPath: 'inset(0 0 0 0%)',
-            opacity: 1,
-            '--role-ls': '0em',
-            duration: 1.08,
-            ease: 'expo.out',
-          },
-          0.9
-        )
-        .to(
-          roleTagRef.current,
-          { opacity: 1, x: 0, duration: 0.7, ease: 'power3.out' },
-          1.12
-        )
-
-      // 4. Supporting Statements, Intro & Magnetic CTAs
+      // 3. Supporting Statements, Intro & Magnetic CTAs
       tl.to(
         lowerLeftRef.current,
         { opacity: 1, y: 0, duration: 0.78, ease: 'power3.out' },
-        1.16
+        0.94
       ).to(
         lowerRightRef.current,
         { opacity: 1, y: 0, duration: 0.78, ease: 'power3.out' },
-        1.26
+        1.04
       )
 
       // 5. Ultra-subtle 60fps mouse-responsive typography tracks
@@ -413,28 +365,6 @@ export default function Hero() {
               </span>
             </span>
           </h1>
-
-          {/* Horizontal Clipping-Window Role Reveal */}
-          <div className={styles.roleBand}>
-            <span
-              ref={bandRuleTopRef}
-              className={styles.bandRuleTop}
-              aria-hidden="true"
-            />
-
-            <div className={styles.roleAperture}>
-              <div ref={roleSliderRef} className={styles.roleSlider}>
-                <span className={styles.roleAccentBar} aria-hidden="true" />
-                <h2 className={styles.roleTitle}>FULL STACK SOFTWARE ENGINEER</h2>
-              </div>
-            </div>
-
-            <span
-              ref={bandRuleBottomRef}
-              className={styles.bandRuleBottom}
-              aria-hidden="true"
-            />
-          </div>
         </div>
 
         {/* Lower Asymmetric Editorial Narrative & Magnetic CTAs */}

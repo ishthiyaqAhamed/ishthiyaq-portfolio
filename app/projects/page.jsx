@@ -538,17 +538,6 @@ export default function ProjectsBlog() {
   return (
     <div style={{ background: '#050505', minHeight: '100vh', color: '#f4f4f5' }}>
 
-      {/* Subtle architectural hairline grid */}
-      <div style={{
-        position: 'fixed', inset: 0,
-        backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px)',
-        backgroundSize: '80px 80px', pointerEvents: 'none', zIndex: 0,
-      }} />
-
-      {/* Studio light accents */}
-      <div style={{ position: 'fixed', borderRadius: '50%', width: '600px', height: '600px', background: 'radial-gradient(circle, rgba(255, 255, 255, 0.035) 0%, transparent 70%)', top: '-120px', right: '-100px', pointerEvents: 'none', zIndex: 0 }} />
-      <div style={{ position: 'fixed', borderRadius: '50%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(59, 130, 246, 0.035) 0%, transparent 70%)', bottom: '10%', left: '-100px', pointerEvents: 'none', zIndex: 0 }} />
-
       {/* Navbar */}
       <nav style={{
         position: 'sticky', top: 0, zIndex: 100,
