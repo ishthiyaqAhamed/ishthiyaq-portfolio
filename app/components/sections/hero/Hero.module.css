@@ -1,0 +1,939 @@
+.heroSection {
+  position: relative;
+  min-height: 100svh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 96px clamp(20px, 5vw, 72px) 64px;
+  background-color: #030712;
+  isolation: isolate;
+}
+
+.backdropLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.architecturalGrid {
+  position: absolute;
+  inset: -40px;
+  background-image:
+    linear-gradient(to right, rgba(212, 175, 55, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(212, 175, 55, 0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 74% at 54% 46%, rgba(0, 0, 0, 0.95) 15%, transparent 82%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 74% at 54% 46%, rgba(0, 0, 0, 0.95) 15%, transparent 82%);
+}
+
+.microGrid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(212, 175, 55, 0.14) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: 0 0;
+  mask-image: radial-gradient(ellipse 68% 64% at 62% 48%, rgba(0, 0, 0, 0.85) 10%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse 68% 64% at 62% 48%, rgba(0, 0, 0, 0.85) 10%, transparent 78%);
+  opacity: 0.45;
+}
+
+.ambientGlowPrimary {
+  position: absolute;
+  top: -12%;
+  right: 4%;
+  width: min(760px, 72vw);
+  height: min(760px, 72vw);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(212, 175, 55, 0.075) 0%,
+    rgba(212, 175, 55, 0.022) 38%,
+    transparent 70%
+  );
+  filter: blur(8px);
+}
+
+.ambientGlowSecondary {
+  position: absolute;
+  bottom: -18%;
+  left: -8%;
+  width: min(560px, 60vw);
+  height: min(560px, 60vw);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(30, 64, 175, 0.065) 0%,
+    rgba(15, 23, 42, 0.03) 45%,
+    transparent 72%
+  );
+  filter: blur(12px);
+}
+
+.horizonRule {
+  position: absolute;
+  top: 70px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.12) 20%,
+    rgba(245, 215, 127, 0.34) 50%,
+    rgba(212, 175, 55, 0.12) 80%,
+    transparent 100%
+  );
+  transform-origin: center;
+}
+
+.vignetteFade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(3, 7, 18, 0.2) 0%,
+    transparent 24%,
+    transparent 82%,
+    rgba(3, 7, 18, 0.92) 100%
+  );
+}
+
+.heroContainer {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.92fr);
+  align-items: center;
+  gap: clamp(32px, 4.5vw, 72px);
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+/* Availability Badge */
+.availabilityBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  background: rgba(8, 13, 26, 0.82);
+  border: 1px solid rgba(212, 175, 55, 0.26);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  margin-bottom: 24px;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.availabilityBadge:hover {
+  border-color: rgba(245, 215, 127, 0.45);
+  background: rgba(12, 18, 34, 0.92);
+}
+
+.statusPulseWrap {
+  position: relative;
+  width: 9px;
+  height: 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.statusDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.65);
+}
+
+.statusRing {
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 1px solid rgba(34, 197, 94, 0.75);
+  animation: statusPing 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.availabilityText {
+  font-family: var(--font-fira), ui-monospace, monospace;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #f5d77f;
+}
+
+/* Main Split-Text Name Heading */
+.heroTitle {
+  font-family: var(--font-space), sans-serif;
+  font-size: clamp(36px, 5.1vw, 72px);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  margin-bottom: 20px;
+  color: #f8fafc;
+}
+
+.titleLine {
+  display: block;
+}
+
+.charMask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding: 0.04em 0.02em 0.16em;
+  margin: -0.04em -0.02em -0.16em;
+}
+
+.charInner {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+}
+
+.goldChar {
+  color: #f5d77f;
+  background: linear-gradient(145deg, #fff7d6 0%, #f5d77f 42%, #d4af37 82%, #aa7c11 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Dynamic Professional Identity Switcher */
+.roleContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 540px;
+  margin-bottom: 22px;
+}
+
+.roleRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+}
+
+.roleIndex {
+  font-family: var(--font-fira), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #d4af37;
+  padding: 3px 8px;
+  border-radius: 5px;
+  background: rgba(212, 175, 55, 0.09);
+  border: 1px solid rgba(212, 175, 55, 0.24);
+  flex-shrink: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.roleDivider {
+  width: 16px;
+  height: 1px;
+  background: rgba(212, 175, 55, 0.45);
+  flex-shrink: 0;
+}
+
+.roleViewport {
+  position: relative;
+  height: 30px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.roleTextItem {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  font-family: var(--font-space), sans-serif;
+  font-size: clamp(14px, 1.55vw, 19px);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: #e2e8f0;
+  white-space: nowrap;
+}
+
+.roleProgressTrack {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.roleDashBtn {
+  height: 3px;
+  width: 22px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.22);
+  cursor: pointer;
+  padding: 0;
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+}
+
+.roleDashBtn:hover {
+  background: rgba(245, 215, 127, 0.55);
+}
+
+.roleDashBtnActive {
+  width: 40px;
+  background: linear-gradient(90deg, #f5d77f 0%, #d4af37 100%);
+}
+
+.roleDashBtn:focus-visible {
+  outline: 2px solid #f5d77f;
+  outline-offset: 3px;
+}
+
+/* Supporting Editorial Copy */
+.positioningStatement {
+  font-family: var(--font-space), sans-serif;
+  font-size: clamp(16px, 1.45vw, 20px);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
+  color: #f8fafc;
+  margin-bottom: 12px;
+  max-width: 560px;
+}
+
+.supportingDescription {
+  font-family: var(--font-space), sans-serif;
+  font-size: clamp(14px, 1.05vw, 15.5px);
+  font-weight: 400;
+  line-height: 1.72;
+  color: #94a3b8;
+  max-width: 540px;
+  margin-bottom: 30px;
+}
+
+/* CTA Row */
+.ctaRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 34px;
+}
+
+.ctaPrimary,
+.ctaSecondary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 10px;
+  font-family: var(--font-space), sans-serif;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
+  min-height: 48px;
+  transition:
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.ctaPrimary {
+  padding: 13px 28px;
+  font-weight: 700;
+  color: #030712;
+  background: linear-gradient(135deg, #f5d77f 0%, #d4af37 60%, #aa7c11 100%);
+  border: 1px solid rgba(255, 247, 214, 0.45);
+  box-shadow:
+    0 10px 28px rgba(212, 175, 55, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.ctaPrimary:hover {
+  box-shadow:
+    0 16px 38px rgba(212, 175, 55, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.ctaPrimaryIcon {
+  display: inline-flex;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ctaPrimary:hover .ctaPrimaryIcon {
+  transform: translateX(4px);
+}
+
+.ctaSecondary {
+  padding: 13px 24px;
+  font-weight: 600;
+  color: #f5d77f;
+  background: rgba(10, 16, 28, 0.78);
+  border: 1px solid rgba(212, 175, 55, 0.32);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.ctaSecondary:hover {
+  background: rgba(212, 175, 55, 0.09);
+  border-color: rgba(245, 215, 127, 0.65);
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.45),
+    0 0 20px rgba(212, 175, 55, 0.14);
+}
+
+.ctaSecondaryIcon {
+  display: inline-flex;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ctaSecondary:hover .ctaSecondaryIcon {
+  transform: translateY(2px);
+}
+
+.ctaPrimary:focus-visible,
+.ctaSecondary:focus-visible {
+  outline: 2px solid #f5d77f;
+  outline-offset: 3px;
+}
+
+/* Refined Technology Stack Strip */
+.stackSection {
+  width: 100%;
+  max-width: 560px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  padding-top: 18px;
+}
+
+.stackLabel {
+  font-family: var(--font-fira), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #64748b;
+  margin-bottom: 11px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stackLabelAccent {
+  width: 14px;
+  height: 1px;
+  background: rgba(212, 175, 55, 0.55);
+}
+
+.stackGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.stackItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 11px;
+  border-radius: 7px;
+  background: rgba(10, 16, 28, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  font-family: var(--font-fira), ui-monospace, monospace;
+  font-size: 11px;
+  color: #cbd5e1;
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.stackItem:hover {
+  border-color: rgba(212, 175, 55, 0.38);
+  background: rgba(212, 175, 55, 0.06);
+  color: #f8fafc;
+  transform: translateY(-1px);
+}
+
+/* Right Column — Interactive Architectural Core Stage */
+.rightColumn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+  perspective: 1200px;
+}
+
+.visualStage {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  border-radius: 18px;
+  background: linear-gradient(155deg, rgba(11, 17, 30, 0.82) 0%, rgba(4, 8, 18, 0.94) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  box-shadow:
+    0 28px 70px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+.cornerBracketTL,
+.cornerBracketTR,
+.cornerBracketBL,
+.cornerBracketBR {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.cornerBracketTL {
+  top: 10px;
+  left: 10px;
+  border-top: 1.5px solid rgba(212, 175, 55, 0.55);
+  border-left: 1.5px solid rgba(212, 175, 55, 0.55);
+}
+
+.cornerBracketTR {
+  top: 10px;
+  right: 10px;
+  border-top: 1.5px solid rgba(212, 175, 55, 0.55);
+  border-right: 1.5px solid rgba(212, 175, 55, 0.55);
+}
+
+.cornerBracketBL {
+  bottom: 10px;
+  left: 10px;
+  border-bottom: 1.5px solid rgba(212, 175, 55, 0.55);
+  border-left: 1.5px solid rgba(212, 175, 55, 0.55);
+}
+
+.cornerBracketBR {
+  bottom: 10px;
+  right: 10px;
+  border-bottom: 1.5px solid rgba(212, 175, 55, 0.55);
+  border-right: 1.5px solid rgba(212, 175, 55, 0.55);
+}
+
+.visualHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+  background: rgba(6, 10, 20, 0.72);
+}
+
+.visualTag {
+  font-family: var(--font-fira), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.visualStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-fira), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #f5d77f;
+}
+
+.visualStatusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #d4af37;
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.8);
+}
+
+.canvasViewport {
+  position: relative;
+  width: 100%;
+  height: 330px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.065) 0%, rgba(56, 189, 248, 0.025) 40%, transparent 70%);
+}
+
+.coreSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  user-select: none;
+}
+
+.readoutOverlay {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.readoutBadge {
+  font-family: var(--font-fira), ui-monospace, monospace;
+  font-size: 10px;
+  color: #94a3b8;
+  background: rgba(3, 7, 18, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 5px;
+  padding: 3px 8px;
+  letter-spacing: 0.06em;
+}
+
+.readoutHighlight {
+  color: #f5d77f;
+}
+
+.strataFooter {
+  border-top: 1px solid rgba(212, 175, 55, 0.12);
+  background: rgba(5, 9, 18, 0.86);
+  padding: 12px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.strataSpecRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0 4px;
+  min-height: 20px;
+}
+
+.strataSpecTitle {
+  font-family: var(--font-space), sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #f8fafc;
+}
+
+.strataSpecDetail {
+  font-family: var(--font-fira), ui-monospace, monospace;
+  font-size: 10.5px;
+  color: #94a3b8;
+  text-align: right;
+}
+
+.strataButtons {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.strataBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 8px 9px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(12, 18, 32, 0.55);
+  cursor: pointer;
+  text-align: left;
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.strataBtn:hover {
+  border-color: rgba(212, 175, 55, 0.35);
+  background: rgba(212, 175, 55, 0.06);
+}
+
+.strataBtnActive {
+  border-color: rgba(212, 175, 55, 0.55);
+  background: linear-gradient(145deg, rgba(212, 175, 55, 0.14) 0%, rgba(212, 175, 55, 0.04) 100%);
+}
+
+.strataBtn:focus-visible {
+  outline: 2px solid #f5d77f;
+  outline-offset: 2px;
+}
+
+.strataNum {
+  font-family: var(--font-fira), ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: #64748b;
+}
+
+.strataBtnActive .strataNum {
+  color: #d4af37;
+}
+
+.strataCode {
+  font-family: var(--font-fira), ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  color: #cbd5e1;
+}
+
+.strataBtnActive .strataCode {
+  color: #f5d77f;
+}
+
+/* Scroll Indicator */
+.scrollHint {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  z-index: 3;
+  opacity: 0.72;
+  transition: opacity 0.25s ease;
+}
+
+.scrollHint:hover {
+  opacity: 1;
+}
+
+.scrollHintLabel {
+  font-family: var(--font-fira), ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.scrollHintTrack {
+  width: 1px;
+  height: 22px;
+  background: rgba(212, 175, 55, 0.2);
+  overflow: hidden;
+  position: relative;
+}
+
+.scrollHintRunner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(180deg, transparent, #f5d77f);
+  animation: scrollDrop 2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes statusPing {
+  0% {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  75%,
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@keyframes scrollDrop {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(220%);
+    opacity: 0;
+  }
+}
+
+/* Laptop height tuning so everything fits cleanly above the fold */
+@media (max-height: 780px) and (min-width: 961px) {
+  .heroSection {
+    padding-top: 82px;
+    padding-bottom: 42px;
+  }
+  .availabilityBadge {
+    margin-bottom: 16px;
+  }
+  .heroTitle {
+    font-size: clamp(36px, 4.4vw, 62px);
+    margin-bottom: 14px;
+  }
+  .roleContainer {
+    margin-bottom: 16px;
+  }
+  .supportingDescription {
+    margin-bottom: 22px;
+  }
+  .ctaRow {
+    margin-bottom: 24px;
+  }
+  .canvasViewport {
+    height: 290px;
+  }
+  .scrollHint {
+    display: none;
+  }
+}
+
+/* Tablet */
+@media (max-width: 960px) {
+  .heroSection {
+    min-height: auto;
+    padding: 104px 36px 64px;
+  }
+  .heroGrid {
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+  .visualStage {
+    max-width: 560px;
+  }
+  .scrollHint {
+    display: none;
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .heroSection {
+    padding: 90px 20px 56px;
+  }
+  .heroGrid {
+    gap: 32px;
+  }
+  .availabilityBadge {
+    padding: 6px 13px;
+    margin-bottom: 18px;
+  }
+  .availabilityText {
+    font-size: 9.5px;
+    letter-spacing: 0.13em;
+  }
+  .heroTitle {
+    font-size: clamp(34px, 10.5vw, 48px);
+    margin-bottom: 16px;
+  }
+  .roleRow {
+    gap: 8px;
+  }
+  .roleDivider {
+    width: 10px;
+  }
+  .roleViewport {
+    height: 26px;
+  }
+  .roleTextItem {
+    font-size: clamp(13px, 3.7vw, 15.5px);
+  }
+  .supportingDescription {
+    margin-bottom: 24px;
+    line-height: 1.65;
+  }
+  .ctaRow {
+    width: 100%;
+    gap: 10px;
+    margin-bottom: 26px;
+  }
+  .ctaPrimary,
+  .ctaSecondary {
+    flex: 1 1 160px;
+    padding: 12px 18px;
+    font-size: 13.5px;
+  }
+  .stackItem {
+    padding: 5px 9px;
+    font-size: 10.5px;
+  }
+  .canvasViewport {
+    height: 240px;
+  }
+  .visualHeader {
+    padding: 11px 14px;
+  }
+  .readoutOverlay {
+    display: none;
+  }
+  .strataFooter {
+    padding: 10px 12px 12px;
+  }
+  .strataSpecRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+  .strataSpecDetail {
+    text-align: left;
+  }
+  .strataButtons {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .statusRing,
+  .scrollHintRunner {
+    animation: none;
+  }
+  .statusRing {
+    display: none;
+  }
+  .ctaPrimary,
+  .ctaSecondary,
+  .ctaPrimaryIcon,
+  .ctaSecondaryIcon,
+  .stackItem,
+  .strataBtn,
+  .roleDashBtn {
+    transition: none;
+  }
+}
+
