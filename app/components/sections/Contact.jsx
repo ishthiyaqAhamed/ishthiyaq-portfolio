@@ -1,7 +1,7 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Phone, MapPin, Send, CheckCircle2 } from 'lucide-react'
+import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle } from 'lucide-react'
 import { FiGithub, FiLinkedin } from 'react-icons/fi'
 import { useWindowSize } from '../../hooks/useWindowSize'
 
@@ -22,20 +22,73 @@ export default function Contact() {
   const pad = isMobile ? '80px 20px' : isTablet ? '100px 40px' : '130px 72px'
   const isSmall = isMobile || isTablet
 
-  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
+  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '', website: '' })
   const [status, setStatus] = useState(null)
+  const [errorMsg, setErrorMsg] = useState('')
   const [loading, setLoading] = useState(false)
+  const statusTimerRef = useRef(null)
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
+  useEffect(() => {
+    return () => {
+      if (statusTimerRef.current) {
+        clearTimeout(statusTimerRef.current)
+      }
+    }
+  }, [])
+
+  const handleChange = (e) => setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    if (loading) return
+
+    if (statusTimerRef.current) {
+      clearTimeout(statusTimerRef.current)
+      statusTimerRef.current = null
+    }
+
+    if (!form.name.trim() || !form.email.trim() || !form.subject.trim() || !form.message.trim()) {
+      setStatus('error')
+      setErrorMsg('Please fill out all required fields before sending.')
+      return
+    }
+
+    setStatus(null)
+    setErrorMsg('')
     setLoading(true)
-    await new Promise(r => setTimeout(r, 1200))
-    setLoading(false)
-    setStatus('success')
-    setForm({ name: '', email: '', subject: '', message: '' })
-    setTimeout(() => setStatus(null), 5000)
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          subject: form.subject,
+          message: form.message,
+          website: form.website,
+        }),
+      })
+
+      const data = await response.json().catch(() => ({}))
+      if (!response.ok) {
+        throw new Error(data?.error || 'Unable to send message right now. Please try again.')
+      }
+
+      setStatus('success')
+      setForm({ name: '', email: '', subject: '', message: '', website: '' })
+      statusTimerRef.current = setTimeout(() => {
+        setStatus(null)
+      }, 6000)
+    } catch (error) {
+      setStatus('error')
+      setErrorMsg(
+        error?.message ||
+          'Unable to send message right now. Please try again or email ishthiyaqahamed@gmail.com directly.'
+      )
+    } finally {
+      setLoading(false)
+    }
   }
 
   const inputStyle = {
@@ -226,17 +279,45 @@ export default function Contact() {
             </p>
 
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+              {/* Hidden honeypot field to filter automated bot submissions */}
+              <div
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  left: '-9999px',
+                  width: '1px',
+                  height: '1px',
+                  overflow: 'hidden',
+                  opacity: 0,
+                  pointerEvents: 'none',
+                }}
+              >
+                <label htmlFor="contact-website">Website</label>
+                <input
+                  id="contact-website"
+                  type="text"
+                  name="website"
+                  value={form.website}
+                  onChange={handleChange}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '18px' }}>
                 <div>
-                  <label style={{ fontSize: '11px', color: '#a1a1aa', fontFamily: 'var(--font-fira)', letterSpacing: '1.5px', display: 'block', marginBottom: '8px', fontWeight: 600 }}>
+                  <label htmlFor="contact-name" style={{ fontSize: '11px', color: '#a1a1aa', fontFamily: 'var(--font-fira)', letterSpacing: '1.5px', display: 'block', marginBottom: '8px', fontWeight: 600 }}>
                     YOUR NAME
                   </label>
                   <input
+                    id="contact-name"
                     type="text"
                     name="name"
                     value={form.name}
                     onChange={handleChange}
                     required
+                    maxLength={120}
+                    disabled={loading}
                     placeholder="e.g. John Doe"
                     style={inputStyle}
                     onFocus={e => {
@@ -253,15 +334,18 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '11px', color: '#a1a1aa', fontFamily: 'var(--font-fira)', letterSpacing: '1.5px', display: 'block', marginBottom: '8px', fontWeight: 600 }}>
+                  <label htmlFor="contact-email" style={{ fontSize: '11px', color: '#a1a1aa', fontFamily: 'var(--font-fira)', letterSpacing: '1.5px', display: 'block', marginBottom: '8px', fontWeight: 600 }}>
                     EMAIL ADDRESS
                   </label>
                   <input
+                    id="contact-email"
                     type="email"
                     name="email"
                     value={form.email}
                     onChange={handleChange}
                     required
+                    maxLength={254}
+                    disabled={loading}
                     placeholder="e.g. john@enterprise.com"
                     style={inputStyle}
                     onFocus={e => {
@@ -279,15 +363,18 @@ export default function Contact() {
               </div>
 
               <div>
-                <label style={{ fontSize: '11px', color: '#a1a1aa', fontFamily: 'var(--font-fira)', letterSpacing: '1.5px', display: 'block', marginBottom: '8px', fontWeight: 600 }}>
+                <label htmlFor="contact-subject" style={{ fontSize: '11px', color: '#a1a1aa', fontFamily: 'var(--font-fira)', letterSpacing: '1.5px', display: 'block', marginBottom: '8px', fontWeight: 600 }}>
                   SUBJECT
                 </label>
                 <input
+                  id="contact-subject"
                   type="text"
                   name="subject"
                   value={form.subject}
                   onChange={handleChange}
                   required
+                  maxLength={200}
+                  disabled={loading}
                   placeholder="Product Inquiry / Role Offer / Consultation"
                   style={inputStyle}
                   onFocus={e => {
@@ -304,14 +391,17 @@ export default function Contact() {
               </div>
 
               <div>
-                <label style={{ fontSize: '11px', color: '#a1a1aa', fontFamily: 'var(--font-fira)', letterSpacing: '1.5px', display: 'block', marginBottom: '8px', fontWeight: 600 }}>
+                <label htmlFor="contact-message" style={{ fontSize: '11px', color: '#a1a1aa', fontFamily: 'var(--font-fira)', letterSpacing: '1.5px', display: 'block', marginBottom: '8px', fontWeight: 600 }}>
                   MESSAGE
                 </label>
                 <textarea
+                  id="contact-message"
                   name="message"
                   value={form.message}
                   onChange={handleChange}
                   required
+                  maxLength={5000}
+                  disabled={loading}
                   placeholder="Detail your requirements, project scope, or opportunity..."
                   rows={5}
                   style={{ ...inputStyle, resize: 'vertical', minHeight: '140px' }}
@@ -369,6 +459,7 @@ export default function Contact() {
 
               {status === 'success' && (
                 <motion.div
+                  role="status"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   style={{
@@ -378,9 +469,28 @@ export default function Contact() {
                     display: 'flex', alignItems: 'center', gap: '10px'
                   }}
                 >
-                  <CheckCircle2 size={18} color="#60a5fa" />
+                  <CheckCircle2 size={18} color="#60a5fa" style={{ flexShrink: 0 }} />
                   <span style={{ fontSize: '13.5px', color: '#f4f4f5', fontWeight: 500 }}>
                     Message successfully delivered. I will respond promptly.
+                  </span>
+                </motion.div>
+              )}
+
+              {status === 'error' && (
+                <motion.div
+                  role="alert"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  style={{
+                    background: 'rgba(239, 68, 68, 0.1)',
+                    border: '1px solid rgba(239, 68, 68, 0.35)',
+                    borderRadius: '12px', padding: '14px 18px',
+                    display: 'flex', alignItems: 'center', gap: '10px'
+                  }}
+                >
+                  <AlertCircle size={18} color="#f87171" style={{ flexShrink: 0 }} />
+                  <span style={{ fontSize: '13.5px', color: '#fecaca', fontWeight: 500, lineHeight: 1.5 }}>
+                    {errorMsg}
                   </span>
                 </motion.div>
               )}
