@@ -6,10 +6,11 @@ import Link from 'next/link'
 import { ArrowLeft, ExternalLink } from 'lucide-react'
 import { FiGithub } from 'react-icons/fi'
 import {
-  SiReact, SiNextdotjs, SiNodedotjs, SiMongodb, SiPostgresql,
+  SiReact, SiNextdotjs, SiNodedotjs, SiExpress, SiMongodb, SiPostgresql,
   SiSupabase, SiPrisma, SiTailwindcss, SiTypescript, SiPython,
-  SiMysql, SiJavascript, SiHtml5, SiCss
+  SiMysql, SiJavascript, SiHtml5, SiCss, SiVercel
 } from 'react-icons/si'
+import LogoLoop from '../components/ui/LogoLoop'
 
 const tagIcons = {
   'Next.js 16': <SiNextdotjs size={12} color="#FFFFFF" />,
@@ -30,6 +31,23 @@ const tagIcons = {
   'HTML': <SiHtml5 size={12} color="#E34F26" />,
   'CSS': <SiCss size={12} color="#1572B6" />,
 }
+
+const caseStudyTechLogos = [
+  { node: <SiNextdotjs />, title: 'Next.js', href: 'https://nextjs.org', hoverColor: '#ffffff' },
+  { node: <SiReact />, title: 'React', href: 'https://react.dev', hoverColor: '#61dafb' },
+  { node: <SiTypescript />, title: 'TypeScript', href: 'https://www.typescriptlang.org', hoverColor: '#3178c6' },
+  { node: <SiNodedotjs />, title: 'Node.js', href: 'https://nodejs.org', hoverColor: '#68a063' },
+  { node: <SiExpress />, title: 'Express.js', href: 'https://expressjs.com', hoverColor: '#ffffff' },
+  { node: <SiSupabase />, title: 'Supabase', href: 'https://supabase.com', hoverColor: '#3ecf8e' },
+  { node: <SiPostgresql />, title: 'PostgreSQL', href: 'https://www.postgresql.org', hoverColor: '#4169e1' },
+  { node: <SiPrisma />, title: 'Prisma', href: 'https://www.prisma.io', hoverColor: '#5a67d8' },
+  { node: <SiMongodb />, title: 'MongoDB', href: 'https://www.mongodb.com', hoverColor: '#47a248' },
+  { node: <SiTailwindcss />, title: 'Tailwind CSS', href: 'https://tailwindcss.com', hoverColor: '#38bdf8' },
+  { node: <SiPython />, title: 'Python', href: 'https://www.python.org', hoverColor: '#3776ab' },
+  { node: <SiMysql />, title: 'MySQL', href: 'https://www.mysql.com', hoverColor: '#00758f' },
+  { node: <SiJavascript />, title: 'JavaScript', href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript', hoverColor: '#f7df1e' },
+  { node: <SiVercel />, title: 'Vercel', href: 'https://vercel.com', hoverColor: '#ffffff' },
+]
 
 const projects = [
   {
@@ -581,7 +599,7 @@ export default function ProjectsBlog() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          style={{ marginBottom: '56px' }}
+          style={{ marginBottom: '24px' }}
         >
           <div style={{
             display: 'inline-flex',
@@ -640,6 +658,32 @@ export default function ProjectsBlog() {
               </div>
             ))}
           </div>
+        </motion.div>
+
+        {/* Tech Stack Loop */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+          style={{
+            marginBottom: '28px',
+            color: '#a1a1aa',
+          }}
+        >
+          <LogoLoop
+            logos={caseStudyTechLogos}
+            speed={85}
+            direction="left"
+            logoHeight={34}
+            gap={48}
+            hoverSpeed={0}
+            scaleOnHover
+            fadeOut
+            fadeOutWidth={0.14}
+            labels="hover"
+            ariaLabel="Technologies used across case studies"
+            style={{ fontFamily: 'var(--font-fira)' }}
+          />
         </motion.div>
 
         {/* Projects list */}
