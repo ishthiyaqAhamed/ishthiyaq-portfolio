@@ -11,6 +11,8 @@ import {
   SiMysql, SiJavascript, SiHtml5, SiCss, SiVercel
 } from 'react-icons/si'
 import LogoLoop from '../components/ui/LogoLoop'
+import FolderFloat from '../components/ui/FolderFloat'
+import styles from './ProjectsPage.module.css'
 
 const tagIcons = {
   'Next.js 16': <SiNextdotjs size={12} color="#FFFFFF" />,
@@ -47,6 +49,13 @@ const caseStudyTechLogos = [
   { node: <SiMysql />, title: 'MySQL', href: 'https://www.mysql.com', hoverColor: '#00758f' },
   { node: <SiJavascript />, title: 'JavaScript', href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript', hoverColor: '#f7df1e' },
   { node: <SiVercel />, title: 'Vercel', href: 'https://vercel.com', hoverColor: '#ffffff' },
+]
+
+const folderProjectItems = [
+  { label: 'NovaFlow SaaS CRM', value: 'novaflow-crm' },
+  { label: 'Pharmacy Enterprise ERP', value: 'pharmacy-erp' },
+  { label: 'Gemotions Fine Jewelry', value: 'gemotions' },
+  { label: 'Food Marketplace', value: 'food-marketplace' },
 ]
 
 const projects = [
@@ -290,11 +299,13 @@ function ProjectCard({ project, index }) {
 
   return (
     <motion.div
+      id={project.id}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.08 }}
       viewport={{ once: true }}
       style={{
+        scrollMarginTop: '92px',
         background: 'rgba(12, 12, 15, 0.85)',
         backdropFilter: 'blur(16px)',
         border: '1px solid rgba(255, 255, 255, 0.08)',
@@ -588,87 +599,119 @@ export default function ProjectsBlog() {
       </nav>
 
       {/* Main Content */}
-      <div style={{
-        position: 'relative', zIndex: 1,
-        maxWidth: '960px', margin: '0 auto',
-        padding: 'clamp(40px, 6vw, 80px) clamp(20px, 4vw, 40px)',
-      }}>
+      <div className={styles.mainContent}>
 
-        {/* Page Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          style={{ marginBottom: '24px' }}
-        >
-          <div style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            background: 'rgba(255, 255, 255, 0.04)',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
-            borderRadius: '999px',
-            padding: '6px 16px',
-            marginBottom: '18px',
-          }}>
-            <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#3b82f6' }} />
-            <span style={{
-              fontFamily: 'var(--font-fira)',
-              fontSize: '11px',
-              color: '#d4d4d8',
-              letterSpacing: '2px',
-              textTransform: 'uppercase',
-              fontWeight: 500,
+        {/* Page Heading & Interactive Folder */}
+        <div className={styles.headerSection}>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className={styles.headerCopy}
+          >
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              background: 'rgba(255, 255, 255, 0.04)',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              borderRadius: '999px',
+              padding: '6px 16px',
+              marginBottom: '16px',
             }}>
-              Engineering Blueprints
-            </span>
-          </div>
-
-          <h1 style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(34px, 5vw, 58px)', fontWeight: 800,
-            color: '#f4f4f5', lineHeight: 1.08, marginBottom: '16px', letterSpacing: '-0.03em'
-          }}>
-            Project{' '}
-            <span className="silver-text-gradient">
-              Case Studies
-            </span>
-          </h1>
-          <p style={{ fontSize: 'clamp(14px, 1.5vw, 16.5px)', color: '#a1a1aa', lineHeight: 1.8, maxWidth: '640px' }}>
-            A comprehensive technical breakdown of flagship architectures — problems addressed, engineering design patterns, tech stack ecosystems, and production takeaways.
-          </p>
-
-          {/* Stats row */}
-          <div style={{ display: 'flex', gap: '18px', marginTop: '36px', flexWrap: 'wrap' }}>
-            {[
-              { value: '7', label: 'Engineered Systems' },
-              { value: '3', label: 'Live Deployments' },
-              { value: '3+', label: 'Years Engineering' },
-            ].map((stat, i) => (
-              <div key={i} style={{
-                background: 'rgba(12, 12, 15, 0.85)',
-                backdropFilter: 'blur(12px)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                borderRadius: '14px', padding: '18px 24px',
-                position: 'relative', overflow: 'hidden',
+              <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#3b82f6' }} />
+              <span style={{
+                fontFamily: 'var(--font-fira)',
+                fontSize: '11px',
+                color: '#d4d4d8',
+                letterSpacing: '2px',
+                textTransform: 'uppercase',
+                fontWeight: 500,
               }}>
-                <div style={{ position: 'absolute', top: 0, left: '15%', right: '15%', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent)' }} />
-                <div className="silver-text-gradient" style={{ fontFamily: 'var(--font-display)', fontSize: '28px', fontWeight: 800 }}>{stat.value}</div>
-                <div style={{ fontSize: '11px', color: '#a1a1aa', fontWeight: 500 }}>{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
+                Engineering Blueprints
+              </span>
+            </div>
+
+            <h1 style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 'clamp(34px, 5vw, 58px)', fontWeight: 800,
+              color: '#f4f4f5', lineHeight: 1.08, marginBottom: '14px', letterSpacing: '-0.03em'
+            }}>
+              Project{' '}
+              <span className="silver-text-gradient">
+                Case Studies
+              </span>
+            </h1>
+            <p style={{ fontSize: 'clamp(14px, 1.5vw, 16px)', color: '#a1a1aa', lineHeight: 1.75, maxWidth: '580px' }}>
+              A comprehensive technical breakdown of flagship architectures — problems addressed, engineering design patterns, tech stack ecosystems, and production takeaways.
+            </p>
+
+            {/* Stats row */}
+            <div className={styles.statsRow}>
+              {[
+                { value: '7', label: 'Engineered Systems' },
+                { value: '3', label: 'Live Deployments' },
+                { value: '3+', label: 'Years Engineering' },
+              ].map((stat, i) => (
+                <div key={i} style={{
+                  background: 'rgba(12, 12, 15, 0.85)',
+                  backdropFilter: 'blur(12px)',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  borderRadius: '14px', padding: '16px 22px',
+                  position: 'relative', overflow: 'hidden',
+                }}>
+                  <div style={{ position: 'absolute', top: 0, left: '15%', right: '15%', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent)' }} />
+                  <div className="silver-text-gradient" style={{ fontFamily: 'var(--font-display)', fontSize: '28px', fontWeight: 800 }}>{stat.value}</div>
+                  <div style={{ fontSize: '11px', color: '#a1a1aa', fontWeight: 500 }}>{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.12 }}
+            className={styles.folderSlot}
+          >
+            <FolderFloat
+              items={folderProjectItems}
+              label="Flagship Work"
+              sublabel="4 key projects"
+              trigger="hover"
+              closeOnSelect
+              physics
+              drift={0.5}
+              onSelect={(projectId) => {
+                document.getElementById(projectId)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+              }}
+              folderColor="#27272a"
+              frontColor="#3f3f46"
+              paperColor="#e4e4e7"
+              itemColor="#f4f4f5"
+              itemTextColor="#09090b"
+              labelColor="#f4f4f5"
+              width={196}
+              height={144}
+              radius={14}
+              spread={178}
+              lift={26}
+              tilt={8}
+              flapAngle={34}
+              restAngle={16}
+              openDuration={520}
+              stagger={45}
+              bounce={0.3}
+            />
+          </motion.div>
+        </div>
 
         {/* Tech Stack Loop */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.15 }}
-          style={{
-            marginBottom: '28px',
-            color: '#a1a1aa',
-          }}
+          transition={{ duration: 0.6, delay: 0.18 }}
+          className={styles.techLoopWrap}
         >
           <LogoLoop
             logos={caseStudyTechLogos}

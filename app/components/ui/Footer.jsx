@@ -1,6 +1,7 @@
 'use client'
 import { useWindowSize } from '../../hooks/useWindowSize'
-import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
+import { FiGithub, FiLinkedin, FiMail, FiInstagram, FiFacebook } from 'react-icons/fi'
+import { TbBrandWhatsapp } from 'react-icons/tb'
 
 export default function Footer() {
   const { isMobile } = useWindowSize()
@@ -22,17 +23,20 @@ export default function Footer() {
         </span>
       </div>
 
-      <div style={{ display: 'flex', gap: '22px' }}>
+      <div style={{ display: 'flex', gap: '22px', flexWrap: 'wrap', justifyContent: 'center' }}>
         {[
-          { icon: <FiGithub size={17} />, href: 'https://github.com/ishthiyaqAhamed', label: 'GitHub' },
-          { icon: <FiLinkedin size={17} />, href: 'https://linkedin.com/in/ishthiyaq-zakwan-4634a0231', label: 'LinkedIn' },
-          { icon: <FiMail size={17} />, href: 'mailto:Ishthiyaqahamed@gmail.com', label: 'Email' },
-        ].map((item, i) => (
+          { icon: <FiGithub size={17} aria-hidden="true" />, href: 'https://github.com/ishthiyaqAhamed', label: 'GitHub', external: true },
+          { icon: <FiLinkedin size={17} aria-hidden="true" />, href: 'https://linkedin.com/in/ishthiyaq-zakwan-4634a0231', label: 'LinkedIn', external: true },
+          { icon: <FiMail size={17} aria-hidden="true" />, href: 'mailto:Ishthiyaqahamed@gmail.com', label: 'Email', external: false },
+          { icon: <FiInstagram size={17} aria-hidden="true" />, href: 'https://www.instagram.com/ishthiyaq_?mdxt=cHBzeGR6c2tmeG5k&utm_source=qr', label: 'Instagram', external: true },
+          { icon: <FiFacebook size={17} aria-hidden="true" />, href: 'https://www.facebook.com/share/1A4X6pQLgP/?mibextid=wwXIfr', label: 'Facebook', external: true },
+          { icon: <TbBrandWhatsapp size={18} aria-hidden="true" />, href: 'https://wa.me/94760514320', label: 'WhatsApp', external: true },
+        ].map((item) => (
           <a
-            key={i}
+            key={item.label}
             href={item.href}
-            target="_blank"
-            rel="noopener noreferrer"
+            target={item.external ? '_blank' : undefined}
+            rel={item.external ? 'noopener noreferrer' : undefined}
             aria-label={item.label}
             style={{
               color: '#71717a',

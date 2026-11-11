@@ -1,0 +1,60 @@
+.mainContent {
+  position: relative;
+  z-index: 1;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: clamp(28px, 4.2vw, 52px) clamp(20px, 4vw, 40px) clamp(56px, 6vw, 80px);
+}
+
+.headerSection {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  align-items: end;
+  gap: 28px 36px;
+  margin-bottom: 34px;
+}
+
+.headerCopy {
+  min-width: 0;
+}
+
+.statsRow {
+  display: flex;
+  gap: 14px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.folderSlot {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  width: 300px;
+  padding-top: 96px;
+  padding-bottom: 4px;
+}
+
+.techLoopWrap {
+  margin-bottom: 36px;
+  color: #a1a1aa;
+}
+
+@media (max-width: 900px) {
+  .headerSection {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .folderSlot {
+    width: 100%;
+    padding-top: 96px;
+    padding-bottom: 4px;
+  }
+
+  .techLoopWrap {
+    margin-bottom: 28px;
+  }
+}
+
