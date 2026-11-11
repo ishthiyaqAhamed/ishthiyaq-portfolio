@@ -359,15 +359,6 @@ export default function Hero() {
       <div className={styles.heroContainer}>
         {/* Minimal Metadata & Quiet Availability Bar */}
         <div ref={topBarRef} className={styles.topBar}>
-          <span className={styles.topCoord}>Colombo, Sri Lanka · Portfolio</span>
-
-          <div className={styles.availabilityWrap}>
-            <span className={styles.availabilityDot} aria-hidden="true" />
-            <span className={styles.availabilityText}>
-              Available for Software Engineering Roles
-            </span>
-          </div>
-
           <span ref={topHairlineRef} className={styles.topHairline} aria-hidden="true" />
         </div>
 
@@ -376,7 +367,7 @@ export default function Hero() {
           {/* Personal Handwritten Signature Intro */}
           <div ref={signatureWrapRef} className={styles.signatureRow}>
             <span className={styles.signatureMask}>
-              <span className={styles.signatureText}>Hello, stranger.</span>
+              <span className={styles.signatureText}>Hello, World.</span>
             </span>
             <svg
               viewBox="0 0 180 12"
