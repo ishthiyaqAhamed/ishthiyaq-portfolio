@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   background: transparent;
   transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
     border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
@@ -17,7 +17,7 @@
 }
 
 .navbarScrolled {
-  background: rgba(5, 5, 5, 0.84);
+  background: rgba(7, 7, 9, 0.86);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border-bottom-color: rgba(255, 255, 255, 0.08);
@@ -25,44 +25,61 @@
 }
 
 .brand {
-  font-family: var(--font-display), sans-serif;
-  font-size: 23px;
-  font-weight: 900;
-  letter-spacing: -0.04em;
   text-decoration: none;
-  color: #f4f4f5;
+  color: #f4f2ee;
   display: inline-flex;
   align-items: baseline;
+  gap: 0;
   transition: opacity 0.2s ease;
 }
 
-.brand:hover {
-  opacity: 0.85;
+.brandMark {
+  font-family: var(--font-display), sans-serif;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
 }
 
 .brandDot {
-  color: #3b82f6;
+  font-family: var(--font-display), sans-serif;
+  font-size: 21px;
+  font-weight: 800;
+  color: #d6c3a5;
+}
+
+.brandFull {
+  margin-left: 12px;
+  padding-left: 12px;
+  border-left: 1px solid rgba(255, 255, 255, 0.14);
+  font-family: var(--font-space), sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #a8a29e;
+}
+
+.brand:hover {
+  opacity: 0.88;
 }
 
 .desktopNav {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 24px;
 }
 
 .navLinksGroup {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 22px;
 }
 
 .navLink {
-  font-family: var(--font-fira), ui-monospace, monospace;
-  font-size: 11px;
+  font-family: var(--font-space), sans-serif;
+  font-size: 12.5px;
   font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #a1a1aa;
+  letter-spacing: 0.04em;
+  color: #a8a29e;
   text-decoration: none;
   position: relative;
   padding: 4px 0;
@@ -76,14 +93,14 @@
   right: 0;
   bottom: 0;
   height: 1px;
-  background: #f4f4f5;
+  background: #e6d5b8;
   transform: scaleX(0);
   transform-origin: right center;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .navLink:hover {
-  color: #ffffff;
+  color: #f4f2ee;
 }
 
 .navLink:hover::after {
@@ -97,70 +114,37 @@
   background: rgba(255, 255, 255, 0.12);
 }
 
-.rightCluster {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.availabilityPill {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 5px 12px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-}
-
-.statusDot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #3b82f6;
-  box-shadow: 0 0 8px rgba(59, 130, 246, 0.75);
-  animation: navPulse 2.4s ease-in-out infinite;
-  flex-shrink: 0;
-}
-
-.availabilityLabel {
-  font-family: var(--font-fira), ui-monospace, monospace;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #d4d4d8;
-}
-
 .ctaBtn {
-  font-family: var(--font-fira), ui-monospace, monospace;
-  font-size: 11.5px;
+  font-family: var(--font-space), sans-serif;
+  font-size: 12.5px;
   font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #050505;
+  letter-spacing: 0.01em;
+  color: #09090b;
   text-decoration: none;
-  background: #f4f4f5;
-  border: 1px solid #f4f4f5;
+  background: #f4f2ee;
+  border: 1px solid #f4f2ee;
   border-radius: 999px;
   padding: 8px 18px;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
 }
 
 .ctaBtn:hover {
-  background: #3b82f6;
-  border-color: #3b82f6;
-  color: #ffffff;
+  background: #e6d5b8;
+  border-color: #e6d5b8;
+  color: #09090b;
   transform: translateY(-1px);
 }
 
 .mobileControls {
   display: none;
   align-items: center;
-  gap: 10px;
 }
 
 .menuToggle {
@@ -168,7 +152,7 @@
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 10px;
   padding: 8px;
-  color: #f4f4f5;
+  color: #f4f2ee;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -199,52 +183,44 @@
 }
 
 .mobileLink {
-  font-family: var(--font-fira), ui-monospace, monospace;
-  font-size: 13px;
-  color: #a1a1aa;
+  font-family: var(--font-space), sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #a8a29e;
   text-decoration: none;
   padding: 12px 14px;
   border-radius: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
   transition: color 0.2s ease, background-color 0.2s ease;
   display: block;
 }
 
 .mobileLink:hover {
-  color: #ffffff;
+  color: #f4f2ee;
   background: rgba(255, 255, 255, 0.05);
 }
 
 .mobileCta {
   margin-top: 10px;
   text-align: center;
-  font-family: var(--font-fira), ui-monospace, monospace;
-  font-size: 13px;
+  font-family: var(--font-space), sans-serif;
+  font-size: 13.5px;
   font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #050505;
-  background: #f4f4f5;
+  color: #09090b;
+  background: #f4f2ee;
   border-radius: 10px;
   padding: 13px 18px;
   text-decoration: none;
 }
 
-@keyframes navPulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.35; }
-}
-
 @media (max-width: 1120px) {
-  .availabilityPill {
+  .brandFull {
     display: none;
   }
   .desktopNav {
-    gap: 20px;
+    gap: 18px;
   }
   .navLinksGroup {
-    gap: 18px;
+    gap: 16px;
   }
 }
 
@@ -256,10 +232,3 @@
     display: inline-flex;
   }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .statusDot {
-    animation: none;
-  }
-}
-

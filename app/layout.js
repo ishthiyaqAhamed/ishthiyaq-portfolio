@@ -1,4 +1,4 @@
-import { Space_Grotesk, Fira_Code, Outfit, Caveat } from 'next/font/google'
+import { Space_Grotesk, Fira_Code, Outfit, Newsreader } from 'next/font/google'
 import './globals.css'
 
 const spaceGrotesk = Space_Grotesk({
@@ -15,14 +15,15 @@ const firaCode = Fira_Code({
 
 const outfit = Outfit({
   subsets: ['latin'],
-  weight: ['700', '800', '900'],
+  weight: ['600', '700', '800'],
   variable: '--font-display',
 })
 
-const caveat = Caveat({
+const newsreader = Newsreader({
   subsets: ['latin'],
-  weight: ['500', '600'],
-  variable: '--font-script',
+  weight: ['400', '500'],
+  style: ['normal', 'italic'],
+  variable: '--font-serif',
 })
 
 export const metadata = {
@@ -33,7 +34,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${spaceGrotesk.variable} ${firaCode.variable} ${outfit.variable} ${caveat.variable}`}>
+      <body className={`${spaceGrotesk.variable} ${firaCode.variable} ${outfit.variable} ${newsreader.variable}`}>
         {children}
       </body>
     </html>

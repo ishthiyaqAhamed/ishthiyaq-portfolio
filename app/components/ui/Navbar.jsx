@@ -24,6 +24,15 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  useEffect(() => {
+    if (!menuOpen) return
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') setMenuOpen(false)
+    }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [menuOpen])
+
   return (
     <>
       <nav
@@ -31,8 +40,9 @@ export default function Navbar() {
         className={`${styles.navbar} ${scrolled ? styles.navbarScrolled : ''}`}
       >
         <Link href="/" className={styles.brand} aria-label="Ishthiyaq Ahamed — Home">
-          <span>IA</span>
+          <span className={styles.brandMark}>IA</span>
           <span className={styles.brandDot}>.</span>
+          <span className={styles.brandFull}>Ishthiyaq Ahamed</span>
         </Link>
 
         {/* Desktop Links */}
@@ -50,25 +60,13 @@ export default function Navbar() {
 
           <span className={styles.navDivider} aria-hidden="true" />
 
-          <div className={styles.rightCluster}>
-            <div className={styles.availabilityPill}>
-              <span className={styles.statusDot} aria-hidden="true" />
-              <span className={styles.availabilityLabel}>Available</span>
-            </div>
-
-            <a href="#contact" className={`${styles.ctaBtn} luxury-btn`}>
-              <span>Get in Touch</span>
-            </a>
-          </div>
+          <a href="#contact" className={`${styles.ctaBtn} luxury-btn`}>
+            <span>Let&apos;s Talk</span>
+          </a>
         </div>
 
-        {/* Mobile Controls */}
+        {/* Mobile Menu Toggle */}
         <div className={styles.mobileControls}>
-          <div className={styles.availabilityPill} style={{ display: 'inline-flex' }}>
-            <span className={styles.statusDot} aria-hidden="true" />
-            <span className={styles.availabilityLabel}>Available</span>
-          </div>
-
           <button
             type="button"
             className={styles.menuToggle}
@@ -108,7 +106,7 @@ export default function Navbar() {
             className={`${styles.mobileCta} luxury-btn`}
             onClick={() => setMenuOpen(false)}
           >
-            Get in Touch
+            Let&apos;s Talk
           </a>
         </div>
       )}

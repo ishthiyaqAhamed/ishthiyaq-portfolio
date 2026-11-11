@@ -149,17 +149,3 @@
     display: none;
   }
 }
-
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  .animate-marquee-left,
-  .animate-marquee-right {
-    animation: none;
-  }
-  .luxury-btn::after {
-    display: none;
-  }
-}
