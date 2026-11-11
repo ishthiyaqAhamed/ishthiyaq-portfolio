@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight, Download } from 'lucide-react'
 import MagneticButton from './hero/MagneticButton'
+import Lightfall from './hero/Lightfall'
 import styles from './hero/Hero.module.css'
 
 if (typeof window !== 'undefined') {
@@ -291,6 +292,31 @@ export default function Hero() {
       {/* Restrained Dark Studio Depth */}
       <div className={styles.backdropLayer} aria-hidden="true">
         <div className={styles.tonalLight} />
+        <div className={styles.lightfallBackdrop}>
+          <Lightfall
+            colors={['#ffffff']}
+            backgroundColor="#94a3b8"
+            speed={0.3}
+            streakCount={2}
+            streakWidth={0.8}
+            twinkle={0}
+            backgroundGlow={0}
+            headGlow={0}
+            bloom={0}
+            mouseInteraction={false}
+            holdToWarp
+            intro
+            glow={0.2}
+            depth={0}
+            zoom={3.6}
+            fade={0.1}
+            mouseStrength={0}
+            mouseRadius={0.25}
+            lens={0.2}
+            opacity={0.35}
+            paused={Boolean(prefersReducedMotion)}
+          />
+        </div>
         <div ref={registerLineRef} className={styles.registerLine} />
         <div className={styles.grainTexture} />
       </div>
