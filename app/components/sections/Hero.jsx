@@ -3,9 +3,9 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { ArrowRight, Download } from 'lucide-react'
-import LiquidChromeCanvas from './hero/LiquidChromeCanvas'
+import { useReducedMotion } from 'framer-motion'
+import { ArrowDown, ArrowRight, Download } from 'lucide-react'
+import Particles from './hero/Particles'
 import MagneticButton from './hero/MagneticButton'
 import styles from './hero/Hero.module.css'
 
@@ -13,162 +13,178 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
 }
 
-const HEADLINE_WORDS = [
-  { text: 'THINK', accent: '.' },
-  { text: 'DESIGN', accent: '.' },
-  { text: 'ENGINEER', accent: '.' },
-]
-
-const TOTAL_HEADLINE_CHARS = HEADLINE_WORDS.reduce(
-  (sum, w) => sum + w.text.length + w.accent.length,
-  0
-)
-
-const ROTATING_STATEMENTS = [
-  'Building Digital Products.',
-  'Engineering Scalable Systems.',
-  'Creating Intelligent Solutions.',
-]
+const FIRST_NAME = 'ISHTHIYAQ'.split('')
+const LAST_NAME = 'AHAMED.'.split('')
+const PARTICLE_COLORS = ['#ffffff', '#d4d4d8', '#71717a', '#52525b']
 
 const useIsomorphicLayoutEffect =
   typeof window !== 'undefined' ? useLayoutEffect : useEffect
 
 export default function Hero() {
   const prefersReducedMotion = useReducedMotion()
-  const [statementIdx, setStatementIdx] = useState(0)
-  const [isPaused, setIsPaused] = useState(false)
+  const [particleCount, setParticleCount] = useState(104)
 
   const sectionRef = useRef(null)
+  const studioLightRef = useRef(null)
+  const planesRef = useRef(null)
   const gridRef = useRef(null)
-  const washRef = useRef(null)
-  const mastheadRef = useRef(null)
-  const introLabelRef = useRef(null)
-  const leftScrollRef = useRef(null)
-  const chromeScrollRef = useRef(null)
-  const chromeEntranceRef = useRef(null)
-  const footerRef = useRef(null)
+  const particlesWrapRef = useRef(null)
+  const topMetaRef = useRef(null)
+  const scriptRef = useRef(null)
+  const line1ScrollRef = useRef(null)
+  const line2ScrollRef = useRef(null)
+  const roleRef = useRef(null)
+  const descRef = useRef(null)
+  const bottomRowRef = useRef(null)
 
-  const charRefs = useRef([])
-  const supportRefs = useRef([])
+  const firstCharsRef = useRef([])
+  const lastCharsRef = useRef([])
 
-  const pointerNormRef = useRef({ x: 0, y: 0 })
-  const scrollProgressRef = useRef(0)
-
-  // Dynamic rotating statement cycle (Phase 5)
+  // Reduce particle density smoothly on mobile / tablet viewports
   useEffect(() => {
-    if (prefersReducedMotion || isPaused) return
-    const timer = setInterval(() => {
-      if (typeof document !== 'undefined' && document.hidden) return
-      setStatementIdx((prev) => (prev + 1) % ROTATING_STATEMENTS.length)
-    }, 3200)
-    return () => clearInterval(timer)
-  }, [prefersReducedMotion, isPaused])
+    const mq = window.matchMedia('(max-width: 768px)')
+    const syncDensity = () => setParticleCount(mq.matches ? 52 : 104)
+    syncDensity()
+    mq.addEventListener('change', syncDensity)
+    return () => mq.removeEventListener('change', syncDensity)
+  }, [])
 
-  // Choreographed GSAP entrance timeline & ScrollTrigger parallax
+  // Choreographed black-screen-to-poster GSAP reveal + subtle scroll parallax
   useIsomorphicLayoutEffect(() => {
     const section = sectionRef.current
     if (!section) return
 
     const ctx = gsap.context(() => {
-      const chars = charRefs.current.slice(0, TOTAL_HEADLINE_CHARS).filter(Boolean)
-      const supports = supportRefs.current.slice(0, 4).filter(Boolean)
+      const firstChars = firstCharsRef.current.slice(0, FIRST_NAME.length).filter(Boolean)
+      const lastChars = lastCharsRef.current.slice(0, LAST_NAME.length).filter(Boolean)
 
       if (prefersReducedMotion) {
         gsap.set(
           [
+            studioLightRef.current,
+            planesRef.current,
             gridRef.current,
-            mastheadRef.current,
-            introLabelRef.current,
-            chromeEntranceRef.current,
-            footerRef.current,
-            ...chars,
-            ...supports,
+            particlesWrapRef.current,
+            topMetaRef.current,
+            scriptRef.current,
+            roleRef.current,
+            descRef.current,
+            bottomRowRef.current,
+            ...firstChars,
+            ...lastChars,
           ].filter(Boolean),
-          { clearProps: 'all', opacity: 1 }
+          { clearProps: 'all', opacity: 1, clipPath: 'none' }
         )
         return
       }
 
-      // Signature choreographed entrance (Sequences A -> G)
+      // Start from dark canvas: hold typography & particles hidden until their cue
+      gsap.set(
+        [
+          studioLightRef.current,
+          planesRef.current,
+          gridRef.current,
+          particlesWrapRef.current,
+          topMetaRef.current,
+          roleRef.current,
+          descRef.current,
+          bottomRowRef.current,
+        ].filter(Boolean),
+        { opacity: 0 }
+      )
+      gsap.set(scriptRef.current, {
+        opacity: 0,
+        clipPath: 'inset(0 100% 0 0)',
+        y: 8,
+      })
+      gsap.set([...firstChars, ...lastChars], {
+        yPercent: 112,
+        opacity: 0,
+        filter: 'blur(6px)',
+      })
+
       const tl = gsap.timeline({ defaults: { ease: 'expo.out' } })
 
-      tl.fromTo(
-        gridRef.current,
-        { opacity: 0, scale: 1.03 },
-        { opacity: 1, scale: 1, duration: 1.0 },
-        0
+      // 1 & 2. Black canvas -> subtle top meta & handwritten script stroke-wipe
+      tl.to(
+        topMetaRef.current,
+        { opacity: 1, duration: 0.7, ease: 'power2.out' },
+        0.12
       )
-        .fromTo(
-          mastheadRef.current,
-          { opacity: 0, y: -10 },
-          { opacity: 1, y: 0, duration: 0.65 },
-          0.06
+        .to(
+          scriptRef.current,
+          {
+            opacity: 1,
+            clipPath: 'inset(0 0% 0 0)',
+            y: 0,
+            duration: 0.9,
+            ease: 'power3.inOut',
+          },
+          0.18
         )
-        .fromTo(
-          introLabelRef.current,
-          { opacity: 0, y: 14 },
-          { opacity: 1, y: 0, duration: 0.65 },
-          0.12
-        )
-        .fromTo(
-          chars,
-          { yPercent: 118, opacity: 0, filter: 'blur(8px)' },
+        // 3. Dramatic vertical mask reveal for ISHTHIYAQ
+        .to(
+          firstChars,
           {
             yPercent: 0,
             opacity: 1,
             filter: 'blur(0px)',
-            duration: 0.85,
-            stagger: 0.022,
+            duration: 0.9,
+            stagger: 0.024,
             ease: 'expo.out',
           },
-          0.18
+          0.46
         )
-        .fromTo(
-          chromeEntranceRef.current,
-          { opacity: 0, scale: 0.86, filter: 'blur(10px)' },
+        // 4. Staggered vertical mask reveal for AHAMED.
+        .to(
+          lastChars,
           {
+            yPercent: 0,
             opacity: 1,
-            scale: 1,
             filter: 'blur(0px)',
-            duration: 1.15,
-            ease: 'power3.out',
+            duration: 0.9,
+            stagger: 0.026,
+            ease: 'expo.out',
           },
-          0.26
+          0.66
+        )
+        // 5. Reveal architectural textures + professional title
+        .to(
+          [studioLightRef.current, planesRef.current, gridRef.current].filter(Boolean),
+          { opacity: 1, duration: 1.2, ease: 'power2.out' },
+          0.85
         )
         .fromTo(
-          supports,
-          { opacity: 0, y: 20, filter: 'blur(4px)' },
-          {
-            opacity: 1,
-            y: 0,
-            filter: 'blur(0px)',
-            duration: 0.75,
-            stagger: 0.09,
-            ease: 'power3.out',
-          },
-          0.58
+          roleRef.current,
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.75, ease: 'power3.out' },
+          0.98
+        )
+        // 6. Reveal description & CTAs
+        .fromTo(
+          descRef.current,
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.75, ease: 'power3.out' },
+          1.1
         )
         .fromTo(
-          footerRef.current,
-          { opacity: 0, y: 12 },
-          { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out' },
-          0.9
+          bottomRowRef.current,
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.75, ease: 'power3.out' },
+          1.22
+        )
+        // 7. Gradually reveal React Bits Particles behind the typography
+        .to(
+          particlesWrapRef.current,
+          { opacity: 1, duration: 1.4, ease: 'power2.out' },
+          1.32
         )
 
-      // Smooth scroll-linked parallax & depth motion
-      ScrollTrigger.create({
-        trigger: section,
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true,
-        onUpdate: (self) => {
-          scrollProgressRef.current = self.progress
-        },
-      })
-
-      gsap.to(leftScrollRef.current, {
-        y: -36,
-        opacity: 0.35,
+      // Subtle scroll-linked parallax on the monumental name lines without losing readability
+      gsap.to(line1ScrollRef.current, {
+        x: -22,
+        y: -18,
+        opacity: 0.78,
         ease: 'none',
         scrollTrigger: {
           trigger: section,
@@ -178,20 +194,10 @@ export default function Hero() {
         },
       })
 
-      gsap.to(chromeScrollRef.current, {
-        y: 44,
-        scale: 0.94,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true,
-        },
-      })
-
-      gsap.to(washRef.current, {
-        y: 60,
+      gsap.to(line2ScrollRef.current, {
+        x: 22,
+        y: -10,
+        opacity: 0.78,
         ease: 'none',
         scrollTrigger: {
           trigger: section,
@@ -205,250 +211,171 @@ export default function Hero() {
     return () => ctx.revert()
   }, [prefersReducedMotion])
 
-  const handlePointerMove = (e) => {
-    if (prefersReducedMotion || e.pointerType !== 'mouse' || !sectionRef.current) return
-    const rect = sectionRef.current.getBoundingClientRect()
-    const nx = ((e.clientX - rect.left) / rect.width - 0.5) * 2
-    const ny = ((e.clientY - rect.top) / rect.height - 0.5) * 2
-    pointerNormRef.current = { x: nx, y: ny }
-
-    if (washRef.current) {
-      gsap.to(washRef.current, {
-        x: nx * 24,
-        y: ny * 18,
-        duration: 0.9,
-        ease: 'power2.out',
-        overwrite: 'auto',
-      })
-    }
-    if (gridRef.current) {
-      gsap.to(gridRef.current, {
-        x: nx * -8,
-        y: ny * -8,
-        duration: 1.0,
-        ease: 'power2.out',
-        overwrite: 'auto',
-      })
-    }
-  }
-
-  const handlePointerLeave = () => {
-    pointerNormRef.current = { x: 0, y: 0 }
-    if (washRef.current) {
-      gsap.to(washRef.current, { x: 0, y: 0, duration: 0.9, ease: 'power2.out', overwrite: 'auto' })
-    }
-    if (gridRef.current) {
-      gsap.to(gridRef.current, { x: 0, y: 0, duration: 1.0, ease: 'power2.out', overwrite: 'auto' })
-    }
-  }
-
-  let runningCharIdx = 0
-
   return (
     <section
       ref={sectionRef}
       id="hero"
       aria-label="Introduction"
       className={styles.heroSection}
-      onPointerMove={handlePointerMove}
-      onPointerLeave={handlePointerLeave}
     >
-      {/* Swiss Grid & Soft Iridescent Optical Atmosphere */}
+      {/* Textured Black Architectural Layers + WebGL2 Particles */}
       <div className={styles.backdropLayer} aria-hidden="true">
-        <div ref={gridRef} className={styles.swissGrid} />
-        <div ref={washRef} className={styles.iridescentWash} />
-        <div className={styles.cobaltAccentGlow} />
+        <div ref={studioLightRef} className={styles.studioLight} />
+        <div ref={planesRef} className={styles.architecturalPlanes} />
+        <div className={styles.abstractMonolith} />
+        <div ref={gridRef} className={styles.hairlineGrid} />
+
+        <div ref={particlesWrapRef} className={styles.particlesWrap}>
+          <Particles
+            particleColors={PARTICLE_COLORS}
+            particleCount={particleCount}
+            particleSpread={10}
+            speed={prefersReducedMotion ? 0.01 : 0.075}
+            particleBaseSize={46}
+            sizeRandomness={0.85}
+            cameraDistance={22}
+            moveParticlesOnHover={!prefersReducedMotion}
+            hoverEffect="parallax"
+            particleHoverFactor={0.55}
+            alphaParticles={true}
+            glow={0.12}
+            twinkle={0.1}
+            connections={false}
+            clickBurst={false}
+            drift="up"
+            driftSpeed={0.22}
+            intro={!prefersReducedMotion}
+            opacity={0.46}
+          />
+        </div>
+
+        <div className={styles.grainOverlay} />
+        <div className={styles.vignetteOverlay} />
       </div>
 
-      {/* Main Asymmetrical Editorial Composition */}
+      {/* Foreground Editorial Composition */}
       <div className={styles.heroContainer}>
-        {/* Top Masthead + Availability Indicator */}
-        <div ref={mastheadRef} className={styles.mastheadBar}>
-          <span className={styles.mastheadIndex}>
-            00 / Digital Craftsmanship — Edition 2026
+        {/* Top Metadata + Availability Bar */}
+        <div ref={topMetaRef} className={styles.heroTopMeta}>
+          <span className={styles.metaCoord}>
+            00 // Software Engineering Portfolio — Edition 2026
           </span>
 
-          <div className={styles.availabilityBadge}>
-            <span className={styles.statusPulseWrap} aria-hidden="true">
-              <span className={styles.statusRing} />
-              <span className={styles.statusDot} />
-            </span>
-            <span className={styles.availabilityText}>
-              Available for New Opportunities
+          <div className={styles.metaAvailability}>
+            <span className={styles.metaPulse} aria-hidden="true" />
+            <span className={styles.metaStatusText}>
+              Available for New Opportunities · Colombo
             </span>
           </div>
         </div>
 
-        {/* Asymmetrical Split Content */}
-        <div className={styles.heroGrid}>
-          {/* LEFT EDITORIAL COLUMN */}
-          <div ref={leftScrollRef} className={styles.leftColumn}>
-            {/* Introductory Label */}
-            <div ref={introLabelRef} className={styles.introLabel}>
-              <span className={styles.introRule} aria-hidden="true" />
-              <span className={styles.introText}>
-                Independent Software Engineer
-              </span>
-            </div>
+        {/* Central Monumental Typography Block */}
+        <div className={styles.posterCenter}>
+          <div ref={scriptRef} className={styles.handwrittenWrap}>
+            <span className={styles.handwrittenText}>
+              Hello, I&apos;m a creative engineer
+            </span>
+          </div>
 
-            {/* Oversized Kinetic Split-Text Headline */}
-            <h1 className={styles.heroTitle}>
-              <span className={styles.srOnly}>THINK. DESIGN. ENGINEER.</span>
+          <h1 className={styles.heroTitle}>
+            <span className={styles.srOnly}>ISHTHIYAQ AHAMED.</span>
 
-              {HEADLINE_WORDS.map((wordObj, wordIdx) => {
-                const chars = (wordObj.text + wordObj.accent).split('')
-                return (
-                  <span key={wordObj.text} className={styles.titleLine} aria-hidden="true">
-                    {chars.map((char, cIdx) => {
-                      const flatIndex = runningCharIdx++
-                      const isDot = char === '.'
-                      return (
-                        <span key={`${wordIdx}-${cIdx}`} className={styles.wordMask}>
-                          <span
-                            ref={(el) => {
-                              charRefs.current[flatIndex] = el
-                            }}
-                            className={`${styles.wordInner} ${
-                              isDot ? styles.cobaltDot : ''
-                            }`}
-                          >
-                            {char}
-                          </span>
-                        </span>
-                      )
-                    })}
-                  </span>
-                )
-              })}
-            </h1>
-
-            {/* Dynamic Secondary Statement */}
-            <div
-              ref={(el) => {
-                supportRefs.current[0] = el
-              }}
-              className={styles.statementRow}
-              onMouseEnter={() => setIsPaused(true)}
-              onMouseLeave={() => setIsPaused(false)}
-              aria-label={`Focus: ${ROTATING_STATEMENTS.join(' ')}`}
+            <span
+              ref={line1ScrollRef}
+              className={`${styles.nameLineScroll} ${styles.nameLine}`}
+              aria-hidden="true"
             >
-              <span className={styles.statementIndex} aria-hidden="true">
-                {String(statementIdx + 1).padStart(2, '0')}
-              </span>
-              <span className={styles.statementDivider} aria-hidden="true" />
-              <div className={styles.statementViewport} aria-live="off">
-                <AnimatePresence initial={false}>
-                  <motion.span
-                    key={ROTATING_STATEMENTS[statementIdx]}
-                    className={styles.statementItem}
-                    initial={
-                      prefersReducedMotion
-                        ? { opacity: 0 }
-                        : { y: '105%', opacity: 0, filter: 'blur(5px)' }
-                    }
-                    animate={
-                      prefersReducedMotion
-                        ? { opacity: 1 }
-                        : { y: '0%', opacity: 1, filter: 'blur(0px)' }
-                    }
-                    exit={
-                      prefersReducedMotion
-                        ? { opacity: 0 }
-                        : { y: '-105%', opacity: 0, filter: 'blur(5px)' }
-                    }
-                    transition={{
-                      duration: prefersReducedMotion ? 0.15 : 0.5,
-                      ease: [0.16, 1, 0.3, 1],
+              {FIRST_NAME.map((char, idx) => (
+                <span key={`first-${idx}`} className={styles.charMask}>
+                  <span
+                    ref={(el) => {
+                      firstCharsRef.current[idx] = el
                     }}
+                    className={styles.charInner}
                   >
-                    {ROTATING_STATEMENTS[statementIdx]}
-                  </motion.span>
-                </AnimatePresence>
-              </div>
-            </div>
-
-            {/* Positioning & Supporting Intro */}
-            <p
-              ref={(el) => {
-                supportRefs.current[1] = el
-              }}
-              className={styles.leadCopy}
-            >
-              I&apos;m Ishthiyaq — I turn complex ideas into meaningful digital
-              experiences.
-            </p>
-
-            <p
-              ref={(el) => {
-                supportRefs.current[2] = el
-              }}
-              className={styles.supportCopy}
-            >
-              Building intelligent applications, scalable platforms and products
-              that make a difference.
-            </p>
-
-            {/* Primary & Secondary Magnetic CTAs */}
-            <div
-              ref={(el) => {
-                supportRefs.current[3] = el
-              }}
-              className={styles.ctaRow}
-            >
-              <MagneticButton
-                href="#projects"
-                className={styles.ctaPrimary}
-                ariaLabel="Explore My Work — View featured engineering projects"
-              >
-                <span>Explore My Work</span>
-                <span className={styles.ctaPrimaryIcon} aria-hidden="true">
-                  <ArrowRight size={15} strokeWidth={2.1} />
+                    {char}
+                  </span>
                 </span>
-              </MagneticButton>
+              ))}
+            </span>
 
-              <MagneticButton
-                href="/cv.pdf"
-                download
-                className={styles.ctaSecondary}
-                ariaLabel="Download CV as PDF"
-              >
-                <span className={styles.ctaSecondaryIcon} aria-hidden="true">
-                  <Download size={14} strokeWidth={2} />
+            <span
+              ref={line2ScrollRef}
+              className={`${styles.nameLineScroll} ${styles.nameLine} ${styles.nameLineSecond}`}
+              aria-hidden="true"
+            >
+              {LAST_NAME.map((char, idx) => (
+                <span key={`last-${idx}`} className={styles.charMask}>
+                  <span
+                    ref={(el) => {
+                      lastCharsRef.current[idx] = el
+                    }}
+                    className={`${styles.charInner} ${
+                      char === '.' ? styles.nameDot : ''
+                    }`}
+                  >
+                    {char}
+                  </span>
                 </span>
-                <span>Download CV</span>
-              </MagneticButton>
-            </div>
-          </div>
+              ))}
+            </span>
+          </h1>
 
-          {/* RIGHT 3D LIQUID CHROME SCULPTURE */}
-          <div ref={chromeScrollRef} className={styles.rightColumn}>
-            <div ref={chromeEntranceRef} className={styles.chromeVisualStage}>
-              <LiquidChromeCanvas
-                pointerNormRef={pointerNormRef}
-                scrollProgressRef={scrollProgressRef}
-                prefersReducedMotion={Boolean(prefersReducedMotion)}
-              />
-              <div className={styles.chromeCaption} aria-hidden="true">
-                <span className={styles.chromeCaptionDot} />
-                <span>WebGL // Iridescent Form 01</span>
+          {/* Secondary Role Title + Editorial Introduction */}
+          <div className={styles.editorialMetaRow}>
+            <div ref={roleRef} className={styles.roleBlock}>
+              <div className={styles.roleRow}>
+                <span className={styles.roleRule} aria-hidden="true" />
+                <h2 className={styles.roleTitle}>FULL STACK SOFTWARE ENGINEER</h2>
               </div>
+              <span className={styles.roleSubnote}>
+                MERN Stack · Next.js · Cloud Architecture · SaaS Systems
+              </span>
             </div>
+
+            <p ref={descRef} className={styles.introCopy}>
+              I design and engineer digital experiences, scalable applications
+              and intelligent software solutions.
+            </p>
           </div>
         </div>
 
-        {/* Bottom Swiss Footer Bar */}
-        <div ref={footerRef} className={styles.heroFooter}>
-          <span className={styles.footerMeta}>
-            Ishthiyaq Ahamed · BSc (Hons) Software Engineering · Colombo
-          </span>
+        {/* Bottom Action Row + Scroll Indicator */}
+        <div ref={bottomRowRef} className={styles.heroBottomRow}>
+          <div className={styles.ctaGroup}>
+            <MagneticButton
+              href="#projects"
+              className={styles.ctaPrimary}
+              ariaLabel="Explore My Work — View engineering projects"
+            >
+              <span>Explore My Work</span>
+              <span className={styles.ctaPrimaryIcon} aria-hidden="true">
+                <ArrowRight size={14} strokeWidth={2.2} />
+              </span>
+            </MagneticButton>
+
+            <MagneticButton
+              href="/cv.pdf"
+              download
+              className={styles.ctaSecondary}
+              ariaLabel="Download CV as PDF"
+            >
+              <span className={styles.ctaSecondaryIcon} aria-hidden="true">
+                <Download size={14} strokeWidth={2} />
+              </span>
+              <span>Download CV</span>
+            </MagneticButton>
+          </div>
+
           <a
             href="#about"
             className={styles.scrollCue}
             aria-label="Scroll down to About section"
           >
             <span>Scroll to Explore</span>
-            <span className={styles.scrollCueLine} aria-hidden="true">
-              <span className={styles.scrollCueRunner} />
+            <ArrowDown size={13} strokeWidth={2} aria-hidden="true" />
+            <span className={styles.scrollTrack} aria-hidden="true">
+              <span className={styles.scrollRunner} />
             </span>
           </a>
         </div>

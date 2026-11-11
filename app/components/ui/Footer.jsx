@@ -6,18 +6,18 @@ export default function Footer() {
   const { isMobile } = useWindowSize()
   return (
     <footer style={{
-      borderTop: '1px solid rgba(212, 175, 55, 0.15)',
-      padding: isMobile ? '28px 20px' : '36px 80px',
+      borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+      padding: isMobile ? '28px 20px' : '36px 72px',
       display: 'flex', flexDirection: isMobile ? 'column' : 'row',
       justifyContent: 'space-between', alignItems: 'center',
       gap: isMobile ? '20px' : '0',
-      background: 'rgba(3, 7, 18, 0.95)',
+      background: '#050505',
       textAlign: isMobile ? 'center' : 'left',
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <span style={{ fontFamily: 'var(--font-fira)', fontSize: '12.5px', color: '#94a3b8' }}>
-          Crafted with Precision by{' '}
-          <span style={{ color: '#f5d77f', fontWeight: 600 }}>Ishthiyaq Ahamed</span>
+        <span style={{ fontFamily: 'var(--font-fira)', fontSize: '12px', color: '#71717a', letterSpacing: '0.04em' }}>
+          Engineered with precision by{' '}
+          <span style={{ color: '#f4f4f5', fontWeight: 600 }}>Ishthiyaq Ahamed</span>
           {' '}— {new Date().getFullYear()}
         </span>
       </div>
@@ -35,18 +35,18 @@ export default function Footer() {
             rel="noopener noreferrer"
             aria-label={item.label}
             style={{
-              color: '#64748b',
+              color: '#71717a',
               transition: 'all 0.2s ease',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.color = '#f5d77f'
+              e.currentTarget.style.color = '#ffffff'
               e.currentTarget.style.transform = 'translateY(-2px)'
             }}
             onMouseLeave={e => {
-              e.currentTarget.style.color = '#64748b'
+              e.currentTarget.style.color = '#71717a'
               e.currentTarget.style.transform = 'translateY(0)'
             }}
           >
