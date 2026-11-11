@@ -1,33 +1,40 @@
-import { Space_Grotesk, Fira_Code, Outfit, Syne, La_Belle_Aurore } from 'next/font/google'
+import localFont from 'next/font/local'
 import './globals.css'
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+const spaceGrotesk = localFont({
+  src: './fonts/space-grotesk-variable.woff2',
+  weight: '300 700',
+  display: 'swap',
   variable: '--font-space',
 })
 
-const firaCode = Fira_Code({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+const firaCode = localFont({
+  src: './fonts/fira-code-variable.woff2',
+  weight: '300 700',
+  display: 'swap',
+  adjustFontFallback: false,
   variable: '--font-fira',
 })
 
-const outfit = Outfit({
-  subsets: ['latin'],
-  weight: ['600', '700', '800'],
+const outfit = localFont({
+  src: './fonts/outfit-variable.woff2',
+  weight: '100 900',
+  display: 'swap',
   variable: '--font-display',
 })
 
-const syne = Syne({
-  subsets: ['latin'],
-  weight: 'variable',
+const syne = localFont({
+  src: './fonts/syne-variable.woff2',
+  weight: '400 800',
+  display: 'swap',
   variable: '--font-syne',
 })
 
-const laBelleAurore = La_Belle_Aurore({
-  subsets: ['latin'],
+const laBelleAurore = localFont({
+  src: './fonts/la-belle-aurore.woff2',
   weight: '400',
+  display: 'swap',
+  adjustFontFallback: false,
   variable: '--font-signature',
 })
 
