@@ -90,8 +90,8 @@ const skillCategories = [
     category: 'Deployment & Telemetry',
     icon: <Cloud size={20} strokeWidth={1.5} />,
     skills: [
-      { name: 'AWS (S3, EC2, IAM)', icon: <FaAws size={17} color="#FF9900" />, level: 78, tag: 'Certified CP' },
-      { name: 'Google Cloud Platform', icon: <SiGooglecloud size={17} color="#4285F4" />, level: 75, tag: 'GCP Certified' },
+      { name: 'AWS (S3, EC2, IAM)', icon: <FaAws size={17} color="#FF9900" />, level: 78, tag: 'Cloud Services' },
+      { name: 'Google Cloud Platform', icon: <SiGooglecloud size={17} color="#4285F4" />, level: 75, tag: 'Cloud Platform' },
       { name: 'Docker', icon: <SiDocker size={17} color="#2496ED" />, level: 74, tag: 'Containers' },
       { name: 'Vercel Edge Platform', icon: <SiVercel size={17} color="#FFFFFF" />, level: 90, tag: 'CI/CD' },
       { name: 'Git & GitHub Workflows', icon: <SiGit size={17} color="#F05032" />, level: 92, tag: 'VCS' },

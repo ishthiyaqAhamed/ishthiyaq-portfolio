@@ -235,11 +235,43 @@ export default function Contact() {
             {/* Availability Card */}
             <div style={{
               background: 'rgba(12, 12, 15, 0.85)',
-              border: '1px solid rgba(59, 130, 246, 0.28)',
+              border: '1px solid rgba(34, 197, 94, 0.28)',
               borderRadius: '16px', padding: '20px 22px',
               display: 'flex', alignItems: 'center', gap: '14px',
             }}>
-              <div style={{ width: '9px', height: '9px', borderRadius: '50%', background: '#3b82f6', flexShrink: 0, boxShadow: '0 0 10px rgba(59, 130, 246, 0.7)', animation: 'contactPulse 2s infinite' }} />
+              <span
+                aria-hidden="true"
+                style={{
+                  position: 'relative',
+                  display: 'inline-flex',
+                  width: '10px',
+                  height: '10px',
+                  flexShrink: 0,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <span
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    borderRadius: '50%',
+                    background: '#22c55e',
+                    animation: 'contactPing 1.6s cubic-bezier(0, 0, 0.2, 1) infinite',
+                  }}
+                />
+                <span
+                  style={{
+                    position: 'relative',
+                    width: '9px',
+                    height: '9px',
+                    borderRadius: '50%',
+                    background: '#22c55e',
+                    boxShadow: '0 0 10px rgba(34, 197, 94, 0.85)',
+                    animation: 'contactPulse 1.6s ease-in-out infinite',
+                  }}
+                />
+              </span>
               <div>
                 <div style={{ fontSize: '14px', fontWeight: 600, color: '#f4f4f5', marginBottom: '2px' }}>
                   Open to Strategic Opportunities
@@ -498,7 +530,8 @@ export default function Contact() {
 
             <style>{`
               @keyframes spin { to { transform: rotate(360deg); } }
-              @keyframes contactPulse { 0%,100%{opacity:1;} 50%{opacity:0.35;} }
+              @keyframes contactPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+              @keyframes contactPing { 0% { transform: scale(1); opacity: 0.7; } 75%, 100% { transform: scale(2.2); opacity: 0; } }
             `}</style>
           </motion.div>
         </div>

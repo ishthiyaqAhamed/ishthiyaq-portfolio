@@ -1,9 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { MapPin, Mail, GraduationCap, Award, Palette, Shield, Compass, CheckCircle2 } from 'lucide-react'
-import { FaAws } from 'react-icons/fa6'
-import { SiGooglecloud } from 'react-icons/si'
+import { MapPin, Mail, GraduationCap, Briefcase, CheckCircle2 } from 'lucide-react'
 import { useWindowSize } from '../../hooks/useWindowSize'
 
 const fadeUp = {
@@ -13,7 +11,7 @@ const fadeUp = {
 
 const stats = [
   { value: '4+', label: 'Flagship Systems Built' },
-  { value: '5+', label: 'Industry Certifications' },
+  { value: '1 Yr', label: 'Industry Experience' },
   { value: '3+', label: 'Years Active Engineering' },
   { value: '99.9%', label: 'Commitment to Quality' },
 ]
@@ -39,31 +37,22 @@ const education = [
   },
 ]
 
-const certifications = [
+const experiences = [
   {
-    name: 'Google Cloud Database Engineer',
-    platform: 'Coursera & Google Cloud',
-    icon: <SiGooglecloud size={20} color="#e4e4e7" />
-  },
-  {
-    name: 'AWS Certified Cloud Practitioner',
-    platform: 'Amazon Web Services',
-    icon: <FaAws size={20} color="#e4e4e7" />
-  },
-  {
-    name: 'IDM Cloud Computing Specialist',
-    platform: 'IDM Nations Campus',
-    icon: <Compass size={20} color="#60a5fa" />
-  },
-  {
-    name: 'Cyber Security Foundation',
-    platform: 'Wellington College Scholarship',
-    icon: <Shield size={20} color="#e4e4e7" />
-  },
-  {
-    name: 'Digital Graphic Designing',
-    platform: 'Wellington College Scholarship',
-    icon: <Palette size={20} color="#60a5fa" />
+    role: 'Frontend Developer',
+    company: 'RobanceLanka (Pvt) Ltd',
+    location: 'Sri Lanka',
+    period: 'June 2025 – May 2026',
+    mode: 'Hybrid',
+    summary:
+      'Engineered responsive SaaS web interfaces and workflow dashboards for Spiff Tracker, a platform serving Total Wireless dealers in the United States.',
+    highlights: [
+      'Built reusable React UI components and responsive layouts for dashboard, reporting, and dealer workflow modules.',
+      'Integrated REST APIs for dynamic data rendering, form submissions, and seamless backend communication.',
+      'Implemented business-workflow automation features while resolving UI defects and optimizing performance.',
+      'Collaborated with cross-functional Agile teams to ship scalable, user-friendly SaaS releases.',
+    ],
+    tech: ['React', 'JavaScript', 'HTML & CSS', 'REST APIs', 'SaaS Dashboards', 'Agile'],
   },
 ]
 
@@ -420,70 +409,167 @@ export default function About() {
           </div>
         </motion.div>
 
-        {/* Row 3 — Certifications */}
+        {/* Row 3 — Professional Experience */}
         <motion.div variants={fadeUp} initial="hidden" whileInView="show" custom={4} viewport={{ once: true }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '26px' }}>
             <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: 'rgba(255, 255, 255, 0.04)', border: '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Award size={18} color="#e4e4e7" />
+              <Briefcase size={18} color="#e4e4e7" />
             </div>
             <span style={{ fontFamily: 'var(--font-fira)', fontSize: '12.5px', color: '#e4e4e7', letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 600 }}>
-              Accreditations &amp; Certifications
+              Professional Experience
             </span>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : isTablet ? 'repeat(2, 1fr)' : 'repeat(5, 1fr)', gap: '16px' }}>
-            {certifications.map((cert, i) => (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            {experiences.map((exp, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: i * 0.08 }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
                 viewport={{ once: true }}
-                whileHover={{ y: -5, scale: 1.01 }}
                 style={{
                   background: 'rgba(12, 12, 15, 0.85)',
-                  backdropFilter: 'blur(12px)',
+                  backdropFilter: 'blur(14px)',
                   border: '1px solid rgba(255, 255, 255, 0.08)',
-                  borderRadius: '16px',
-                  padding: '24px 18px',
-                  display: 'flex',
-                  flexDirection: isMobile ? 'row' : 'column',
-                  alignItems: 'center',
-                  textAlign: isMobile ? 'left' : 'center',
-                  gap: '14px',
-                  cursor: 'default',
+                  borderTop: '2px solid #3b82f6',
+                  borderRadius: '18px',
+                  padding: isMobile ? '24px 20px' : '30px 32px',
                   position: 'relative',
                   overflow: 'hidden',
-                  boxShadow: '0 14px 32px rgba(0, 0, 0, 0.45)',
+                  boxShadow: '0 18px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
                   transition: 'border-color 0.3s ease',
                 }}
                 onMouseEnter={e => {
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.24)'
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.22)'
+                  e.currentTarget.style.borderTopColor = '#60a5fa'
                 }}
                 onMouseLeave={e => {
                   e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)'
+                  e.currentTarget.style.borderTopColor = '#3b82f6'
                 }}
               >
                 <div style={{
-                  position: 'absolute', top: 0, left: '15%', right: '15%', height: '1px',
-                  background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent)'
-                }} />
-                <div style={{
-                  width: '48px', height: '48px', borderRadius: '12px',
-                  background: 'rgba(255, 255, 255, 0.04)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  flexShrink: 0,
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-start',
+                  flexWrap: 'wrap',
+                  gap: '14px',
+                  marginBottom: '16px',
                 }}>
-                  {cert.icon}
+                  <div>
+                    <h3 style={{
+                      fontFamily: 'var(--font-display)',
+                      fontSize: 'clamp(19px, 2.2vw, 23px)',
+                      fontWeight: 700,
+                      color: '#f4f4f5',
+                      letterSpacing: '-0.02em',
+                      marginBottom: '6px',
+                    }}>
+                      {exp.role}
+                    </h3>
+                    <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '8px', fontSize: '13.5px' }}>
+                      <span style={{ color: '#60a5fa', fontWeight: 600 }}>{exp.company}</span>
+                      <span style={{ color: '#52525b' }}>&bull;</span>
+                      <span style={{ color: '#a1a1aa' }}>{exp.location}</span>
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
+                    <span style={{
+                      fontFamily: 'var(--font-fira)',
+                      fontSize: '11px',
+                      color: '#e4e4e7',
+                      background: 'rgba(255, 255, 255, 0.05)',
+                      padding: '5px 12px',
+                      borderRadius: '999px',
+                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                      fontWeight: 600,
+                    }}>
+                      {exp.period}
+                    </span>
+                    <span style={{
+                      fontFamily: 'var(--font-fira)',
+                      fontSize: '11px',
+                      color: '#93c5fd',
+                      background: 'rgba(59, 130, 246, 0.1)',
+                      padding: '5px 12px',
+                      borderRadius: '999px',
+                      border: '1px solid rgba(59, 130, 246, 0.28)',
+                      fontWeight: 600,
+                    }}>
+                      {exp.mode}
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  <div style={{ fontSize: '13px', fontWeight: 600, color: '#f4f4f5', marginBottom: '4px', lineHeight: 1.35 }}>
-                    {cert.name}
-                  </div>
-                  <div style={{ fontSize: '11px', color: '#71717a' }}>
-                    {cert.platform}
-                  </div>
+
+                <p style={{
+                  fontSize: '14.5px',
+                  color: '#d4d4d8',
+                  lineHeight: 1.75,
+                  marginBottom: '20px',
+                  maxWidth: '900px',
+                }}>
+                  {exp.summary}
+                </p>
+
+                <ul style={{
+                  listStyle: 'none',
+                  margin: 0,
+                  padding: 0,
+                  display: 'grid',
+                  gridTemplateColumns: isSmall ? '1fr' : 'repeat(2, 1fr)',
+                  gap: '12px 28px',
+                  marginBottom: '22px',
+                }}>
+                  {exp.highlights.map((item, idx) => (
+                    <li
+                      key={idx}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'flex-start',
+                        gap: '10px',
+                        fontSize: '13.5px',
+                        color: '#a1a1aa',
+                        lineHeight: 1.65,
+                      }}
+                    >
+                      <span style={{
+                        width: '6px',
+                        height: '6px',
+                        borderRadius: '50%',
+                        background: '#3b82f6',
+                        marginTop: '8px',
+                        flexShrink: 0,
+                      }} />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div style={{
+                  display: 'flex',
+                  flexWrap: 'wrap',
+                  gap: '8px',
+                  paddingTop: '18px',
+                  borderTop: '1px solid rgba(255, 255, 255, 0.07)',
+                }}>
+                  {exp.tech.map((t, idx) => (
+                    <span
+                      key={idx}
+                      style={{
+                        fontFamily: 'var(--font-fira)',
+                        fontSize: '11px',
+                        color: '#d4d4d8',
+                        background: 'rgba(255, 255, 255, 0.04)',
+                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        borderRadius: '6px',
+                        padding: '4px 10px',
+                      }}
+                    >
+                      {t}
+                    </span>
+                  ))}
                 </div>
               </motion.div>
             ))}
