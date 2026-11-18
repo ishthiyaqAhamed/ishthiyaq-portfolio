@@ -41,6 +41,22 @@ const projects = [
     ],
   },
   {
+    id: 'apparelflow-erp',
+    title: 'ApparelFlow ERP — Cutting Verification & Sewing Gate',
+    category: 'Enterprise ERP • Production',
+    image: '/projects/apparelflow-erp.png',
+    description: 'A full-stack apparel manufacturing ERP enforcing server-side cutting verification, traffic-light shortage gating, fabric wastage auditing, and role-isolated sewing queues.',
+    tags: ['Next.js', 'TypeScript', 'PostgreSQL', 'Prisma', 'Tailwind'],
+    year: '2026',
+    github: 'https://github.com/ishthiyaqAhamed/apparelflow-erp',
+    live: 'https://apparelflow-erp-ten.vercel.app/',
+    highlights: [
+      'Server-enforced cutting-to-sewing gatekeeper state machine',
+      'Role-guarded APIs (Supervisor, Verifier, Sewing) with JWT cookies',
+      'Atomic Prisma transactions, immutable audit logs & Vitest suite',
+    ],
+  },
+  {
     id: 'pharmacy-erp',
     title: 'Pharmacy Enterprise ERP System',
     category: 'Full Stack • Commercial ERP',

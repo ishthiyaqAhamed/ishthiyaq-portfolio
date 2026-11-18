@@ -10,7 +10,7 @@ const fadeUp = {
 }
 
 const stats = [
-  { value: '4+', label: 'Flagship Systems Built' },
+  { value: '5+', label: 'Flagship Systems Built' },
   { value: '1 Yr', label: 'Industry Experience' },
   { value: '3+', label: 'Years Active Engineering' },
   { value: '99.9%', label: 'Commitment to Quality' },

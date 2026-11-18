@@ -8,7 +8,7 @@ import {
   SiReact, SiNextdotjs, SiNodedotjs, SiExpress, SiMongodb, SiPostgresql,
   SiMysql, SiJavascript, SiTypescript, SiPython, SiGooglecloud, SiFirebase,
   SiTailwindcss, SiDocker, SiGit, SiFigma, SiPostman, SiVercel,
-  SiSupabase, SiPrisma, SiCplusplus, SiHtml5, SiJira
+  SiSupabase, SiPrisma, SiHtml5
 } from 'react-icons/si'
 import { FaJava, FaAws } from 'react-icons/fa6'
 import { VscVscode } from 'react-icons/vsc'
@@ -66,7 +66,7 @@ const skillCategories = [
       { name: 'Node.js', icon: <SiNodedotjs size={17} color="#68A063" />, level: 88, tag: 'Runtime' },
       { name: 'Express.js', icon: <SiExpress size={17} color="#FFFFFF" />, level: 88, tag: 'RESTful APIs' },
       { name: 'Python', icon: <SiPython size={17} color="#3776AB" />, level: 78, tag: 'Automation' },
-      { name: 'Java (OOP)', icon: <FaJava size={17} color="#E76F00" />, level: 76, tag: 'Enterprise' },
+      { name: 'Java', icon: <FaJava size={17} color="#E76F00" />, level: 76, tag: 'Enterprise' },
       { name: 'Prisma ORM', icon: <SiPrisma size={17} color="#5A67D8" />, level: 82, tag: 'Schema/Migrations' },
       { name: 'REST & GraphQL', icon: <Terminal size={17} color="#e4e4e7" />, level: 86, tag: 'Architecture' },
     ],
@@ -106,8 +106,6 @@ const skillCategories = [
       { name: 'VS Code Ecosystem', icon: <VscVscode size={17} color="#007ACC" />, level: 95, tag: 'Development' },
       { name: 'Postman', icon: <SiPostman size={17} color="#FF6C37" />, level: 88, tag: 'API Specs' },
       { name: 'Figma', icon: <SiFigma size={17} color="#F24E1E" />, level: 75, tag: 'UI Wireframing' },
-      { name: 'Jira & Agile', icon: <SiJira size={17} color="#0052CC" />, level: 80, tag: 'Scrum' },
-      { name: 'C / C++', icon: <SiCplusplus size={17} color="#00599C" />, level: 68, tag: 'Systems' },
     ],
   },
 ]

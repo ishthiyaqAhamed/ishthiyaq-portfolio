@@ -23,6 +23,7 @@ const tagIcons = {
   'Supabase': <SiSupabase size={12} color="#3ECF8E" />,
   'PostgreSQL': <SiPostgresql size={12} color="#4169E1" />,
   'Prisma 7': <SiPrisma size={12} color="#5A67D8" />,
+  'Prisma 6': <SiPrisma size={12} color="#5A67D8" />,
   'Prisma': <SiPrisma size={12} color="#5A67D8" />,
   'Tailwind CSS': <SiTailwindcss size={12} color="#38BDF8" />,
   'Tailwind': <SiTailwindcss size={12} color="#38BDF8" />,
@@ -104,6 +105,46 @@ This project pushed me into truly senior-level territory — multi-tenancy, AI i
     ],
     github: 'https://github.com/ishthiyaqAhamed',
     live: 'https://novaflowpro.online',
+  },
+  {
+    id: 'apparelflow-erp',
+    title: 'ApparelFlow ERP — Cutting Verification & Sewing Queue Gate',
+    category: 'Full Stack ERP • Production',
+    image: '/projects/apparelflow-erp.png',
+    year: '2026',
+    tags: ['Next.js', 'TypeScript', 'PostgreSQL', 'Prisma 6', 'Tailwind CSS'],
+    summary: 'A full-stack apparel manufacturing ERP enforcing server-side cutting verification, traffic-light shortage gating, fabric wastage calculation, and role-isolated sewing queues — live on Vercel.',
+    description: `ApparelFlow ERP is a production-deployed manufacturing operations platform engineered around a strict server-side quality gate: no cutting batch can enter the sewing queue unless a Cutting Verifier has physically counted every garment component and confirmed zero shortages.
+
+The workflow is modeled as an explicit state machine (CUTTING_IN_PROGRESS -> PENDING_VERIFICATION -> VERIFIED -> SEWING_STARTED, or REJECTED with a mandatory 5–500 character reason). When a Cutting Supervisor creates an order from a Bill of Materials recipe, the backend calculates expected piece counts per component automatically. During verification, the server evaluates each component with traffic-light rules — GREEN (exact match), YELLOW (excess allowed), and RED (shortage, blocking approval with HTTP 422).
+
+Every API route is protected by a centralized role guard backed by signed JWT sessions (jose) stored in httpOnly cookies and bcryptjs password hashing. Approval and rejection execute inside atomic Prisma transactions with conditional state updates to eliminate race conditions, while writing to an insert-only audit log table that records the verifier identity, database timestamp, and backend-computed fabric wastage percentage.
+
+The system also includes 9 automated Vitest unit and route-handler integration tests running against an isolated PostgreSQL test database, verifying RBAC enforcement, shortage blocking, mandatory rejection notes, and strict sewing-queue isolation.`,
+    highlights: [
+      'Server-enforced cutting-to-sewing verification gate (HTTP 422 on shortage or uncounted parts)',
+      'Explicit order state machine with atomic Prisma transactions preventing double approvals',
+      '3-role RBAC terminals: Cutting Supervisor, Cutting Verifier, and Sewing Supervisor',
+      'Traffic-light component verification logic (GREEN exact, YELLOW excess, RED blocked)',
+      'Backend-calculated fabric wastage % and immutable insert-only audit trail',
+      'Signed JWT (jose) httpOnly cookie authentication with bcryptjs password hashing',
+      'Strict database-level sewing queue isolation (VERIFIED orders only, 404 on invalid states)',
+      '9 automated Vitest tests covering domain rules and real route handlers against PostgreSQL',
+    ],
+    techDetails: [
+      { label: 'Framework', value: 'Next.js (App Router)' },
+      { label: 'Language', value: 'TypeScript' },
+      { label: 'Database', value: 'Neon PostgreSQL' },
+      { label: 'ORM', value: 'Prisma 6' },
+      { label: 'Auth & Security', value: 'JWT (jose) + bcryptjs' },
+      { label: 'Styling', value: 'Tailwind CSS' },
+      { label: 'Testing', value: 'Vitest (9 automated tests)' },
+      { label: 'Deployment', value: 'Vercel' },
+      { label: 'Architecture', value: 'RBAC State Machine ERP' },
+      { label: 'Status', value: 'Live in Production' },
+    ],
+    github: 'https://github.com/ishthiyaqAhamed/apparelflow-erp',
+    live: 'https://apparelflow-erp-ten.vercel.app/',
   },
   {
     id: 'food-marketplace',
@@ -649,8 +690,8 @@ export default function ProjectsBlog() {
             {/* Stats row */}
             <div className={styles.statsRow}>
               {[
-                { value: '7', label: 'Engineered Systems' },
-                { value: '3', label: 'Live Deployments' },
+                { value: '8', label: 'Engineered Systems' },
+                { value: '4', label: 'Live Deployments' },
                 { value: '3+', label: 'Years Engineering' },
               ].map((stat, i) => (
                 <div key={i} style={{
